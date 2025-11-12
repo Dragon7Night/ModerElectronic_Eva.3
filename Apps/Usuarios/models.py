@@ -19,7 +19,7 @@ class Usuario(AbstractUser):
     nombre = models.CharField(max_length=50)
     direccion = models.CharField(max_length=90)
     rol = models.CharField(max_length=15, choices=OPCIONES_ROL, default=ROL_CLIENTE)
-    billetera = models.FloatField()
+    billetera = models.FloatField(default=0.0, blank=True)
 
     def is_client(self):
         return self.rol == self.ROL_CLIENTE

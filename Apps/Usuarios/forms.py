@@ -1,28 +1,28 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario, ClaveAcceso
+from .models import Usuario
 
 class ClienteSignUpForm(UserCreationForm):
-    nombre = forms.CharField(max_length=50, required=False)
-    direccion = forms.CharField(max_length=90, required=False)
-    billetera = forms.FloatField(required=False, initial=0.0)
+    nombre = forms.CharField(max_length=50)
+    direccion = forms.CharField(max_length=90)
+    # billetera = forms.FloatField(initial=0.0)
 
     class Meta(UserCreationForm.Meta):
         model = Usuario
-        fields = ("username", "email", "nombre", "direccion", "billetera")
+        fields = ('username', 'email', 'nombre', 'direccion', 'billetera')
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.nombre = self.cleaned_data.get("nombre", "")
-        user.direccion = self.cleaned_data.get("direccion", "")
-        user.billetera = self.cleaned_data.get("billetera") or 0.0
-        user.rol = Usuario.ROLE_CLIENT
+        user.nombre = self.cleaned_data['nombre']
+        user.direccion = self.cleaned_data['direccion']
+        user.billetera = self.cleaned_data['billetera']
+        user.rol = Usuario.ROL_CLIENTE
         if commit:
             user.save()
         return user
 
 class AdminSignUpForm(ClienteSignUpForm):
-    admin_key = forms.CharField(max_length=64, required=True, help_text="Clave de acceso para registrarse como administrador")
+    admin_key = forms.CharField(max_length=64, help_text="Ingrese la clave de acceso")
 
     def clean_admin_key(self):
-        return self.cleaned_data["admin_key"]
+        return self.cleaned_data['admin_key']
