@@ -8,12 +8,12 @@ class UsuarioAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ('camposExtras', {'fields': ('nombre', 'direccion', 'rol', 'billetera')}),
     )
-    list_display = ('username', 'email', 'nombre', 'rol', 'is_staff')
+    list_display = ['username', 'email', 'nombre', 'rol', 'is_staff']
 
 admin.site.register(Usuario, UsuarioAdmin)
 
 
 class ClaveAccesoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'fecha_creacion')
+    list_display = ['id', 'clave_acceso']
 
 admin.site.register(ClaveAcceso, ClaveAccesoAdmin)
