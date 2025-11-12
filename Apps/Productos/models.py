@@ -24,7 +24,7 @@ class Categoria(models.Model):
 # |===> CLASS Producto [PK id_producto | FK admin_id]
 class Producto(models.Model):
 
-    registrado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET.NULL, null=True, related_name="prod_registrados")
+    registrado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="prod_registrados")
     nombre = models.CharField(max_length=50)
     precio = models.FloatField()
     stock = models.IntegerField()
