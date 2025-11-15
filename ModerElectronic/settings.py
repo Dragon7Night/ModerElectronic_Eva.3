@@ -134,12 +134,6 @@ STATICFILES_DIRS = [STATIC_URL]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-
-
-
-
-
 # Permite reemplazar el modelos que tiene por defecto django para la gestion de los usuarios
 #             NOMBRE APP ↓    ↓ NOMBRE CLASS
 AUTH_USER_MODEL = "Usuarios.Usuario"
