@@ -51,26 +51,3 @@ class ClaveAcceso(models.Model):
 
 
 
-
-
-
-# class Administrador(models.Model):
-
-#     nombre = models.CharField(max_length=50)
-#     correo = models.CharField(max_length=50)
-#     contrasena = models.CharField(max_length=50)
-    
-
-# class ClaveAcceso(models.Model):
-
-#     admin_id = models.ForeignKey(Administrador, on_delete=models.CASCADE)
-#     clave_acceso = models.CharField(max_length=8)
-
-
-# class Cliente(models.Model):
-
-#     nombre = models.CharField(max_length=50)
-#     direccion = models.CharField(max_length=50)
-#     correo = models.CharField(max_length=50)
-#     contrasena = models.CharField(max_length=50)
-#     billetera_digital = models.FloatField()

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ModerElectronic</title>
-    
+
     <!-- IMPORTACIONES DE CSS Y MAS -->
     {% include 'menus/importaciones.html' %}
 </head>
@@ -20,13 +20,9 @@
 
     <div data-elementor-type="wp-page" data-elementor-id="2" class="elementor elementor-2">
 
-        <!-- SECCION DE INFORMACION NOSOTROS -->
-        {% include 'menus/informacion.html' %}
-
         <section
-            class="elementor-section elementor-top-section elementor-element elementor-element-afe831e elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-            data-id="afe831e" data-element_type="section"
-            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+            class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+            data-element_type="section">
             <div class="elementor-container elementor-column-gap-no">
                 <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5c81575"
                     data-id="5c81575" data-element_type="column">
@@ -37,9 +33,8 @@
 
                         {% include 'menus/titulo.html' %}
 
-                        <!-- CARTAS CON IMAGENES  -->
-                        {% include 'menus/cartas.html' %}
-
+                        {% block contenido %}
+                        {% endblock %}
 
                     </div>
                 </div>

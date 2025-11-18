@@ -142,3 +142,8 @@ AUTH_USER_MODEL = "Usuarios.Usuario"
 
 
 
+LOGIN_REDIRECT_URL = "homeGeneral"
+LOGOUT_REDIRECT_URL = "homeGeneral"
+
+#RESET PASSWORD
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

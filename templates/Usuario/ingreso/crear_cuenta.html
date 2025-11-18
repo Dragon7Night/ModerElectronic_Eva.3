@@ -1,0 +1,58 @@
+{% extends 'usuario/base_log_sign.html' %}
+
+{% block contenido %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Crear cuanta</h1>
+            </div>
+            <form class="user" method="post">
+                <!-- NOTA ↓↓: todos los formularios <form> tiene que tener un token de seguridad en su interior-->
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
+                        placeholder="Nombre de usuario" required autofocus>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="password" class="form-control form-control-user" id="id_password1" name="password1"
+                            placeholder="Contraseña" required autocomplete="current-password">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control form-control-user" id="id_password2" name="password2"
+                            placeholder="Repita la contraseña" required autocomplete="current-password">
+                    </div>
+                </div>
+                
+                <!-- NOTA: en los formularios siempre se usan <button> de tipo submit -->
+                <button type="submit" class="btn btn-primary btn-user btn-block">Crear cuenta</button>
+
+            </form>
+            <hr>
+
+            <h4> Consideraciones para el registro </h4>
+
+            <span class="helptext" id="id_password1_helptext">El nombre de usuario debe tener únicamente letras, dígitos
+                y @/./+/-/_</span>
+
+            <span class="helptext" id="id_password2_helptext">La contraseña debe cumplir estos elementos</span>
+            <ul>
+                <li>No puede asemejarse tanto a su otra información personal.</li>
+                <li>Debe contener al menos 8 caracteres.</li>
+                <li>No puede ser una clave utilizada comúnmente.</li>
+                <li>No puede ser completamente numérica.</li>
+            </ul>
+
+            <hr>
+
+            <div class="text-center">
+                <a class="small" href="{% url 'iniciarSesion' %}">¿Tienes una cuenta? Inicia sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

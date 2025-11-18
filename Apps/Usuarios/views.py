@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 
 # IMPORTACION DE forms Y models
@@ -7,10 +7,28 @@ from .forms import ClienteSignUpForm, AdminSignUpForm
 from .models import ClaveAcceso, Usuario
 
 
+
+# urls y form
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+
+class CrearCuentaView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("crearCuenta")
+    template_name = "usuario/ingreso/crear_cuenta.html"
+
+class IniciarSesionView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("iniciarSesion")
+    template_name = "usuario/ingreso/iniciar_sesion.html"
+
+
+
+
 # VISTA/usuarios
 
 def homeUsuarios(request):
-    return render(request, 'Usuarios/registro/base_registro.html')
+    return render(request, 'Usuario/base_log_sign.html')
 
 def registroCliente(request):
 
