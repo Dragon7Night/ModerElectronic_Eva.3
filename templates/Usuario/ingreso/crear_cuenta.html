@@ -6,36 +6,84 @@
     <div class="col-lg-8">
         <div class="p-5">
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Crear cuanta</h1>
+                <h1 class="h4 text-gray-900 mb-4">Crear cuenta</h1>
             </div>
-            <form class="user" method="post">
-                <!-- NOTA ↓↓: todos los formularios <form> tiene que tener un token de seguridad en su interior-->
+
+            <form class="user" method="post" novalidate>
                 {% csrf_token %}
+
+                {# errores no relacionados con campos #}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
-                        placeholder="Nombre de usuario" required autofocus>
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-danger small">{{ form.username.errors }}</div>
+                    {% endif %}
                 </div>
+
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger small">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.nombre.label_tag }}
+                    {{ form.nombre }}
+                    {% if form.nombre.errors %}
+                        <div class="text-danger small">{{ form.nombre.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.direccion.label_tag }}
+                    {{ form.direccion }}
+                    {% if form.direccion.errors %}
+                        <div class="text-danger small">{{ form.direccion.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.billetera.label_tag }}
+                    {{ form.billetera }}
+                    {% if form.billetera.errors %}
+                        <div class="text-danger small">{{ form.billetera.errors }}</div>
+                    {% endif %}
+                </div>
+
                 <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="password" class="form-control form-control-user" id="id_password1" name="password1"
-                            placeholder="Contraseña" required autocomplete="current-password">
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <div class="text-danger small">{{ form.password1.errors }}</div>
+                        {% endif %}
                     </div>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control form-control-user" id="id_password2" name="password2"
-                            placeholder="Repita la contraseña" required autocomplete="current-password">
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <div class="text-danger small">{{ form.password2.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
-                
-                <!-- NOTA: en los formularios siempre se usan <button> de tipo submit -->
-                <button type="submit" class="btn btn-primary btn-user btn-block">Crear cuenta</button>
 
+                <button type="submit" class="btn btn-primary btn-user btn-block">Crear cuenta</button>
             </form>
+
             <hr>
 
             <h4> Consideraciones para el registro </h4>
 
-            <span class="helptext" id="id_password1_helptext">El nombre de usuario debe tener únicamente letras, dígitos
-                y @/./+/-/_</span>
+            <span class="helptext" id="id_password1_helptext">El nombre de usuario debe tener únicamente letras, dígitos y @/./+/-/_</span>
 
             <span class="helptext" id="id_password2_helptext">La contraseña debe cumplir estos elementos</span>
             <ul>
@@ -53,6 +101,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

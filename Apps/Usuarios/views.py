@@ -6,42 +6,42 @@ from django.http import HttpResponseRedirect
 from .forms import ClienteSignUpForm, AdminSignUpForm
 from .models import ClaveAcceso, Usuario
 
-
-
-# urls y form
-from django.contrib.auth.forms import UserCreationForm
+# Autenticación y vistas basadas en clases
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
 
+
+# Vistas basadas en clases para crear cuenta y login usando los formularios correctos
 class CrearCuentaView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("crearCuenta")
+    # Usar el formulario personalizado que apunta a Usuario
+    form_class = ClienteSignUpForm
+    success_url = reverse_lazy("loginName")
     template_name = "usuario/ingreso/crear_cuenta.html"
 
-class IniciarSesionView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("iniciarSesion")
+
+class IniciarSesionView(LoginView):
+    form_class = AuthenticationForm
     template_name = "usuario/ingreso/iniciar_sesion.html"
-
-
+    # Si usas nombre de url distinto para redirigir tras login, cámbialo aquí
+    redirect_authenticated_user = True
 
 
 # VISTA/usuarios
-
 def homeUsuarios(request):
     return render(request, 'Usuario/base_log_sign.html')
 
-def registroCliente(request):
 
+def registroCliente(request):
     form = ClienteSignUpForm()
 
     if request.method == 'POST':
         form = ClienteSignUpForm(request.POST)
-
         if form.is_valid():
-            # Guardar el formulario (asigna automáticamente el rol de Cliente)
+            # Guardar el formulario; Usuario.rol se asigna en el save() del form
             form.save()
             return HttpResponseRedirect(reverse('loginName'))
-    
+
     data = {
         'formKey': form,
         'mainTitle': 'Registro de Clientes',
@@ -52,40 +52,36 @@ def registroCliente(request):
 
 
 def registroAdmin(request):
-
     form = AdminSignUpForm()
 
     if request.method == 'POST':
         form = AdminSignUpForm(request.POST)
 
         if form.is_valid():
-            # Obtener la clave de administrador antes de guardar (Sin usar .pop())
+            # Obtener la clave de administrador desde cleaned_data
             clave_pura = form.cleaned_data.get('admin_key')
-            
-            # 1. Verificar la clave de administrador
+
+            # Verificar la clave contra las entradas de ClaveAcceso
             claves = ClaveAcceso.objects.all()
             clave_valida = False
-            
-            # Bucle simple para verificar la clave (reemplaza 'any' complejo)
+
             for clave_objeto in claves:
                 if clave_objeto.verificarClave(clave_pura):
                     clave_valida = True
-                    break  # Salir del bucle si encuentra una clave válida
+                    break
 
             if clave_valida:
-                # Si la clave es válida, guardar el usuario como administrador
+                # Guardar el usuario como administrador
                 user = form.save(commit=False)
                 user.rol = Usuario.ROL_ADMIN
-                user.is_staff = True          # Dar acceso al panel de Django Admin
+                user.is_staff = True
                 user.save()
                 return HttpResponseRedirect(reverse('loginName'))
-                
             else:
-                # Si es inválida, redirigir al home
-                return HttpResponseRedirect(reverse('home'))
-
-                
-
+                # Si la clave es inválida, volver al formulario con error simple en el contexto
+                # (puedes reemplazar esto por mensajes framework si lo prefieres)
+                form.add_error('admin_key', 'Clave de administrador inválida')
+    
     data = {
         'formKey': form,
         'mainTitle': 'Registro de Administradores',
