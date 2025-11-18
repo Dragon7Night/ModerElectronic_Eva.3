@@ -21,7 +21,9 @@ from Apps.Productos import views as productoViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('homeProductos/', productoViews.homeProductos, name='homeProductosN' ),
+    path('homeProductos/', productoViews.homeProductos, name='homeProducto' ),
+    path('homeUsuarios/', usuarioViews.homeUsuarios, name='registroUsuario' ),
+
 
 
 ]

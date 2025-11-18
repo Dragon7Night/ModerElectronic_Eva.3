@@ -7,19 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ModerElectronic</title>
 
-    <style>
-        .body{
-            color:blanchedalmond;
-        }
-    </style>
-    
-    <!-- IMPORTACION DE CSS STATICO -->
-    <link rel="stylesheet" href="{% static 'css/general/nav_home.css' %}">
-
     <!-- CSS BS5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
+
+    <!-- IMPORTACION DE CSS STATICO -->
+    <link rel="stylesheet" href="{% static 'css/general/nav_home.css' %}">
+    
 
 
     <!-- LOGO DE LA PESTAÑA despues cambiar a PNG la imagen -->
@@ -131,78 +126,88 @@
 
 
                                 
+                                <div class="elementor-container elementor-column-gap-no">
+                                    <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-7baa0d5"
+                                        data-id="7baa0d5" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div class="elementor-element elementor-element-868c094 elementor-widget elementor-widget-image"
+                                                data-id="868c094" data-element_type="widget">
+
+                                                <!-- SECCION DEL LOGO -->
+                                                <div class="elementor-widget-container">
+
+                                                    <!-- LOGO DEL NAVBAR -->
+                                                    <a href="https://elementor.altdesain.com/nftku/home/">
+                                                        <img width="126" height="33"
+                                                            src="{% static 'img/LOGO_TEMP.jpg' %}"
+                                                            class="attachment-full size-full wp-image-50" alt="" /> </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-f8ff992"
+                                        data-id="f8ff992" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div class="elementor-element elementor-element-a41421b elementor-widget elementor-widget-ekit-nav-menu"
+                                                data-id="a41421b" data-element_type="widget"
+                                                data-widget_type="ekit-nav-menu.default">
+                                                <div class="elementor-widget-container">
+                                                    <div class="ekit-wid-con ekit_menu_responsive_tablet"
+                                                        data-hamburger-icon="icon icon-burger-menu"
+                                                        data-hamburger-icon-type="icon"
+                                                        data-responsive-breakpoint="1024"> <button
+                                                            class="elementskit-menu-hamburger elementskit-menu-toggler">
+                                                            <i aria-hidden="true"
+                                                                class="ekit-menu-icon icon icon-burger-menu"></i>
+                                                        </button>
+
+                                                        <!-- NAV BAR  -->
+                                                        <div id="ekit-megamenu-main-menu"
+                                                            class="elementskit-menu-container elementskit-menu-offcanvas-elements elementskit-navbar-nav-default elementskit_plus_icon ekit-nav-menu-one-page-no ekit-nav-dropdown-hover">
+                                                            <ul id="menu-main-menu"
+                                                                class="elementskit-navbar-nav elementskit-menu-po-right submenu-click-on-">
+                                                                <li id="menu-item-37"
+                                                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-37 nav-item elementskit-mobile-builder-content active"
+                                                                    data-vertical-menu=750px><a
+                                                                        href="https://elementor.altdesain.com/nftku/"
+                                                                        class="ekit-menu-nav-link active">Home</a></li>
+                                                                <li id="menu-item-34"
+                                                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34 nav-item elementskit-mobile-builder-content"
+                                                                    data-vertical-menu=750px><a
+                                                                        href="https://elementor.altdesain.com/nftku/roadmap/"
+                                                                        class="ekit-menu-nav-link">Solicitudes</a></li>
+                                                            </ul>
+ 
+                                                        </div>
+                                                        <div
+                                                            class="elementskit-menu-overlay elementskit-menu-offcanvas-elements elementskit-menu-toggler ekit-nav-menu--overlay">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-5ade097 elementor-hidden-mobile"
+                                        data-id="5ade097" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div class="elementor-element elementor-element-63d2892 elementor-widget elementor-widget-elementskit-button"
+                                                data-id="63d2892" data-element_type="widget"
+                                                data-widget_type="elementskit-button.default">
+                                                <div class="elementor-widget-container">
+                                                    <div class="ekit-wid-con">
+                                                        <div class="ekit-btn-wraper">
+                                                            <a href="#" class="elementskit-btn  whitespace--normal">
+                                                                Get NFT </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<nav class="navbar navbar-expand-lg rounded"
-    aria-label="Thirteenth navbar example">
-    <div class="container-fluid">
-        <!-- Toggler: en desktop actúa sobre collapse; en mobile abre offcanvas -->
-        <button class="navbar-toggler" type="button"
-            data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- SECCION PARA PANTALLAS GRANDES -->
-        <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-            <a class="navbar-brand col-lg-3 me-0" href="#">
-                <img width="100" height="22"
-                    src="{% static 'img/LOGO_TEMP.jpg' %}"
-                    class="attachment-full size-full wp-image-50" alt="LOGO_PAGE" />
-            </a>
-
-            <ul class="navbar-nav col-lg-6 justify-content-lg-center nav-2">
-                <li class="nav-item"> <a class="nav-link" href="{% url 'homeProducto' %}">Home</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Catalogo de productos</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
-            </ul>
-
-            <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-                <button class="btn-effect mx-2"><a class="text-light" href="{% url 'registroUsuario' %}">Crear cuenta</a></button>
-                <button class="btn-effect mx-2"><a class="text-light" href="{% url 'registroUsuario' %}">Iniciar sesión</a></button>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!-- Offcanvas SECCION PARA PANTALLAS PEQUEÑAS -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-  <div class="offcanvas-header">
-
-    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-
-    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeProducto' %}">Home</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#">Catalogo de productos</a> </li>
-      <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
-    </ul>
-
-
-    <div class="mt-3">
-      <button class="btn-effect w-100 mb-2"><a class="text-light d-block" href="{% url 'registroUsuario' %}">Crear cuenta</a></button>
-      <button class="btn-effect w-100"><a class="text-light d-block" href="{% url 'registroUsuario' %}">Iniciar sesión</a></button>
-    </div>
-
-  </div>
-</div>
 
 
 
@@ -218,10 +223,127 @@
 
     <div data-elementor-type="wp-page" data-elementor-id="2" class="elementor elementor-2">
 
-
+        <!-- PRESENTACION CON IMAGENES -->
         <section
-            class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-            data-element_type="section">
+            class="elementor-section elementor-top-section elementor-element elementor-element-d96320b elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+            data-id="d96320b" data-element_type="section"
+            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+            <div class="elementor-container elementor-column-gap-no">
+                <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-f860fb0"
+                    data-id="f860fb0" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-fe864e6 elementor-hidden-mobile elementor-widget elementor-widget-elementskit-heading"
+                            data-id="fe864e6" data-element_type="widget" data-widget_type="elementskit-heading.default">
+                            <div class="elementor-widget-container">
+                                <div class="ekit-wid-con">
+                                    <div
+                                        class="ekit-heading elementskit-section-title-wraper text_left   ekit_heading_tablet-   ekit_heading_mobile-">
+                                        <h1 class="ekit-heading--title elementskit-section-title "><span>Official NFT
+                                                Website,</span><br>Projects &amp; Community</h1>
+                                        <div class='ekit-heading__description'>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elementor-element elementor-element-990e7c1 elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-elementskit-heading"
+                            data-id="990e7c1" data-element_type="widget" data-widget_type="elementskit-heading.default">
+                            <div class="elementor-widget-container">
+                                <div class="ekit-wid-con">
+                                    <div
+                                        class="ekit-heading elementskit-section-title-wraper text_left   ekit_heading_tablet-   ekit_heading_mobile-">
+                                        <h1 class="ekit-heading--title elementskit-section-title "><span>Official NFT
+                                                Website,</span><br>Projects &amp; Community</h1>
+                                        <div class='ekit-heading__description'>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <section
+                            class="elementor-section elementor-inner-section elementor-element elementor-element-0c68be0 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                            data-id="0c68be0" data-element_type="section">
+                            <div class="elementor-container elementor-column-gap-no">
+                                <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-c743251"
+                                    data-id="c743251" data-element_type="column">
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-da8004e elementor-widget elementor-widget-elementskit-button"
+                                            data-id="da8004e" data-element_type="widget"
+                                            data-widget_type="elementskit-button.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con">
+                                                    <div class="ekit-btn-wraper">
+                                                        <a href="#" class="elementskit-btn  whitespace--normal">
+
+
+                                                            Projects </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5fc81cf"
+                                    data-id="5fc81cf" data-element_type="column">
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-470f1c9 elementor-widget elementor-widget-elementskit-button"
+                                            data-id="470f1c9" data-element_type="widget"
+                                            data-widget_type="elementskit-button.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con">
+                                                    <div class="ekit-btn-wraper">
+                                                        <a href="#" class="elementskit-btn  whitespace--normal">
+
+
+                                                            Roadmaps </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- IMAGENES DE PRESENTACION -->
+                <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-f7dfb0f"
+                    data-id="f7dfb0f" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-30e6c33 elementor-widget elementor-widget-image"
+                            data-id="30e6c33" data-element_type="widget" data-widget_type="image.default">
+                            <div class="elementor-widget-container">
+                                <img fetchpriority="high" decoding="async" width="338" height="409"
+                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/img2.png"
+                                    class="attachment-full size-full wp-image-264" alt=""
+                                    srcset="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/img2.png 338w, https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/img2-248x300.png 248w"
+                                    sizes="(max-width: 338px) 100vw, 338px" />
+                            </div>
+                        </div>
+                        <div class="elementor-element elementor-element-26347d5 elementor-absolute elementor-hidden-mobile elementor-widget elementor-widget-image"
+                            data-id="26347d5" data-element_type="widget"
+                            data-settings="{&quot;_position&quot;:&quot;absolute&quot;}"
+                            data-widget_type="image.default">
+                            <div class="elementor-widget-container">
+                                <img decoding="async" width="338" height="409"
+                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/img1.png"
+                                    class="attachment-full size-full wp-image-268" alt=""
+                                    srcset="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/img1.png 338w, https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/img1-248x300.png 248w"
+                                    sizes="(max-width: 338px) 100vw, 338px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+            class="elementor-section elementor-top-section elementor-element elementor-element-a45af1d elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+            data-id="a45af1d" data-element_type="section"
+            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
             <div class="elementor-container elementor-column-gap-no">
                 <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-830de75"
                     data-id="830de75" data-element_type="column">
@@ -287,7 +409,9 @@
                                                         display: inline-block
                                                     }
                                                 </style>
-                                                <p>ssssssssssssssssssssssssssssssssssssssssssssssssssss</p>
+                                                <p>Ullamcorper sit amet risus nullam eget. Scelerisque viverra mauris in
+                                                    aliquam. Lacinia quis vel eros donec. At risus viverra adipiscing
+                                                    at.</p>
                                                 <p>Augue ut lectus arcu bibendum at varius vel pharetra. Felis bibendum
                                                     ut tristique et egestas. Facilisis volutpat est velit egestas dui id
                                                     ornare.</p>
@@ -435,7 +559,336 @@
                 </div>
             </div>
         </section>
+        <section
+            class="elementor-section elementor-top-section elementor-element elementor-element-233da14 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+            data-id="233da14" data-element_type="section">
+            <div class="elementor-container elementor-column-gap-no">
+                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-0a5af90"
+                    data-id="0a5af90" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <section
+                            class="elementor-section elementor-inner-section elementor-element elementor-element-3f2460f elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+                            data-id="3f2460f" data-element_type="section">
+                            <div class="elementor-container elementor-column-gap-no">
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3aa27d0"
+                                    data-id="3aa27d0" data-element_type="column">
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-961e594 ekit-equal-height-disable elementor-widget elementor-widget-elementskit-icon-box"
+                                            data-id="961e594" data-element_type="widget"
+                                            data-widget_type="elementskit-icon-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con"> <!-- link opening -->
+                                                    <!-- end link opening -->
 
+                                                    <div
+                                                        class="elementskit-infobox text-left text-left icon-lef-right-aligin elementor-animation- media gradient-active  hover_from_left">
+                                                        <div class="elementskit-box-header">
+                                                            <div class="elementskit-info-box-icon text-center">
+                                                                <img loading="lazy" decoding="async" width="57"
+                                                                    height="57"
+                                                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/ava1.png"
+                                                                    class="attachment- size-" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <h3 class="elementskit-info-box-title">
+                                                                Own by Zambrush </h3>
+                                                            <p>Last sale : 1.22 ETH</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="elementor-element elementor-element-32ba123 ekit-equal-height-disable elementor-widget elementor-widget-elementskit-icon-box"
+                                            data-id="32ba123" data-element_type="widget"
+                                            data-widget_type="elementskit-icon-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con"> <!-- link opening -->
+                                                    <!-- end link opening -->
+
+                                                    <div
+                                                        class="elementskit-infobox text-left text-left icon-lef-right-aligin elementor-animation- media gradient-active  hover_from_top">
+                                                        <div class="elementskit-box-header">
+                                                            <div class="elementskit-info-box-icon text-center">
+                                                                <img loading="lazy" decoding="async" width="57"
+                                                                    height="57"
+                                                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/ava3.png"
+                                                                    class="attachment- size-" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <h3 class="elementskit-info-box-title">
+                                                                Own by Sixtine </h3>
+                                                            <p>Last sale : 0.39 ETH</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-a06585c"
+                                    data-id="a06585c" data-element_type="column">
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-5198b9f ekit-equal-height-disable elementor-widget elementor-widget-elementskit-icon-box"
+                                            data-id="5198b9f" data-element_type="widget"
+                                            data-widget_type="elementskit-icon-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con"> <!-- link opening -->
+                                                    <!-- end link opening -->
+
+                                                    <div
+                                                        class="elementskit-infobox text-left text-left icon-lef-right-aligin elementor-animation- media gradient-active  hover_from_bottom">
+                                                        <div class="elementskit-box-header">
+                                                            <div class="elementskit-info-box-icon text-center">
+                                                                <img loading="lazy" decoding="async" width="57"
+                                                                    height="57"
+                                                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/ava2.png"
+                                                                    class="attachment- size-" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <h3 class="elementskit-info-box-title">
+                                                                Own by Biastree </h3>
+                                                            <p>Last sale : 0.52 ETH</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="elementor-element elementor-element-e904f6c ekit-equal-height-disable elementor-widget elementor-widget-elementskit-icon-box"
+                                            data-id="e904f6c" data-element_type="widget"
+                                            data-widget_type="elementskit-icon-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con"> <!-- link opening -->
+                                                    <!-- end link opening -->
+
+                                                    <div
+                                                        class="elementskit-infobox text-left text-left icon-lef-right-aligin elementor-animation- media gradient-active  hover_from_left">
+                                                        <div class="elementskit-box-header">
+                                                            <div class="elementskit-info-box-icon text-center">
+                                                                <img loading="lazy" decoding="async" width="57"
+                                                                    height="57"
+                                                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/ava4.png"
+                                                                    class="attachment- size-" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <h3 class="elementskit-info-box-title">
+                                                                Own by Thedorone </h3>
+                                                            <p>Last sale : 1.05 ETH</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-c61cbe3"
+                                    data-id="c61cbe3" data-element_type="column">
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-d324c9b ekit-equal-height-disable elementor-widget elementor-widget-elementskit-icon-box"
+                                            data-id="d324c9b" data-element_type="widget"
+                                            data-widget_type="elementskit-icon-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="ekit-wid-con"> <!-- link opening -->
+                                                    <!-- end link opening -->
+
+                                                    <div
+                                                        class="elementskit-infobox text-left text-left icon-lef-right-aligin elementor-animation- media gradient-active  hover_from_right">
+                                                        <div class="elementskit-box-header">
+                                                            <div class="elementskit-info-box-icon text-center">
+                                                                <img loading="lazy" decoding="async" width="57"
+                                                                    height="57"
+                                                                    src="https://elementor.altdesain.com/nftku/wp-content/uploads/2023/03/ava5.png"
+                                                                    class="attachment- size-" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <h3 class="elementskit-info-box-title">
+                                                                Own by Lolitax </h3>
+                                                            <p>Last sale : 0.74 ETH</p>
+                                                        </div>
+
+
+                                                        <div class="ekit-icon-box-badge ekit_position_top_left">
+                                                            <span class="ekit-badge">EXCLUSIVE</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+            class="elementor-section elementor-top-section elementor-element elementor-element-79117aa elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+            data-id="79117aa" data-element_type="section">
+            <div class="elementor-container elementor-column-gap-no">
+                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d19c44f"
+                    data-id="d19c44f" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-3d83213 elementor-widget elementor-widget-elementskit-button"
+                            data-id="3d83213" data-element_type="widget" data-widget_type="elementskit-button.default">
+                            <div class="elementor-widget-container">
+                                <div class="ekit-wid-con">
+                                    <div class="ekit-btn-wraper">
+                                        <a href="#" class="elementskit-btn  whitespace--normal">
+
+
+                                            Explore Our NFTs </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elementor-element elementor-element-cd9dd79 elementor-widget-divider--view-line elementor-widget elementor-widget-divider"
+                            data-id="cd9dd79" data-element_type="widget" data-widget_type="divider.default">
+                            <div class="elementor-widget-container">
+                                <style>
+                                    /*! elementor - v3.12.0 - 29-03-2023 */
+                                    .elementor-widget-divider {
+                                        --divider-border-style: none;
+                                        --divider-border-width: 1px;
+                                        --divider-color: #0c0d0e;
+                                        --divider-icon-size: 20px;
+                                        --divider-element-spacing: 10px;
+                                        --divider-pattern-height: 24px;
+                                        --divider-pattern-size: 20px;
+                                        --divider-pattern-url: none;
+                                        --divider-pattern-repeat: repeat-x
+                                    }
+
+                                    .elementor-widget-divider .elementor-divider {
+                                        display: flex
+                                    }
+
+                                    .elementor-widget-divider .elementor-divider__text {
+                                        font-size: 15px;
+                                        line-height: 1;
+                                        max-width: 95%
+                                    }
+
+                                    .elementor-widget-divider .elementor-divider__element {
+                                        margin: 0 var(--divider-element-spacing);
+                                        flex-shrink: 0
+                                    }
+
+                                    .elementor-widget-divider .elementor-icon {
+                                        font-size: var(--divider-icon-size)
+                                    }
+
+                                    .elementor-widget-divider .elementor-divider-separator {
+                                        display: flex;
+                                        margin: 0;
+                                        direction: ltr
+                                    }
+
+                                    .elementor-widget-divider--view-line_icon .elementor-divider-separator,
+                                    .elementor-widget-divider--view-line_text .elementor-divider-separator {
+                                        align-items: center
+                                    }
+
+                                    .elementor-widget-divider--view-line_icon .elementor-divider-separator:after,
+                                    .elementor-widget-divider--view-line_icon .elementor-divider-separator:before,
+                                    .elementor-widget-divider--view-line_text .elementor-divider-separator:after,
+                                    .elementor-widget-divider--view-line_text .elementor-divider-separator:before {
+                                        display: block;
+                                        content: "";
+                                        border-bottom: 0;
+                                        flex-grow: 1;
+                                        border-top: var(--divider-border-width) var(--divider-border-style) var(--divider-color)
+                                    }
+
+                                    .elementor-widget-divider--element-align-left .elementor-divider .elementor-divider-separator>.elementor-divider__svg:first-of-type {
+                                        flex-grow: 0;
+                                        flex-shrink: 100
+                                    }
+
+                                    .elementor-widget-divider--element-align-left .elementor-divider-separator:before {
+                                        content: none
+                                    }
+
+                                    .elementor-widget-divider--element-align-left .elementor-divider__element {
+                                        margin-left: 0
+                                    }
+
+                                    .elementor-widget-divider--element-align-right .elementor-divider .elementor-divider-separator>.elementor-divider__svg:last-of-type {
+                                        flex-grow: 0;
+                                        flex-shrink: 100
+                                    }
+
+                                    .elementor-widget-divider--element-align-right .elementor-divider-separator:after {
+                                        content: none
+                                    }
+
+                                    .elementor-widget-divider--element-align-right .elementor-divider__element {
+                                        margin-right: 0
+                                    }
+
+                                    .elementor-widget-divider:not(.elementor-widget-divider--view-line_text):not(.elementor-widget-divider--view-line_icon) .elementor-divider-separator {
+                                        border-top: var(--divider-border-width) var(--divider-border-style) var(--divider-color)
+                                    }
+
+                                    .elementor-widget-divider--separator-type-pattern {
+                                        --divider-border-style: none
+                                    }
+
+                                    .elementor-widget-divider--separator-type-pattern.elementor-widget-divider--view-line .elementor-divider-separator,
+                                    .elementor-widget-divider--separator-type-pattern:not(.elementor-widget-divider--view-line) .elementor-divider-separator:after,
+                                    .elementor-widget-divider--separator-type-pattern:not(.elementor-widget-divider--view-line) .elementor-divider-separator:before,
+                                    .elementor-widget-divider--separator-type-pattern:not([class*=elementor-widget-divider--view]) .elementor-divider-separator {
+                                        width: 100%;
+                                        min-height: var(--divider-pattern-height);
+                                        -webkit-mask-size: var(--divider-pattern-size) 100%;
+                                        mask-size: var(--divider-pattern-size) 100%;
+                                        -webkit-mask-repeat: var(--divider-pattern-repeat);
+                                        mask-repeat: var(--divider-pattern-repeat);
+                                        background-color: var(--divider-color);
+                                        -webkit-mask-image: var(--divider-pattern-url);
+                                        mask-image: var(--divider-pattern-url)
+                                    }
+
+                                    .elementor-widget-divider--no-spacing {
+                                        --divider-pattern-size: auto
+                                    }
+
+                                    .elementor-widget-divider--bg-round {
+                                        --divider-pattern-repeat: round
+                                    }
+
+                                    .rtl .elementor-widget-divider .elementor-divider__text {
+                                        direction: rtl
+                                    }
+
+                                    .e-con-inner>.elementor-widget-divider,
+                                    .e-con>.elementor-widget-divider {
+                                        width: var(--container-widget-width, 100%);
+                                        --flex-grow: var(--container-widget-flex-grow)
+                                    }
+                                </style>
+                                <div class="elementor-divider">
+                                    <span class="elementor-divider-separator">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section
             class="elementor-section elementor-top-section elementor-element elementor-element-afe831e elementor-section-full_width elementor-section-height-default elementor-section-height-default"
             data-id="afe831e" data-element_type="section"
@@ -668,7 +1121,8 @@
                                                 data-widget_type="image.default">
                                                 <!-- MINI LOGO -->
                                                 <div class="elementor-widget-container">
-                                                    <img width="126" height="33" src="{% static 'img/LOGO_TEMP.jpg' %}"
+                                                    <img width="126" height="33"
+                                                        src="{% static 'img/LOGO_TEMP.jpg' %}"
                                                         class="attachment-full size-full wp-image-50" alt=""
                                                         loading="lazy" />
                                                 </div>

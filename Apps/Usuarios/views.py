@@ -9,6 +9,8 @@ from .models import ClaveAcceso, Usuario
 
 # VISTA/usuarios
 
+def homeUsuarios(request):
+    return render(request, 'Usuarios/registro/base_registro.html')
 
 def registroCliente(request):
 
