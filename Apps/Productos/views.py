@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 
-def homeProductos(request):
+def homeGeneral(request):
     return render(request, 'index.html')
 
 

@@ -1,3 +1,5 @@
+/* IMPORTACION DE LETRAS DESDE GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Patua+One&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
 
 
 /* SEPARACION DE MARGENES DE NAV */
@@ -15,15 +17,14 @@
 
 
 
-
-
-
-
 /* ESTILOS DE BOTONES */
 
+
 .btn-effect{
+  font-family: "Titan One", sans-serif !important;
+  color: snow !important;
+  font-weight: normal !important;
   background-color: transparent !important;
-  /* color: snow !important; */
   border: 3px solid #FF3D00 !important;
   position: relative !important;
 }
@@ -48,6 +49,74 @@
   color: snow !important;
 }
 
+
+
+/* BOTONES HEADER */
+
+.navbar-nav .nav-item .nav-link.btn-effect-head {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+  color: inherit;
+}
+
+.navbar-nav .nav-item .nav-link.btn-effect-head .linktext {
+  font-size: 1.3rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: "Winky Rough", sans-serif;
+  text-transform: uppercase;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  display: inline-block; 
+  padding: 10px 8px; 
+}
+
+.navbar-nav .nav-item .nav-link.btn-effect-head .linktext::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  top: calc(100% - 6px);
+  left: 50%;
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0s;
+  opacity: 1;
+  background: #ff6a06;
+  max-width: 0%;
+  overflow: hidden;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-item {
+  display: inline-block;
+  margin: 0 25px 20px 25px;
+  vertical-align: top;
+}
+
+
+.navbar-nav .nav-item .nav-link.btn-effect-head:hover .linktext,
+.navbar-nav .nav-item .nav-link.btn-effect-head:focus .linktext {
+  transform: rotateY(360deg) scale(1.3);
+  -webkit-transform: rotateY(360deg) scale(1.3);
+  color: #fda56b;
+}
+
+.navbar-nav .nav-item .nav-link.btn-effect-head:hover .linktext::before,
+.navbar-nav .nav-item .nav-link.btn-effect-head:focus .linktext::before {
+  transition-delay: 0.3s;
+  max-width: 100%;
+  left: 0%;
+  transform: none;
+}
 
 
 /* Offcanvas EN PANTALLAS PEQUEÑAS */

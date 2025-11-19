@@ -1,4 +1,5 @@
 {% load static %}
+
 <nav class="navbar navbar-expand-lg rounded" aria-label="Thirteenth navbar example">
     <div class="container-fluid">
         <!-- Toggler: en desktop actúa sobre collapse; en mobile abre offcanvas -->
@@ -15,17 +16,35 @@
             </a>
 
             <ul class="navbar-nav col-lg-6 justify-content-lg-center nav-2">
-                <li class="nav-item"> <a class="nav-link" href="{% url 'homeProducto' %}">Home</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Catalogo de productos</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-effect-head" href="{% url 'homeGeneral' %}">
+                        <div class="linktext">Home</div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-effect-head" href="#">
+                        <div class="linktext">Catálogo de productos</div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-effect-head" href="#">
+                        <div class="linktext">Solicitudes</div>
+                    </a>
+                </li>
             </ul>
 
+
+
+
             <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-                <button class="btn-effect mx-2"><a class="text-light" href="{% url 'crearCuenta' %}">Crear
-                        cuenta</a></button>
-                <button class="btn-effect mx-2"><a class="text-light" href="{% url 'iniciarSesion' %}">Iniciar
-                        sesión</a></button>
+                <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'crearCuenta' %}">Crear cuenta</a>
+                <a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Crear</a>
+                <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'iniciarSesion' %}">Iniciar sesión</a>
             </div>
+            
+
+
+
         </div>
     </div>
 </nav>
@@ -40,18 +59,22 @@
     <div class="offcanvas-body">
 
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeProducto' %}">Home</a> </li>
+            <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeGeneral' %}">Home</a> </li>
             <li class="nav-item"> <a class="nav-link" href="#">Catalogo de productos</a> </li>
             <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
         </ul>
 
+        <hr>
 
         <div class="mt-3">
-            <button class="btn-effect w-100 mb-2"><a class="text-light d-block" href="{% url 'crearCuenta' %}">Crear
-                    cuenta</a></button>
-            <button class="btn-effect w-100"><a class="text-light d-block" href="{% url 'iniciarSesion' %}">Iniciar
-                    sesión</a></button>
+            <a class="btn btn-effect p-2 px-3 mx-2 text-light" id="txt-btn" href="{% url 'crearCuenta' %}">Crear
+                cuenta</a>
+            <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'iniciarSesion' %}">Iniciar sesión</a>
         </div>
 
     </div>
 </div>
+
+
+
+

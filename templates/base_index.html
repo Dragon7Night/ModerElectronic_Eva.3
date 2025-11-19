@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ModerElectronic</title>
+    <title> {% block titulo %} SECCION TITULO {% endblock %} | ModerElectronic</title>
 
     <!-- IMPORTACIONES DE CSS Y MAS -->
     {% include 'menus/importaciones.html' %}
@@ -26,15 +26,11 @@
             <div class="elementor-container elementor-column-gap-no">
                 <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5c81575"
                     data-id="5c81575" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
+                    <div class="elementor-widget-wrap elementor-element-populated justify-content-center">
 
-
-                        <!-- TITULO DE CATEGORIAS sobre cartas -->
-
-                        {% include 'menus/titulo.html' %}
-
-                        {% block contenido %}
-                        {% endblock %}
+                {% block contenido %}
+                CONTENIDO CENTRAL DE LA PAGINA
+                {% endblock %}
 
                     </div>
                 </div>

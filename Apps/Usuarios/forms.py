@@ -5,7 +5,7 @@ from .models import Usuario
 class ClienteSignUpForm(UserCreationForm):
     nombre = forms.CharField(max_length=50)
     direccion = forms.CharField(max_length=90)
-    # billetera = forms.FloatField(initial=0.0)
+    billetera = forms.FloatField(initial=0.0)
 
     class Meta(UserCreationForm.Meta):
         model = Usuario
