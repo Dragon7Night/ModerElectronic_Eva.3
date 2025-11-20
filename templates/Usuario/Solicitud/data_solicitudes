@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> {% block titulo %} SECCION TITULO {% endblock %} | ModerElectronic</title>
-
+    <title>ModerElectronic</title>
+    
     <!-- IMPORTACIONES DE CSS Y MAS -->
-    {% include 'menus/importaciones_general.html' %}
+    {% include 'menus/importaciones.html' %}
 </head>
 
 <body
@@ -20,17 +20,26 @@
 
     <div data-elementor-type="wp-page" data-elementor-id="2" class="elementor elementor-2">
 
+        <!-- SECCION DE INFORMACION NOSOTROS -->
+        {% include 'menus/informacion.html' %}
+
         <section
-            class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-            data-element_type="section">
+            class="elementor-section elementor-top-section elementor-element elementor-element-afe831e elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+            data-id="afe831e" data-element_type="section"
+            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
             <div class="elementor-container elementor-column-gap-no">
                 <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5c81575"
                     data-id="5c81575" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated justify-content-center">
+                    <div class="elementor-widget-wrap elementor-element-populated">
 
-                {% block contenido %}
-                CONTENIDO CENTRAL DE LA PAGINA
-                {% endblock %}
+
+                        <!-- TITULO DE CATEGORIAS sobre cartas -->
+
+                        {% include 'menus/titulo.html' %}
+
+                        <!-- CARTAS CON IMAGENES  -->
+                        {% include 'menus/cartas.html' %}
+
 
                     </div>
                 </div>
@@ -40,7 +49,6 @@
     <!-- FOOTER MAIN -->
     {% include 'menus/footer.html' %}
 
-    {% include 'menus/complementos/modal_crear_cuenta.html' %}
     <!-- JS BS5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

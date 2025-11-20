@@ -35,13 +35,15 @@
 
 
 
+            
 
             <div class="d-lg-flex col-lg-3 justify-content-lg-end">
                 <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'crearCuenta' %}">Crear cuenta</a>
-                <a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Crear</a>
                 <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'iniciarSesion' %}">Iniciar sesión</a>
+                <a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Crear</a>
             </div>
             
+
 
 
 
@@ -60,9 +62,18 @@
 
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeGeneral' %}">Home</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#">Catalogo de productos</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="data_Producto">Catalogo de productos</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="data_SolicitudName">Solicitudes</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="productoRegisterName">Solicitudes</a> </li>
         </ul>
+
+        <!-- <ul class="navbar-nav col-lg-6 justify-content-lg-center nav-2">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'homeGeneral' %}">Home</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'data_Producto' %}">Catalogo de productos</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'data_SolicitudName' %}">Solicitudes</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'productoRegisterName' %}">registrar Productos</a> </li>
+        </ul> -->
+
 
         <hr>
 

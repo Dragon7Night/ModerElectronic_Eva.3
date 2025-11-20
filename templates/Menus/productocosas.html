@@ -1,0 +1,209 @@
+<section>
+	{% verbatim %}
+	<script type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})();
+	</script>
+
+	<script type="text/template" id="tmpl-variation-template">
+	<div class="woocommerce-variation-description">{{{ data.variation.variation_description }}}</div>
+	<div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div>
+	<div class="woocommerce-variation-availability">{{{ data.variation.availability_html }}}</div>
+</script>
+	{% endverbatim %}
+
+	<script type="text/template" id="tmpl-unavailable-variation-template">
+	<p>Sorry, this product is unavailable. Please choose a different combination.</p>
+</script>
+	<link rel='stylesheet' id='jeg-dynamic-style-css'
+		href='https://templatekit.jegtheme.com/funiture/wp-content/plugins/jeg-elementor-kit/lib/jeg-framework/assets/css/jeg-dynamic-styles.css?ver=1.3.0'
+		media='all' />
+	<link rel='stylesheet' id='elementor-gallery-css'
+		href='https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/lib/e-gallery/css/e-gallery.min.css?ver=1.2.0'
+		media='all' />
+	<link rel='stylesheet' id='e-animations-css'
+		href='https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/lib/animations/animations.min.css?ver=3.17.3'
+		media='all' />
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.7.4"
+		id="swv-js"></script>
+	<script id="contact-form-7-js-extra">
+		var wpcf7 = { "api": { "root": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-json\/", "namespace": "contact-form-7\/v1" }, "cached": "1" };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.7.4"
+		id="contact-form-7-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.7.4.1"
+		id="jquery-blockui-js"></script>
+	<script id="wc-add-to-cart-js-extra">
+		var wc_add_to_cart_params = { "ajax_url": "\/funiture\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/funiture\/?wc-ajax=%%endpoint%%", "i18n_view_cart": "View cart", "cart_url": "https:\/\/templatekit.jegtheme.com\/funiture\/cart\/", "is_cart": "", "cart_redirect_after_add": "no" };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=7.4.1"
+		id="wc-add-to-cart-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/zoom/jquery.zoom.min.js?ver=1.7.21-wc.7.4.1"
+		id="zoom-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/flexslider/jquery.flexslider.min.js?ver=2.7.2-wc.7.4.1"
+		id="flexslider-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/photoswipe/photoswipe.min.js?ver=4.1.1-wc.7.4.1"
+		id="photoswipe-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/photoswipe/photoswipe-ui-default.min.js?ver=4.1.1-wc.7.4.1"
+		id="photoswipe-ui-default-js"></script>
+	<script id="wc-single-product-js-extra">
+		var wc_single_product_params = { "i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes", "flexslider": { "rtl": false, "animation": "slide", "smoothHeight": true, "directionNav": false, "controlNav": "thumbnails", "slideshow": false, "animationSpeed": 500, "animationLoop": false, "allowOneSlide": false }, "zoom_enabled": "1", "zoom_options": [], "photoswipe_enabled": "1", "photoswipe_options": { "shareEl": false, "closeOnScroll": false, "history": false, "hideAnimationDuration": 0, "showAnimationDuration": 0 }, "flexslider_enabled": "1" };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/frontend/single-product.min.js?ver=7.4.1"
+		id="wc-single-product-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.7.4.1"
+		id="js-cookie-js"></script>
+	<script id="woocommerce-js-extra">
+		var woocommerce_params = { "ajax_url": "\/funiture\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/funiture\/?wc-ajax=%%endpoint%%" };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=7.4.1"
+		id="woocommerce-js"></script>
+	<script id="wc-cart-fragments-js-extra">
+		var wc_cart_fragments_params = { "ajax_url": "\/funiture\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/funiture\/?wc-ajax=%%endpoint%%", "cart_hash_key": "wc_cart_hash_4df58017351234ea72deb79138e437e8", "fragment_name": "wc_fragments_4df58017351234ea72deb79138e437e8", "request_timeout": "5000" };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js?ver=7.4.1"
+		id="wc-cart-fragments-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementskit-lite/libs/framework/assets/js/frontend-script.js?ver=2.8.5"
+		id="elementskit-framework-js-frontend-js"></script>
+	<script id="elementskit-framework-js-frontend-js-after">
+		var elementskit = {
+			resturl: 'https://templatekit.jegtheme.com/funiture/wp-json/elementskit/v1/',
+		}
+
+
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementskit-lite/widgets/init/assets/js/widget-scripts.js?ver=2.8.5"
+		id="ekit-widget-scripts-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.17.3"
+		id="elementor-webpack-runtime-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.17.3"
+		id="elementor-frontend-modules-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2"
+		id="elementor-waypoints-js"></script>
+	<script src="https://templatekit.jegtheme.com/funiture/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2"
+		id="jquery-ui-core-js"></script>
+	<script id="elementor-frontend-js-before">
+		var elementorFrontendConfig = { "environmentMode": { "edit": false, "wpPreview": false, "isScriptDebug": false }, "i18n": { "shareOnFacebook": "Share on Facebook", "shareOnTwitter": "Share on Twitter", "pinIt": "Pin it", "download": "Download", "downloadImage": "Download image", "fullscreen": "Fullscreen", "zoom": "Zoom", "share": "Share", "playVideo": "Play Video", "previous": "Previous", "next": "Next", "close": "Close", "a11yCarouselWrapperAriaLabel": "Carousel | Horizontal scrolling: Arrow Left & Right", "a11yCarouselPrevSlideMessage": "Previous slide", "a11yCarouselNextSlideMessage": "Next slide", "a11yCarouselFirstSlideMessage": "This is the first slide", "a11yCarouselLastSlideMessage": "This is the last slide", "a11yCarouselPaginationBulletMessage": "Go to slide" }, "is_rtl": false, "breakpoints": { "xs": 0, "sm": 480, "md": 768, "lg": 1025, "xl": 1440, "xxl": 1600 }, "responsive": { "breakpoints": { "mobile": { "label": "Mobile Portrait", "value": 767, "default_value": 767, "direction": "max", "is_enabled": true }, "mobile_extra": { "label": "Mobile Landscape", "value": 880, "default_value": 880, "direction": "max", "is_enabled": false }, "tablet": { "label": "Tablet Portrait", "value": 1024, "default_value": 1024, "direction": "max", "is_enabled": true }, "tablet_extra": { "label": "Tablet Landscape", "value": 1200, "default_value": 1200, "direction": "max", "is_enabled": false }, "laptop": { "label": "Laptop", "value": 1366, "default_value": 1366, "direction": "max", "is_enabled": false }, "widescreen": { "label": "Widescreen", "value": 2400, "default_value": 2400, "direction": "min", "is_enabled": false } } }, "version": "3.17.3", "is_static": false, "experimentalFeatures": { "e_dom_optimization": true, "e_optimized_assets_loading": true, "additional_custom_breakpoints": true, "theme_builder_v2": true, "landing-pages": true, "page-transitions": true, "notes": true, "form-submissions": true, "e_scroll_snap": true }, "urls": { "assets": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-content\/plugins\/elementor\/assets\/" }, "swiperClass": "swiper-container", "settings": { "page": [], "editorPreferences": [] }, "kit": { "active_breakpoints": ["viewport_mobile", "viewport_tablet"], "global_image_lightbox": "yes", "lightbox_enable_counter": "yes", "lightbox_enable_fullscreen": "yes", "lightbox_enable_zoom": "yes", "lightbox_enable_share": "yes", "lightbox_title_src": "title", "lightbox_description_src": "description", "woocommerce_notices_elements": [] }, "post": { "id": 39, "title": "Coffe%20Table%20%E2%80%93%20Funiture", "excerpt": "This is a simple product.", "featuredImage": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-content\/uploads\/sites\/18\/2020\/11\/J7ZW2XK@2x-1024x1021.jpg" } };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.17.3"
+		id="elementor-frontend-js"></script>
+	<script id="elementor-frontend-js-after">
+		var jkit_ajax_url = "https://templatekit.jegtheme.com/funiture/?jkit-ajax-request=jkit_elements", jkit_nonce = "e431a52bb9";
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/jeg-elementor-kit/assets/js/elements/sticky-element.js?ver=2.6.2"
+		id="jkit-sticky-element-js"></script>
+	<script id="eael-general-js-extra">
+		var localize = { "ajaxurl": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-admin\/admin-ajax.php", "nonce": "314687ce21", "i18n": { "added": "Added ", "compare": "Compare", "loading": "Loading..." }, "eael_translate_text": { "required_text": "is a required field", "invalid_text": "Invalid", "billing_text": "Billing", "shipping_text": "Shipping", "fg_mfp_counter_text": "of" }, "page_permalink": "https:\/\/templatekit.jegtheme.com\/funiture\/product\/hoodie-with-zipper\/", "cart_redirectition": "no", "cart_page_url": "https:\/\/templatekit.jegtheme.com\/funiture\/cart\/", "el_breakpoints": { "mobile": { "label": "Mobile Portrait", "value": 767, "default_value": 767, "direction": "max", "is_enabled": true }, "mobile_extra": { "label": "Mobile Landscape", "value": 880, "default_value": 880, "direction": "max", "is_enabled": false }, "tablet": { "label": "Tablet Portrait", "value": 1024, "default_value": 1024, "direction": "max", "is_enabled": true }, "tablet_extra": { "label": "Tablet Landscape", "value": 1200, "default_value": 1200, "direction": "max", "is_enabled": false }, "laptop": { "label": "Laptop", "value": 1366, "default_value": 1366, "direction": "max", "is_enabled": false }, "widescreen": { "label": "Widescreen", "value": 2400, "default_value": 2400, "direction": "min", "is_enabled": false } } };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/js/view/general.min.js?ver=5.6.5"
+		id="eael-general-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.0.1"
+		id="smartmenus-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/jeg-elementor-kit/assets/js/goodshare/goodshare.min.js?ver=6.1.5"
+		id="goodshare-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/lib/e-gallery/js/e-gallery.min.js?ver=1.2.0"
+		id="elementor-gallery-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/jetsticky-for-elementor/assets/js/lib/ResizeSensor.min.js?ver=1.7.0"
+		id="jet-resize-sensor-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/jetsticky-for-elementor/assets/js/lib/sticky-sidebar/sticky-sidebar.min.js?ver=3.3.1"
+		id="jet-sticky-sidebar-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/jetsticky-for-elementor/assets/js/lib/jsticky/jquery.jsticky.js?ver=1.1.0"
+		id="jsticky-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.17.0"
+		id="elementor-pro-webpack-runtime-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js?ver=3.1.2"
+		id="wp-polyfill-inert-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.14.0"
+		id="regenerator-runtime-js"></script>
+	<script src="https://templatekit.jegtheme.com/funiture/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0"
+		id="wp-polyfill-js"></script>
+	<script src="https://templatekit.jegtheme.com/funiture/wp-includes/js/dist/hooks.min.js?ver=c6aec9a8d4e5a5d543a1"
+		id="wp-hooks-js"></script>
+	<script src="https://templatekit.jegtheme.com/funiture/wp-includes/js/dist/i18n.min.js?ver=7701b0c3857f914212ef"
+		id="wp-i18n-js"></script>
+	<script id="wp-i18n-js-after">
+		wp.i18n.setLocaleData({ 'text direction\u0004ltr': ['ltr'] });
+	</script>
+	<script id="elementor-pro-frontend-js-before">
+		var ElementorProFrontendConfig = { "ajaxurl": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-admin\/admin-ajax.php", "nonce": "02ec2c3e82", "urls": { "assets": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-content\/plugins\/elementor-pro\/assets\/", "rest": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-json\/" }, "shareButtonsNetworks": { "facebook": { "title": "Facebook", "has_counter": true }, "twitter": { "title": "Twitter" }, "linkedin": { "title": "LinkedIn", "has_counter": true }, "pinterest": { "title": "Pinterest", "has_counter": true }, "reddit": { "title": "Reddit", "has_counter": true }, "vk": { "title": "VK", "has_counter": true }, "odnoklassniki": { "title": "OK", "has_counter": true }, "tumblr": { "title": "Tumblr" }, "digg": { "title": "Digg" }, "skype": { "title": "Skype" }, "stumbleupon": { "title": "StumbleUpon", "has_counter": true }, "mix": { "title": "Mix" }, "telegram": { "title": "Telegram" }, "pocket": { "title": "Pocket", "has_counter": true }, "xing": { "title": "XING", "has_counter": true }, "whatsapp": { "title": "WhatsApp" }, "email": { "title": "Email" }, "print": { "title": "Print" } }, "woocommerce": { "menu_cart": { "cart_page_url": "https:\/\/templatekit.jegtheme.com\/funiture\/cart\/", "checkout_page_url": "https:\/\/templatekit.jegtheme.com\/funiture\/checkout\/", "fragments_nonce": "1728478244" } }, "facebook_sdk": { "lang": "en_US", "app_id": "" }, "lottie": { "defaultAnimationUrl": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json" } };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.17.0"
+		id="elementor-pro-frontend-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=3.17.0"
+		id="pro-elements-handlers-js"></script>
+	<script id="jet-sticky-frontend-js-extra">
+		var JetStickySettings = { "elements_data": { "sections": [], "columns": [] } };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/jetsticky-for-elementor/assets/js/jet-sticky-frontend.js?ver=1.0.3"
+		id="jet-sticky-frontend-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementskit-lite/widgets/init/assets/js/animate-circle.js?ver=2.8.5"
+		id="animate-circle-js"></script>
+	<script id="elementskit-elementor-js-extra">
+		var ekit_config = { "ajaxurl": "https:\/\/templatekit.jegtheme.com\/funiture\/wp-admin\/admin-ajax.php", "nonce": "6e3654e33a" };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementskit-lite/widgets/init/assets/js/elementor.js?ver=2.8.5"
+		id="elementskit-elementor-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor/assets/lib/swiper/swiper.min.js?ver=2.8.5"
+		id="swiper-js"></script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/elementor-pro/assets/lib/sticky/jquery.sticky.min.js?ver=3.17.0"
+		id="e-sticky-js"></script>
+	<script src="https://templatekit.jegtheme.com/funiture/wp-includes/js/underscore.min.js?ver=1.13.4"
+		id="underscore-js"></script>
+	<script id="wp-util-js-extra">
+		var _wpUtilSettings = { "ajax": { "url": "\/funiture\/wp-admin\/admin-ajax.php" } };
+	</script>
+	<script src="https://templatekit.jegtheme.com/funiture/wp-includes/js/wp-util.min.js?ver=6.4.1"
+		id="wp-util-js"></script>
+	<script id="wc-add-to-cart-variation-js-extra">
+		var wc_add_to_cart_variation_params = { "wc_ajax_url": "\/funiture\/?wc-ajax=%%endpoint%%", "i18n_no_matching_variations_text": "Sorry, no products matched your selection. Please choose a different combination.", "i18n_make_a_selection_text": "Please select some product options before adding this product to your cart.", "i18n_unavailable_text": "Sorry, this product is unavailable. Please choose a different combination." };
+	</script>
+	<script
+		src="https://templatekit.jegtheme.com/funiture/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart-variation.min.js?ver=7.4.1"
+		id="wc-add-to-cart-variation-js"></script>
+
+	<script defer
+		src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+		integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+		data-cf-beacon='{"version":"2024.11.0","token":"2fac462d877b4ea08c7cff8023c93974","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+		crossorigin="anonymous"></script>
+
+</section>

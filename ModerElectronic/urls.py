@@ -26,4 +26,24 @@ urlpatterns = [
     path('cuenta/', include("django.contrib.auth.urls")),
     path('', productoViews.homeGeneral, name='homeGeneral' ),
 
+    # -----------------------
+    # URLs de Productos
+    # -----------------------
+    path('data_Producto', productoViews.data_Producto, name='data_Producto'),
+    path('register_Producto', productoViews.register_Producto, name='productoRegisterName'),
+    path('editar_producto/<int:id_producto>', productoViews.editar_producto, name='productoEditarName'),
+    path('eliminar_producto/<int:id_producto>', productoViews.eliminar_producto, name='productoEliminarName'),
+    
+    # -----------------------
+    # URLs de Calificación
+    # -----------------------
+    path('agregar_Calificacion/<int:id_producto>', productoViews.agregar_Calificacion, name='RegisterCalificacionName'),
+    path('data_Calificacion', productoViews.data_Calificacion, name='data_Calificacion'),
+
+    # -----------------------
+    # URLs de Solicitud
+    # -----------------------
+    path('register_Solicitud/<int:id_producto>', productoViews.register_Solicitud, name='RegisterSolicitudName'),
+    path('data_Solicitud', productoViews.data_Solicitud, name='data_SolicitudName'),
+
 ]
