@@ -1,3 +1,5 @@
+
+# '======[Importaciones]============================'
 from django.urls import reverse_lazy
 
 # IMPORTACION DE forms Y models
@@ -8,9 +10,13 @@ from .models import Usuario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
+# '================================================='
 
+# °===========================°
+#    °Vistas -> Usuarios
+# °===========================°
 
-
+# Vistas para el registro e ingreso de clientes
 class CrearCuentaViewCliente(CreateView):
     form_class = ClienteSignUpForm # Formulario personalizado
     success_url = reverse_lazy("iniciarSesionCliente") # redireccionamiento 
@@ -31,20 +37,6 @@ class CrearCuentaViewAdmin(CreateView):
     success_url = reverse_lazy("iniciarSesionAdmin")
     template_name = "Usuario/ingreso/crear_cuenta/crear_admin.html"
 
-    def form_valid(self, form):
-        # 1. El form.save() por defecto llama a create_user o create_superuser si usas UserCreationForm
-        # y ya hashea la contraseña.
-        self.object = form.save() 
-        
-        # 2. Una vez que el objeto se ha guardado, actualizamos sus atributos.
-        self.object.rol = Usuario.ROL_ADMIN
-        self.object.is_staff = True
-        self.object.is_superuser = True # Un admin real debería ser superuser
-
-        # 3. Llamamos a save() nuevamente solo para actualizar los campos.
-        self.object.save(update_fields=["rol", "is_staff", "is_superuser"])
-        
-        return super().form_valid(form)
 
 class IniciarSesionViewAdmin(LoginView):
     form_class = AuthenticationForm

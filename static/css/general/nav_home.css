@@ -178,12 +178,30 @@ div.modal-content {
 }
 
 
+/* BARRA INFERIOR DE REGISTRO Y LOGIN */
 
-
-.card-title {
-  font-weight: bold !important;
+h4.barra_inferior {
+  position: relative !important;
+  display: inline-block !important;
+  padding-bottom: 8px !important;
+  margin: 4 auto !important;
+  text-align: center !important;
+  z-index: 2 !important;
 }
 
-.card-text {
-  font-size: 0 !important;
-  }
+h4.barra_inferior::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  height: 4px !important;
+  bottom: 0 !important;
+  background: #01ffff !important;
+  width: 150% !important;
+  z-index: 1 !important;
+}
+
+/* COLOR PERSONALIZADO DE LABEL de los formularios de users */
+label.color-label{
+  color: #94f3df !important;
+}

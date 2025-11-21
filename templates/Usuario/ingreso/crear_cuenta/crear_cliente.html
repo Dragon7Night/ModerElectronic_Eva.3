@@ -1,91 +1,88 @@
 {% extends 'Base/base_index.html' %}
 
+<!-- °============================================° -->
+<!--    °Formulario -> Registro del cliente         -->
+<!-- °============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} REGISTRO CLIENTE {% endblock %}
 
+
+<!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
 {% block contenido %}
 
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="p-5">
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Crear Cuenta Cliente</h1>
+                <h1 class="mb-1">Registro de cuenta</h1>
+                <h4 class="barra_inferior text-light">Cliente</h4>
             </div>
 
-            <form class="user" method="post" novalidate>
+            <form class="row g-3 user" method="post">
                 {% csrf_token %}
 
-                {# 1. Errores generales #}
-                {% if form.non_field_errors %}
-                <div class="alert alert-danger">
-                    {{ form.non_field_errors }}
-                </div>
-                {% endif %}
+                <div class="col-12">
+                    <label for="id_username" class="form-label color-label">Nombre de usuario</label>
+                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
+                        placeholder="Nombre de usuario" value="{{ form.username.value|default:'' }}" required autofocus>
 
-                {# 2. Nombre de Usuario #}
-                <div class="form-group">
-                    <input type="text" class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
-                           id="id_username" name="username"
-                           placeholder="Nombre de Usuario"
-                           value="{{ form.username.value|default:'' }}" required>
-                    {% for error in form.username.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
                 </div>
 
-                {# 3. Email #}
-                <div class="form-group">
-                    <input type="email" class="form-control form-control-user {% if form.email.errors %}is-invalid{% endif %}"
-                           id="id_email" name="email"
-                           placeholder="Correo Electrónico"
-                           value="{{ form.email.value|default:'' }}" required>
-                    {% for error in form.email.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
-                </div>
-                
-                {# 4. Dirección #}
-                <div class="form-group">
-                    <input type="text" class="form-control form-control-user {% if form.direccion.errors %}is-invalid{% endif %}"
-                           id="id_direccion" name="direccion"
-                           placeholder="Dirección de Envío"
-                           value="{{ form.direccion.value|default:'' }}" required>
-                    {% for error in form.direccion.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
+                <div class="col-12">
+                    <label for="id_email" class="form-label color-label">Correo electrónico</label>
+                    <input type="email" class="form-control form-control-user" id="id_email" name="email"
+                        placeholder="nombre@ejemplo.com" value="{{ form.email.value|default:'' }}" required>
+
                 </div>
 
-                {# 6. Contraseña 1 #}
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="password" class="form-control form-control-user {% if form.password1.errors %}is-invalid{% endif %}"
-                               id="id_password1" name="password1"
-                               placeholder="Contraseña" required>
-                        {% for error in form.password1.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                
-                    {# 7. Contraseña 2 #}
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control form-control-user {% if form.password2.errors %}is-invalid{% endif %}"
-                               id="id_password2" name="password2"
-                               placeholder="Repetir Contraseña" required>
-                        {% for error in form.password2.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
-                    </div>
+                <div class="col-12">
+                    <label for="id_direccion" class="form-label color-label">Dirección de envío</label>
+                    <input type="text" class="form-control form-control-user" id="id_direccion" name="direccion"
+                        placeholder="Dirección de envío" value="{{ form.direccion.value|default:'' }}" required>
+
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-user btn-block">Crear Cuenta</button>
+                <div class="col-md-6">
+                    <label for="id_password1" class="form-label color-label">Contraseña</label>
+                    <input type="password" class="form-control form-control-user" id="id_password1" name="password1"
+                        placeholder="Contraseña" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="id_password2" class="form-label color-label">Repetir Contraseña</label>
+                    <input type="password" class="form-control form-control-user" id="id_password2" name="password2"
+                        placeholder="Repetir Contraseña" required>
+
+                </div>
+
+                <hr class="my-2">
+
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-primary btn-user btn-block w-100">Crear Cuenta</button>
+                </div>
             </form>
+            <hr >
 
-            <hr>
-            
-            <div class="text-center">
+            <div class="text-center mt-2">
                 <a class="small" href="{% url 'iniciarSesionCliente' %}">¿Ya tienes una cuenta? Inicia sesión</a>
+            </div>
+
+            <div class="text-center">
+                <a class="small" href="{% url 'crearCuentaAdmin' %}">Registro de Administrador</a>
             </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+
+
+
+<!-- 
+
+value="{{ form.username.value|default:'' }}
++ permite conservar lo valores en caso de que el user se equivoque
+
+
+-->

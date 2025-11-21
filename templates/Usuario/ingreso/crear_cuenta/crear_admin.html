@@ -1,91 +1,89 @@
 {% extends 'Base/base_index.html' %}
 
+<!-- °============================================° -->
+<!--    °Formulario -> Registro del administrador   -->
+<!-- °============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} REGISTRO ADMINISTRADOR {% endblock %}
 
+<!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
 {% block contenido %}
 
 <div class="row justify-content-center">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="p-5">
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Registro de Administrador</h1>
-                <p class="text-danger small">Se requiere una clave de acceso secreta.</p>
+                <h1 class="mb-1">Registro de cuenta</h1>
+                <h4 class="barra_inferior text-light">Administrador</h4>
+                <p class="text-info small">Se requiere una clave de acceso secreta.</p>
             </div>
 
             <form class="user" method="post" novalidate>
                 {% csrf_token %}
 
-                {# 1. Errores generales #}
-                {% if form.non_field_errors %}
-                <div class="alert alert-danger">
-                    {{ form.non_field_errors }}
-                </div>
-                {% endif %}
 
-                {# 2. Nombre de Usuario #}
-                <div class="form-group">
-                    <input type="text" class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
-                           id="id_username" name="username"
-                           placeholder="Nombre de Usuario"
-                           value="{{ form.username.value|default:'' }}" required>
-                    {% for error in form.username.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
+                <!-- UserName del Admin -->
+                <div class="form-group mb-3">
+                    <input type="text"
+                        class="form-control form-control-user"
+                        id="id_username" name="username" placeholder="Nombre de usuario"
+                        value="{{ form.username.value|default:'' }}" required autofocus>
+
                 </div>
 
-                {# 3. Email #}
-                <div class="form-group">
-                    <input type="email" class="form-control form-control-user {% if form.email.errors %}is-invalid{% endif %}"
-                           id="id_email" name="email"
-                           placeholder="Correo Electrónico"
-                           value="{{ form.email.value|default:'' }}" required>
-                    {% for error in form.email.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
-                </div>
-                
-                {# 4. Clave de Administrador (¡Campo Secreto!) #}
-                <div class="form-group">
-                    <input type="password" class="form-control form-control-user {% if form.admin_key.errors %}is-invalid{% endif %}"
-                           id="id_admin_key" name="admin_key"
-                           placeholder="Clave de Administrador Secreta" required>
-                    {% for error in form.admin_key.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
+                <!-- Correo electronico del admin-->
+                <div class="form-group mb-3">
+                    <input type="email"
+                        class="form-control form-control-user"
+                        id="id_email" name="email" placeholder="Correo Electrónico"
+                        value="{{ form.email.value|default:'' }}" required>
+
                 </div>
 
-                {# 5. Contraseña 1 #}
-                <div class="form-group row">
+                <!-- Clave de acceso del administrador -->
+                <div class="form-group mb-3">
+                    <input type="password"
+                        class="form-control form-control-user"
+                        id="id_admin_key" name="admin_key" placeholder="Clave de Administrador Secreta" required>
+
+                </div>
+
+                <!-- Solicitud de contraseñas al admin -->
+                <div class="form-group row mb-3">
+                    <!-- Contraseña N°1 -->
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="password" class="form-control form-control-user {% if form.password1.errors %}is-invalid{% endif %}"
-                               id="id_password1" name="password1"
-                               placeholder="Contraseña" required>
-                        {% for error in form.password1.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
+                        <input type="password"
+                            class="form-control form-control-user"
+                            id="id_password1" name="password1" placeholder="Contraseña" required>
+
                     </div>
-                
-                    {# 6. Contraseña 2 #}
+
+                    <!-- Contraseña N°2 -->
                     <div class="col-sm-6">
-                        <input type="password" class="form-control form-control-user {% if form.password2.errors %}is-invalid{% endif %}"
-                               id="id_password2" name="password2"
-                               placeholder="Repetir Contraseña" required>
-                        {% for error in form.password2.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
+                        <input type="password"
+                            class="form-control form-control-user"
+                            id="id_password2" name="password2" placeholder="Repetir Contraseña" required>
+
                     </div>
                 </div>
 
+                <!-- Boton de registro del administrador -->
                 <button type="submit" class="btn btn-warning btn-user btn-block">Registrar Administrador</button>
             </form>
 
             <hr>
-            
+
+            <!-- Enlaces relevantes -->
             <div class="text-center">
                 <a class="small" href="{% url 'iniciarSesionAdmin' %}">¿Ya tienes una cuenta? Inicia sesión</a>
+            </div>
+            <div class="text-center">
+                <a class="small" href="{% url 'crearCuentaCliente' %}">Registro de Cliente</a>
             </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+

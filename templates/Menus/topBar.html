@@ -1,3 +1,8 @@
+
+<!-- °=============================================° -->
+<!--    °TopBar -> Barra de navegacion customizada   -->
+<!-- °=============================================° -->
+
 <div class="ekit-template-content-markup ekit-template-content-header ekit-template-content-theme-support">
     <div class="elementor elementor-41">
         <section
@@ -16,22 +21,23 @@
                             <!-- AUTENTIFICACION DE usuarios -->
                             {% if user.is_authenticated %}
 
+                                <!-- Si tiene el rol de administrador -->
                                 {% if user.is_custom_admin %}
                                     {% include 'menus/complementos/botones_administrador.html' %}
-                                
+
+                                <!-- Si tiene el rol de cliente -->
                                 {% elif user.is_client %}
                                     {% include 'menus/complementos/botones_cliente.html' %}
 
+                                <!-- Si tiene cualquer rol que no sea admin o cliente -->
                                 {% else %}
                                     {% include 'menus/complementos/botones_cliente.html' %}
                                 {% endif %}
 
                             {% else %}
-                                <!-- NAV visita -->
+                                <!-- Si no tiene ningun rol registrado en la pagina (visita) -->
                                 {% include 'menus/complementos/botones_visita.html' %}
                             {% endif %}
-
-
 
                         </section>
                     </div>

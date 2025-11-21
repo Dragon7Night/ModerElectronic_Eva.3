@@ -14,7 +14,6 @@
     <div class="card-body">
         <p><strong>Nombre de Usuario:</strong> {{ usuario_perfil.username }}</p>
         <p><strong>Email:</strong> {{ usuario_perfil.email }}</p>
-        <p><strong>Nombre Completo:</strong> {{ usuario_perfil.nombre }}</p>
         <p><strong>Dirección:</strong> {{ usuario_perfil.direccion }}</p>
         <p><strong>Rol:</strong>
             <span class="badge {% if usuario_perfil.rol == 'admin' %}badge-danger{% else %}badge-success{% endif %}">
