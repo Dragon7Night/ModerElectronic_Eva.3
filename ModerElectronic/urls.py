@@ -17,33 +17,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from Apps.Productos import views as productoViews
+# IMPORTACION DE REDIRECCIONAMIENTO AUTOMATICO 
+# .DOC -> https://docs.djangoproject.com/en/5.2/topics/class-based-views/#:~:text=django.views.generic%20import%20TemplateView
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("usuarios/", include("Apps.Usuarios.urls")),
     path('cuenta/', include("django.contrib.auth.urls")),
-    path('', productoViews.homeGeneral, name='homeGeneral' ),
+
+    # -------------------------------------
+    # Redireccionamiento automatico al home
+    # -------------------------------------
+    path('', RedirectView.as_view(pattern_name='homeGeneral', permanent=False)),
+
+    # -----------------------
+    # URLs de Usuarios
+    # -----------------------
+    path("usuarios/", include("Apps.Usuarios.urls")),
 
     # -----------------------
     # URLs de Productos
     # -----------------------
-    path('data_Producto', productoViews.data_Producto, name='data_Producto'),
-    path('register_Producto', productoViews.register_Producto, name='productoRegisterName'),
-    path('editar_producto/<int:id_producto>', productoViews.editar_producto, name='productoEditarName'),
-    path('eliminar_producto/<int:id_producto>', productoViews.eliminar_producto, name='productoEliminarName'),
-    
-    # -----------------------
-    # URLs de Calificación
-    # -----------------------
-    path('agregar_Calificacion/<int:id_producto>', productoViews.agregar_Calificacion, name='RegisterCalificacionName'),
-    path('data_Calificacion', productoViews.data_Calificacion, name='data_Calificacion'),
-
-    # -----------------------
-    # URLs de Solicitud
-    # -----------------------
-    path('register_Solicitud/<int:id_producto>', productoViews.register_Solicitud, name='RegisterSolicitudName'),
-    path('data_Solicitud', productoViews.data_Solicitud, name='data_SolicitudName'),
+    path("productos/", include("Apps.Productos.urls")),
 
 ]

@@ -1,0 +1,54 @@
+{% extends 'Base/base_botones.html' %}
+
+<!-- BOTONES -> CLIENTE -->
+
+<!-- SECCION PARA PANTALLAS GRANDES -->
+
+{% block botones_centrales %}
+
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="{% url 'homeGeneral' %}">
+        <div class="linktext">Home</div>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="{% url 'catalogoProductos' %}">
+        <div class="linktext">Catálogo de productos</div>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="{% url 'registrarProducto' %}">
+        <div class="linktext">Registrar producto</div>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="{% url 'dataSolicitud' %}">
+        <div class="linktext">Solicitudes</div>
+    </a>
+</li>
+
+{% endblock %}
+
+{% block botones_laterales %}
+
+<a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'perfilUsuario' %}">Mi perfil</a>
+{% endblock %}
+
+
+
+<!-- Offcanvas SECCION PARA PANTALLAS PEQUEÑAS -->
+
+{% block sub_titulo %}
+Cliente registrado
+{% endblock %}
+
+
+{% block botones_superiores %}
+<li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeGeneral' %}">Home</a> </li>
+<li class="nav-item"> <a class="nav-link" href="{% url 'catalogoProductos' %}">Catalogo de productos</a> </li>
+<li class="nav-item"> <a class="nav-link" href="#">Historial de compras</a> </li>
+{% endblock %}
+
+{% block botones_inferiores %}
+<a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'perfilUsuario' %}">Mi perfil</a>
+{% endblock %}

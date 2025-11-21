@@ -1,19 +1,12 @@
 from django.contrib import admin
 
 from django.contrib.auth.admin import UserAdmin
-from .models import Usuario, ClaveAcceso
-
+from .models import Usuario
 
 class UsuarioAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
-        ('camposExtras', {'fields': ('nombre', 'direccion', 'rol', 'billetera')}),
+        ('camposExtras', {'fields': ('direccion', 'rol', 'billetera')}),
     )
-    list_display = ['username', 'email', 'nombre', 'rol', 'is_staff']
+    list_display = ['username', 'email', 'rol', 'is_staff']
 
 admin.site.register(Usuario, UsuarioAdmin)
-
-
-class ClaveAccesoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'clave_acceso']
-
-admin.site.register(ClaveAcceso, ClaveAccesoAdmin)

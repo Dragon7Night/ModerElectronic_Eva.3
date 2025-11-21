@@ -11,8 +11,25 @@
                             class="elementor-section elementor-inner-section elementor-element elementor-element-e9dfdf6 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                             data-id="e9dfdf6" data-element_type="section">
 
-                            <!-- BOTONES Y HAMBURGESA -->
-                            {% include 'menus/complementos/botones_visita.html' %}
+                            <!-- BOTONES Y HAMBURGESA roles -->
+
+                            <!-- AUTENTIFICACION DE usuarios -->
+                            {% if user.is_authenticated %}
+
+                                {% if user.is_custom_admin %}
+                                    {% include 'menus/complementos/botones_administrador.html' %}
+                                
+                                {% elif user.is_client %}
+                                    {% include 'menus/complementos/botones_cliente.html' %}
+
+                                {% else %}
+                                    {% include 'menus/complementos/botones_cliente.html' %}
+                                {% endif %}
+
+                            {% else %}
+                                <!-- NAV visita -->
+                                {% include 'menus/complementos/botones_visita.html' %}
+                            {% endif %}
 
 
 

@@ -1,0 +1,28 @@
+<!-- NOTA: No hacer el auto ajuste en este archivo, que rompe cosas con el prettier -->
+
+
+<div class="modal fade" id="{% block id_modal %}idSinEspacios{% endblock %}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="{% block label_modal %}labelSinEspacios{% endblock %}"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="{% block label_modal2 %}labelSinEspacios{% endblock %}">{% block titulo_modal %} TITULO {% endblock %}</h1>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle"></i></button> -->
+                <button type="button" class="modal-close-custom" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="bi bi-x-circle text-light"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% block contenido_modal %}
+                DESCRIPCION DEL MODAL
+                {% endblock %}
+            </div>
+            <div class="modal-footer justify-content-center">
+                {% block botones_modal %}
+                BOTONES
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>

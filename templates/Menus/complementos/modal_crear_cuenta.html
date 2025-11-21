@@ -1,25 +1,24 @@
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">¿Que tipo de usuario eres?</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Escoge una de las opciones disponibles.</p>
-                <p><strong>IMPORTANTE:</strong></p>
-                <p>Los administradores requieren validacion adicional</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-info">Cliente</button>
-                <a class="btn btn-info" href="{% url 'crearCuenta' %}">Clie</a>
-                <a class="btn btn-info" href="{% url 'crearCuentaAdmin' %}">Admin</a>
-                <button type="button" class="btn btn-info">Cliente</button>
-                <button type="button" class="btn btn-primary">Administrador</button>
-            </div>
-        </div>
-    </div>
-</div>
+{% extends 'Base/base_modal.html' %}
+
+<!-- IDs DEL MODAL -->
+<!-- NOTA: Todas las ID deben ir sin espacios en blanco, por que estan dentro de tags -->
+<!-- NOTA: Los bloques label_modal y label_modal2 deben tener el mismo contenido dentro  -->
+{% block id_modal %}modalCrear{% endblock %}
+{% block label_modal %}modalCrearLabel{% endblock %}
+{% block label_modal2 %}modalCrearLabel{% endblock %}
+
+<!-- BLOCKs de contenidos -->
+
+{% block titulo_modal %} ¿Que tipo de usuario es? {% endblock %}
+
+{% block contenido_modal %}
+<p>Escoge una de las opciones disponibles.</p>
+<p><strong>IMPORTANTE:</strong></p>
+<p>Los administradores requieren una validacion adicional para su registro</p>
+{% endblock %}
+
+
+{% block botones_modal %}
+<a class="btn btn-effect-modal" href="{% url 'crearCuentaCliente' %}">Cliente</a>
+<a class="btn btn-effect-modal" href="{% url 'crearCuentaAdmin' %}">Administrador</a>
+{% endblock %}

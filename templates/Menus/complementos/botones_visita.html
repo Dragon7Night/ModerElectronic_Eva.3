@@ -1,91 +1,50 @@
-{% load static %}
+{% extends 'Base/base_botones.html' %}
 
-<nav class="navbar navbar-expand-lg rounded" aria-label="Thirteenth navbar example">
-    <div class="container-fluid">
-        <!-- Toggler: en desktop actúa sobre collapse; en mobile abre offcanvas -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!-- BOTONES -> VISITA -->
 
-        <!-- SECCION PARA PANTALLAS GRANDES -->
-        <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-            <a class="navbar-brand col-lg-3 me-0" href="#">
-                <img width="100" height="22" src="{% static 'img/LOGO_TEMP.jpg' %}"
-                    class="attachment-full size-full wp-image-50" alt="LOGO_PAGE" />
-            </a>
+<!-- SECCION PARA PANTALLAS GRANDES -->
 
-            <ul class="navbar-nav col-lg-6 justify-content-lg-center nav-2">
-                <li class="nav-item">
-                    <a class="nav-link btn-effect-head" href="{% url 'homeGeneral' %}">
-                        <div class="linktext">Home</div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-effect-head" href="#">
-                        <div class="linktext">Catálogo de productos</div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-effect-head" href="#">
-                        <div class="linktext">Solicitudes</div>
-                    </a>
-                </li>
-            </ul>
+{% block botones_centrales %}
+
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="{% url 'homeGeneral' %}">
+        <div class="linktext">Home</div>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="#">
+        <div class="linktext">Sobre nosotros</div>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn-effect-head" href="#">
+        <div class="linktext">Politicas</div>
+    </a>
+</li>
+
+{% endblock %}
+
+{% block botones_laterales %}
+<a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#modalCrear">Crear cuenta</a>
+<a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar sesión</a>
+{% endblock %}
 
 
-
-            
-
-            <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-                <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'crearCuenta' %}">Crear cuenta</a>
-                <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'iniciarSesion' %}">Iniciar sesión</a>
-                <a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Crear</a>
-            </div>
-            
-
-
-
-
-        </div>
-    </div>
-</nav>
 
 <!-- Offcanvas SECCION PARA PANTALLAS PEQUEÑAS -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-    <div class="offcanvas-header">
 
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeGeneral' %}">Home</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="data_Producto">Catalogo de productos</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="data_SolicitudName">Solicitudes</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="productoRegisterName">Solicitudes</a> </li>
-        </ul>
-
-        <!-- <ul class="navbar-nav col-lg-6 justify-content-lg-center nav-2">
-            <li class="nav-item"> <a class="nav-link" href="{% url 'homeGeneral' %}">Home</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'data_Producto' %}">Catalogo de productos</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'data_SolicitudName' %}">Solicitudes</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="{% url 'productoRegisterName' %}">registrar Productos</a> </li>
-        </ul> -->
+{% block sub_titulo %}
+Visitante
+{% endblock %}
 
 
-        <hr>
+{% block botones_superiores %}
+<li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeGeneral' %}">Home</a> </li>
+<li class="nav-item"> <a class="nav-link" href="#">Sobre nosotros</a> </li>
+<li class="nav-item"> <a class="nav-link" href="#">Politicas</a> </li>
+{% endblock %}
 
-        <div class="mt-3">
-            <a class="btn btn-effect p-2 px-3 mx-2 text-light" id="txt-btn" href="{% url 'crearCuenta' %}">Crear
-                cuenta</a>
-            <a class="btn btn-effect p-2 px-3 mx-2 text-light" href="{% url 'iniciarSesion' %}">Iniciar sesión</a>
-        </div>
-
-    </div>
-</div>
-
-
-
-
+{% block botones_inferiores %}
+<a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#modalCrear">Crear cuenta</a>
+<a class="btn btn-effect p-2 px-3 mx-2 text-light" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar sesión</a>
+{% endblock %}

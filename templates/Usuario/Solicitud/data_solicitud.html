@@ -1,40 +1,43 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ mainTitle|default:"Listado de Solicitudes" }}</title>
-    
+
 </head>
-         {% include 'menus/importaciones.html' %}
+{% include 'menus/importaciones_general.html' %}
+
 <body
     class="home wp-singular page-template page-template-elementor_header_footer page page-id-2 wp-theme-hello-elementor elementor-default elementor-template-full-width elementor-kit-7 elementor-page elementor-page-2">
 
 
     <!-- BARRA DE NAVECACION -->
-        {% include 'menus/complementos/botones.html' %}
+    {% include 'menus/complementos/botones_visita.html' %}
 
     <div class="container mt-5">
-        
+
         <!-- Encabezado -->
         <header class="mb-4 d-flex justify-content-between align-items-center border-bottom pb-2">
             <h3 class="text-primary">Moder Electronic / Registro de solicitudes</h3>
             <nav>
-                {% comment %} <a class="btn btn-sm btn-outline-secondary me-2" href="{% url 'prueba_vista' %}">Home</a>
-                <a class="btn btn-sm btn-outline-secondary" href="{% url 'data_Producto' %}">Ver Productos</a> {% endcomment %}
+                {% comment %} <a class="btn btn-sm btn-outline-secondary me-2" href="#">Home</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'data_Producto' %}">Ver Productos</a> 
+                {% endcomment %}
             </nav>
         </header>
-        
+
         <!-- Contenedor principal -->
         <div class="card shadow-sm p-4">
-            
+
             <h1 class="card-title mb-3">
                 <a>Listado de Solicitudes</a>
 
-<!-- Con esto podemos ver las solicitudes registradas y las que se registren, todo por numeros que se van actualizando-->
-                {% if solicitudKey %} 
-                    <span class="badge bg-primary">{{ solicitudKey|length }}</span>
+                <!-- Con esto podemos ver las solicitudes registradas y las que se registren, todo por numeros que se van actualizando-->
+                {% if solicitudKey %}
+                <span class="badge bg-primary">{{ solicitudKey|length }}</span>
                 {% endif %}
 
             </h1>
@@ -71,31 +74,31 @@
                             <!--Estado de como esta la solicitudes-->
                             <td>
                                 {% if sol.estado %}
-                                    <span class="badge text-bg-success">Activo</span>
+                                <span class="badge text-bg-success">Activo</span>
                                 {% else %}
-                                    <span class="badge text-bg-danger">Resuelto</span>
+                                <span class="badge text-bg-danger">Resuelto</span>
                                 {% endif %}
                             </td>
 
                             <!-- faltan cositaas pero me costo añadirlo:,v asi que dsp-->
                             <td>
                                 {% if sol.tipo_solicitud == "Garantía" %}
-                                    <span class="badge bg-warning text-dark">{{ sol.tipo_solicitud }}</span>
+                                <span class="badge bg-warning text-dark">{{ sol.tipo_solicitud }}</span>
                                 {% elif sol.tipo_solicitud == "Reparación" %}
-                                    <span class="badge bg-primary">{{ sol.tipo_solicitud }}</span>
+                                <span class="badge bg-primary">{{ sol.tipo_solicitud }}</span>
                                 {% else %}
-                                    <span class="badge bg-secondary">{{ sol.tipo_solicitud }}</span>
+                                <span class="badge bg-secondary">{{ sol.tipo_solicitud }}</span>
                                 {% endif %}
                             </td>
 
-                           
+
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Mensaje si no hay solicitudes -->
             {% if not solicitudKey %}
             <p class="text-center mt-4 text-muted">No hay solicitudes registradas.</p>
@@ -106,10 +109,11 @@
 
     {% include 'menus/footer.html' %}
 
-{% include 'menus/solicitudcosas.html' %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
- integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
- crossorigin="anonymous"></script>
- 
+    {% include 'menus/solicitudcosas.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>

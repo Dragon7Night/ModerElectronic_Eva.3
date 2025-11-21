@@ -1,0 +1,52 @@
+{% extends 'Base/base_index.html' %}
+
+{% block titulo %} EDITAR PERFIL {% endblock %}
+
+{% block contenido %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Editar mi Perfil</h1>
+            </div>
+
+            <form class="user" method="post" novalidate>
+                {% csrf_token %}
+
+                {# Errores no relacionados con campos #}
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    
+                    {# Mostrar errores específicos del campo #}
+                    {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-warning btn-user btn-block">Guardar Cambios</button>
+            </form>
+
+            <hr>
+
+            <div class="text-center">
+                <a class="small" href="{% url 'perfilUsuario' %}">← Volver a mi Perfil</a>
+            </div>
+            
+            <div class="text-center mt-3">
+                <p class="small text-muted">¿Necesitas cambiar tu contraseña? Esta opción no está disponible aquí por seguridad.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

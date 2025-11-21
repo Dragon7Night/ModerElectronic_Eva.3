@@ -1,31 +1,26 @@
 /* IMPORTACION DE LETRAS DESDE GOOGLE FONTS */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Patua+One&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Patua+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
 
 /* SEPARACION DE MARGENES DE NAV */
 
 .elementor-element-e41c8cd {
-    padding-top: 5px !important; /* Ajusta este valor */
-    padding-bottom: 5px !important; /* Ajusta este valor */
+  padding-top: 5px !important; /* Ajusta este valor */
+  padding-bottom: 5px !important; /* Ajusta este valor */
 }
 
 .ekit-template-content-header {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
-
-
-
 
 /* ESTILOS DE BOTONES */
 
-
-.btn-effect{
-  font-family: "Titan One", sans-serif !important;
+.btn-effect {
+  font-family: "Roboto", sans-serif !important;
   color: snow !important;
-  font-weight: normal !important;
+  font-weight: 900 !important;
   background-color: transparent !important;
-  border: 3px solid #FF3D00 !important;
+  border: 3px solid #ff3d00 !important;
   position: relative !important;
 }
 
@@ -48,8 +43,6 @@
 .btn-effect:hover {
   color: snow !important;
 }
-
-
 
 /* BOTONES HEADER */
 
@@ -75,13 +68,13 @@
   text-transform: uppercase;
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
   -webkit-transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-  display: inline-block; 
-  padding: 10px 8px; 
+  display: inline-block;
+  padding: 10px 8px;
 }
 
 .navbar-nav .nav-item .nav-link.btn-effect-head .linktext::before {
   display: inline-block;
-  content: '';
+  content: "";
   position: absolute;
   height: 3px;
   width: 100%;
@@ -102,7 +95,6 @@
   vertical-align: top;
 }
 
-
 .navbar-nav .nav-item .nav-link.btn-effect-head:hover .linktext,
 .navbar-nav .nav-item .nav-link.btn-effect-head:focus .linktext {
   transform: rotateY(360deg) scale(1.3);
@@ -117,7 +109,6 @@
   left: 0%;
   transform: none;
 }
-
 
 /* Offcanvas EN PANTALLAS PEQUEÑAS */
 
@@ -143,3 +134,56 @@
 .offcanvas .ekit-btn {
   color: #ffffff !important;
 }
+
+/* BG Y TXT DEL MODAL */
+div.modal-content {
+  background-color: rgba(12, 11, 45, 0.95) !important;
+  color: #ffffff !important;
+}
+
+/* BOTON (X) DEL MODAL */
+.modal-content {
+  position: relative !important;
+}
+
+.modal-close-custom {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 0.5rem !important;
+  width: 38px !important;
+  height: 40px !important;
+  background: transparent;
+  border: none !important;
+  padding: 0.25rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1 !important;
+}
+
+.modal-close-custom {
+  font-size: 1.5rem !important;
+  color: #333 !important;
+}
+
+/* BOTONES INFERIORES MODAL */
+
+.btn-effect-modal {
+  font-family: "Roboto", sans-serif !important;
+  color: snow !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  border: 3px solid #00ffdd !important;
+  position: relative !important;
+}
+
+
+
+
+.card-title {
+  font-weight: bold !important;
+}
+
+.card-text {
+  font-size: 0 !important;
+  }

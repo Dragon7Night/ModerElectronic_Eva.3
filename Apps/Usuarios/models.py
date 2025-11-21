@@ -1,8 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.hashers import make_password, check_password
 
 # -MODELS -> USUARIOS
+
+from django.contrib.auth.models import UserManager
+
+class UsuarioManager(UserManager):
+    """Sobrescribe el Manager para asegurar que el rol se asigne
+       correctamente al crear superusuarios."""
+    
+    def create_superuser(self, username, email, password, **extra_fields):
+        # Llama a la implementación base y luego asegura el rol
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('rol', Usuario.ROL_ADMIN) # ¡Aquí está la magia!
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser debe tener is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser debe tener is_superuser=True.')
+        
+        return self._create_user(username, email, password, **extra_fields)
+
 
 class Usuario(AbstractUser):
 
@@ -16,10 +35,11 @@ class Usuario(AbstractUser):
         (ROL_ADMIN, "Administrador"),
     ]
 
-    nombre = models.CharField(max_length=50)
     direccion = models.CharField(max_length=90)
     rol = models.CharField(max_length=15, choices=OPCIONES_ROL, default=ROL_CLIENTE)
     billetera = models.FloatField(default=0.0, blank=True)
+
+    objects = UsuarioManager() 
 
     def is_client(self):
         return self.rol == self.ROL_CLIENTE
@@ -30,24 +50,3 @@ class Usuario(AbstractUser):
     # ~contructor
     def __str__(self):
         return self.username or self.email or f"Usuario {self.id}"
-
-
-class ClaveAcceso(models.Model):
-    clave_acceso = models.CharField(max_length=128)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-    def establecerClave(self, clave_pura):
-        self.clave_acceso = make_password(clave_pura)
-        self.save(update_fields=["clave_acceso"])
-
-    def verificarClave(self, clave_pura):
-        return check_password(clave_pura, self.clave_acceso)
-
-    def __str__(self):
-        return f"ClaveAcceso {self.id}"
-
-
-
-
-
-

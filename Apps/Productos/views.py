@@ -1,30 +1,23 @@
-# from django.shortcuts import render
-
-
+# IMPORTACIONES GENERALES
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 
-#correos
-
 #   -------------------------------MODELS & FORMS IMPORTS--------------------------------------------
-from Apps.Productos.models import Producto, Categoria, ProductoCategoria, Comentario, ComentarioProducto, Calificacion, CalificacionProducto, Solicitud
+# from Apps.Productos.models import Producto, Categoria, ProductoCategoria, Comentario, ComentarioProducto, Calificacion, CalificacionProducto, Solicitud
+from Apps.Productos.models import *
 
-from Apps.Productos.forms import RegisterProductoForm, RegisterCategoriaForm, RegisterComentarioForm, RegisterCalificacionForm, RegisterSolicitudForm, RegistroCompra
-
-
-
-
-# Create your views here.
+# from Apps.Productos.forms import RegisterProductoForm, RegisterCategoriaForm, RegisterComentarioForm, RegisterCalificacionForm, RegisterSolicitudForm, RegistroCompra
+from Apps.Productos.forms import *
 
 
+# VISTAS -> Productos
+
+# Redireccion al HOME principal del proyecto
 def homeGeneral(request):
     return render(request, 'index.html')
-
-
-
 
 #------------------------------------PRODUCTO-------------------------------------------------------
 def data_Producto(request):
@@ -36,9 +29,6 @@ def data_Producto(request):
         'colorBg':'text-bg-success'
     }
     return render(request, 'Producto/data_Producto.html',data)
-
-   
-
     
 def register_Producto(request):
     form = RegisterProductoForm()
@@ -95,7 +85,7 @@ def data_Categoria(request):
 
 
 
-# #------------------------------------CALIFICACION-------------------------------------------------------
+# -----------------------------------CALIFICACION-------------------------------------------------------
 
 def data_Calificacion(request):
     calificacionObject = Calificacion.objects.all()
@@ -112,7 +102,6 @@ def agregar_Calificacion(request, id_producto):
         producto_instance = Producto.objects.get(id=id_producto)  #Intentara obtener el id recibido en la URL
     except Producto.DoesNotExist:
         return HttpResponseRedirect(reverse('data_Producto')) # si no existe lo dirige a data
-        
         
     if request.method == 'POST':
         form_calificacion = RegisterCalificacionForm(request.POST) 
@@ -144,7 +133,7 @@ def agregar_Calificacion(request, id_producto):
 
 #se crean formularios vacíos para mostrarlos en la plantilla permitiendo asi ingresar datos
     
-    data= {
+    data = {
 
         'formCalificacionKey': form_calificacion_con_error, 
         'formComentarioKey': form_comentario_con_error, 
@@ -186,7 +175,7 @@ def register_Solicitud(request, id_producto):
             solicitud_instance = form_solicitud.save(commit=False) #con esto creamos sin guardarlo en la base de datos
             solicitud_instance.producto_id = producto_instance #asignamos el producti el cual pertenece la solicitud    
             solicitud_instance.estado = 'True' #con esto establecemos el estado de la soli
-            solicitud_instance.tipo_solicitud = 'esperando' #tipo de solicitud
+            solicitud_instance.tipo_solicitud = 'en revision' #tipo de solicitud
             solicitud_instance.save()
             return HttpResponseRedirect(reverse('data_Producto'))
     else:
