@@ -15,8 +15,8 @@ urlpatterns = [
     # ------------------------
     #   -URLs de Productos
     # ------------------------
-    path('catalogo-productos/', productoViews.data_Producto, name='catalogoProductos'),
-    path('registrar-producto/', productoViews.register_Producto, name='registrarProducto'),
+    path('catalogo-productos/', productoViews.catalogo_producto, name='catalogoProductos'),
+    path('registrar-producto/', productoViews.registrar_producto, name='registrarProducto'),
     path('editar-producto/<int:id_producto>', productoViews.editar_producto, name='editarProducto'),
     path('eliminar-producto/<int:id_producto>', productoViews.eliminar_producto, name='eliminarProducto'),
     
@@ -24,7 +24,7 @@ urlpatterns = [
     #   -URLs de Calificación
     # ------------------------
     path('agregar-calificacion/<int:id_producto>', productoViews.agregar_Calificacion, name='registrarCalificacion'),
-    path('data-calificacion/', productoViews.data_Calificacion, name='dataCalificacion'),
+    path('data-calificacion/', productoViews.data_categoria, name='dataCalificacion'),
 
     # ------------------------
     #   -URLs de Solicitud

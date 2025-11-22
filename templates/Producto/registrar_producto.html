@@ -1,0 +1,57 @@
+{% extends 'Base/base_index.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container-fluid my-5">
+    
+    <div class="row mb-4 text-center">
+        <div class="col-12">
+            <h2 class="text-dark font-weight-bold">Registro de Producto</h2>
+            <hr class="w-25 mx-auto border-warning"> </div>
+    </div>
+
+    <div class="row">
+        
+        <!-- LISTA DE PRODUCTOS -->
+        <div class="col-12 col-lg-8 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Listado de Productos</h5>
+                    {% include 'Producto/lista_producto.html' %}
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULARIO DE REGISTRO DE USUARIOS -->
+        <div class="col-12 col-lg-4">
+            
+            <div class="card shadow-lg border-0 sticky-top" style="top: 20px; background-color: #f8f9fa;">
+                
+                <div class="card-header bg-warning text-white text-center">
+                   <h5 class="m-0 font-weight-bold">Nuevo Producto</h5>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <p class="text-muted small mb-3">Completa los detalles a continuación:</p>
+                        
+                        <div class="form-group-custom">
+                            {{ formKey.as_p }}
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <input type="submit" class="btn btn-primary btn-registro btn-block w-100" value="{{txtBtn}}">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

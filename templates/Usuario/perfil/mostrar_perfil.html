@@ -1,33 +1,75 @@
 {% extends 'Base/base_index.html' %}
 
+<!-- °=======================================° -->
+<!--    °Pagina -> Mostrar perfil de users     -->
+<!-- °=======================================° -->
 
+<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} MI PERFIL {% endblock %}
 
-
-
-
+<!-- CONTENIDO DE LA CARTE DE DATOS DE LOS USUARIOS -->
 {% block contenido %}
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Información de {{ usuario_perfil.username }}</h6>
-    </div>
-    <div class="card-body">
-        <p><strong>Nombre de Usuario:</strong> {{ usuario_perfil.username }}</p>
-        <p><strong>Email:</strong> {{ usuario_perfil.email }}</p>
-        <p><strong>Dirección:</strong> {{ usuario_perfil.direccion }}</p>
-        <p><strong>Rol:</strong>
-            <span class="badge {% if usuario_perfil.rol == 'admin' %}badge-danger{% else %}badge-success{% endif %}">
-                {{ usuario_perfil.get_rol_display }}
-            </span>
-        </p>
-        <p><strong>Billetera:</strong> ${{ usuario_perfil.billetera|floatformat:2 }}</p>
 
-        <a href="{% url 'editarPerfilUsuario' %}" class="btn btn-warning mt-3">Editar Perfil</a>
-        <form method="post" action="{% url 'logout' %}" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger mt-3">Cerrar Sesión</button>
-        </form>
-        <a href="{% url 'homeGeneral' %}" class="btn btn-warning mt-3">Volver al home</a>
+<div class="container-fluid my-5">
+    <div class="row justify-content-center">
+        
+        <div class="col-12 col-md-8 col-lg-6 col-xl-6">
+            
+            <div class="card card-content shadow-lg border-0 rounded-lg">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center text-white">
+                    <h3 class="m-0">Información de Perfil</h3>
+                    <h4 class="color-h4">{{ usuario_perfil.get_rol_display }}</h4>
+                </div>
+
+                <div class="card-body card-content p-4">
+                    
+                    <div class="list-group px-3 mb-4">
+                        
+                        <div class="list-group-item d-flex justify-content-between align-items-center px-4">
+                            <span class="text-dark txt-bold">Nombre de usuario:</span>
+                            <span class="text-dark">{{ usuario_perfil.username }}</span>
+                        </div>
+
+                        <div class="list-group-item d-flex justify-content-between align-items-center px-4">
+                            <span class="text-dark txt-bold">Email:</span>
+                            <span class="text-dark">{{ usuario_perfil.email }}</span>
+                        </div>
+
+                        {% if user.is_client %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-4">
+                                <span class="text-dark txt-bold">Direccion:</span>
+                                <span class="text-dark text-right">{{ usuario_perfil.direccion }}</span>
+                            </div>
+
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-4 bg-light mt-2 rounded">
+                                <span class="text-dark txt-bold">Saldo de la billetera:</span>
+                                <span class="h5 mb-0 font-weight-bold text-success">${{ usuario_perfil.billetera|floatformat:2 }}</span>
+                            </div>
+                        {% endif %}
+
+                        {% if user.is_custom_admin %}
+                            {% endif %}
+
+                    <div class="text-center mt-3">
+                        <div>
+                            <a href="{% url 'homeGeneral' %}" class="btn btn-general bg-light"> Volver</a>
+
+                            {% if user.is_client %}
+                            <a href="{% url 'editarPerfilUsuario' %}" class="btn btn-general">Editar</a>
+                            {% endif %}
+
+                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-warning btn btn-general"> Cerrar Sesión</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 {% endblock %}

@@ -13,14 +13,14 @@ urlpatterns = [
     # ----------------------------
     #   -URLs ingreso de cliente
     # ----------------------------
-    path("crearCuentaCliente/", usuarioViews.CrearCuentaViewCliente.as_view(), name="crearCuentaCliente"),
-    path("iniciarSesionCliente/", usuarioViews.IniciarSesionViewCliente.as_view(), name="iniciarSesionCliente"),
+    path("crear-cuenta-cliente/", usuarioViews.CrearCuentaViewCliente.as_view(), name="crearCuentaCliente"),
+    path("iniciar-sesion-cliente/", usuarioViews.IniciarSesionViewCliente.as_view(), name="iniciarSesionCliente"),
 
     # ----------------------------
     #   -URLs ingreso de admin
     # ----------------------------
-    path("crearCuentaAdmin/", usuarioViews.CrearCuentaViewAdmin.as_view(), name="crearCuentaAdmin"),
-    path("iniciarSesionAdmin/", usuarioViews.IniciarSesionViewAdmin.as_view(), name="iniciarSesionAdmin"),
+    path("crear-cuenta-admin/", usuarioViews.CrearCuentaViewAdmin.as_view(), name="crearCuentaAdmin"),
+    path("iniciar-sesion-admin/", usuarioViews.IniciarSesionViewAdmin.as_view(), name="iniciarSesionAdmin"),
 
     # ----------------------------
     #   -URLs de los perfiles

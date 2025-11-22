@@ -1,0 +1,22 @@
+
+<div class="product-list-container">
+    
+    <h4 class="list-title">Lista de últimos productos registrados</h4>
+
+    {% for producto in ultimos_productos %}
+    <div class="product-item">
+        
+        <div class="product-image-placeholder"></div>
+    
+
+        <div class="product-details">
+            <p class="product-name">{{ producto.nombre }}</p>
+            <p class="product-price">Precio: ${{ producto.precio|floatformat:2 }}</p>
+            <p class="product-stock">Stock: {{ producto.stock }}</p>
+            <p class="product-category">Categoría: Telefonica</p>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay productos registrados recientemente.</p>
+    {% endfor %}
+</div>

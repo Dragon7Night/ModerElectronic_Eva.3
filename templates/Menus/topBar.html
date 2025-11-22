@@ -23,15 +23,18 @@
 
                                 <!-- Si tiene el rol de administrador -->
                                 {% if user.is_custom_admin %}
-                                    {% include 'menus/complementos/botones_administrador.html' %}
-
+                                <!-- <p style="color: red;">DEPURADOR. Rol actual: {{ user.rol }}</p> -->
+                                {% include 'Menus/complementos/botones_administrador.html' %}
+                                
                                 <!-- Si tiene el rol de cliente -->
                                 {% elif user.is_client %}
-                                    {% include 'menus/complementos/botones_cliente.html' %}
-
+                                <!-- <p style="color: red;">DEPURADOR. Rol actual: {{ user.rol }}</p> -->
+                                {% include 'Menus/complementos/botones_cliente.html' %}
+                                
                                 <!-- Si tiene cualquer rol que no sea admin o cliente -->
                                 {% else %}
-                                    {% include 'menus/complementos/botones_cliente.html' %}
+                                <!-- <p style="color: red;">DEPURADOR. Rol actual: {{ user.rol }}</p> -->
+                                    {% include 'Menus/complementos/botones_cliente.html' %}
                                 {% endif %}
 
                             {% else %}

@@ -1,66 +1,53 @@
 {% extends 'Base/base_index.html' %}
 
+<!-- °============================================° -->
+<!--    °Formulario -> Registro del administrador    -->
+<!-- °============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} ACCESO ADMINISTRADOR {% endblock %}
 
+<!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
 {% block contenido %}
-
 <div class="row justify-content-center">
-    <div class="col-lg-8">
+    <div class="col-lg-10">
         <div class="p-5">
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Acceso de Administrador</h1>
-                <p class="text-warning small">Solo para personal autorizado.</p>
+                <h1 class="mb-1">Iniciar Sesión</h1>
+                <h4 class="barra_inferior text-light">Administrador</h4>
+                <p class="text-warning small mt-2">Solo para personal autorizado.</p>
             </div>
 
-            <form class="user" method="post" novalidate>
+            <form class="row g-3 user" method="post">
                 {% csrf_token %}
 
-                {# 1. Errores generales (ej. credenciales incorrectas) #}
-                {% if form.non_field_errors %}
-                    <div class="alert alert-danger">
-                        {{ form.non_field_errors }}
-                    </div>
-                {% endif %}
-
-                {# 2. Nombre de Usuario #}
-                <div class="form-group">
-                    <input type="text" class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
-                           id="id_username" name="username"
-                           placeholder="Ingrese su nombre de usuario"
-                           value="{{ form.username.value|default:'' }}" required autofocus>
-                    {% for error in form.username.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
+                <!-- UserName -->
+                <div class="col-12">
+                    <label for="id_username" class="form-label color-label">Nombre de usuario</label>
+                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
+                        placeholder="Ej. Junito" value="{{ form.username.value|default:'' }}" required
+                        autofocus>
                 </div>
 
-                {# 3. Contraseña #}
-                <div class="form-group">
-                    <input type="password" class="form-control form-control-user {% if form.password.errors %}is-invalid{% endif %}"
-                           id="id_password" name="password"
-                           placeholder="Ingrese su contraseña" required autocomplete="current-password">
-                    {% for error in form.password.errors %}
-                        <div class="invalid-feedback">{{ error }}</div>
-                    {% endfor %}
+                <!-- Contraseña -->
+                <div class="col-12">
+                    <label for="id_password" class="form-label color-label">Contraseña</label>
+                    <input type="password" class="form-control form-control-user" id="id_password" name="password"
+                        placeholder="Ej. x32rjks5df87" required autocomplete="current-password">
                 </div>
 
-                {# 4. Recordar Sesión (Opcional) #}
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" name="remember">
-                        <label class="custom-control-label" for="customCheck">Recordar sesión</label>
-                    </div>
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-warning btn-user btn-block w-100 mb-2">Iniciar sesión</button>
                 </div>
-
-                <button type="submit" class="btn btn-warning btn-user btn-block">Iniciar Sesión Admin</button>
             </form>
 
-            <hr>
+            <hr class="mt-3">
 
-            <div class="text-center">
-                <a class="small" href="{% url 'iniciarSesionCliente' %}">Acceso de Cliente</a>
-            </div>
             <div class="text-center mt-2">
-                <a class="small text-muted" href="#">Opciones de recuperación</a>
+                <a class="small" href="{% url 'password_reset' %}">¿Recuperar contraseña?</a>
+            </div>
+            <div class="text-center">
+                <a class="small" href="{% url 'crearCuentaAdmin' %}">Crear cuenta</a>
             </div>
         </div>
     </div>

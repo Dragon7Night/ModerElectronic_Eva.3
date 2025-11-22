@@ -12,12 +12,12 @@
     <title> {% block titulo %} SECCION TITULO {% endblock %} | ModerElectronic</title>
 
     <!-- IMPORTACIONES DE CSS Y MAS -->
-    {% include 'Menus/importaciones_general.html' %}
+    {% include 'Menus/Importaciones/importaciones_general.html' %}
+    {% include 'Menus/Importaciones/importaciones_producto.html' %}
 </head>
 
 <body
     class=" d-flex flex-column min-vh-100  home wp-singular page-template page-template-elementor_header_footer page page-id-2 wp-theme-hello-elementor elementor-default elementor-template-full-width elementor-kit-7 elementor-page elementor-page-2">
-
     
     <!-- BARRA DE NAVECACION -->
     {% include 'Menus/topBar.html' %}
@@ -48,10 +48,15 @@
 
     {% include 'Menus/complementos/modal_crear_cuenta.html' %}
     {% include 'Menus/complementos/modal_iniciar_sesion.html' %}
+
     <!-- JS BS5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+
+    <!-- IMPORTACIONES VARIADAS -->
+    {% include 'Menus/Importaciones/import_script_producto.html' %}
+    {% include 'Menus/Importaciones/import_script_solicitud.html' %}
 
 </body>
 

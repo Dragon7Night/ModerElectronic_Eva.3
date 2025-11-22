@@ -1,20 +1,27 @@
+
+# '======[Importaciones]============================'
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# -MODELS -> USUARIOS
-
 from django.contrib.auth.models import UserManager
+# '================================================='
+
+# °===========================°
+#    °Modelo -> Usuarios
+# °===========================°
 
 class UsuarioManager(UserManager):
+    # Astraccion de class ↑↑ linea 163
     """Sobrescribe el Manager para asegurar que el rol se asigne
        correctamente al crear superusuarios."""
     
     def create_superuser(self, username, email, password, **extra_fields):
-        # Llama a la implementación base y luego asegura el rol
+        # Si el user tiene staff y superuser en True se le asigna por defecto el rol Admin
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('rol', Usuario.ROL_ADMIN) # ¡Aquí está la magia!
+        extra_fields.setdefault('rol', Usuario.ROL_ADMIN)
 
+        # Mensajes de error
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser debe tener is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
@@ -41,9 +48,11 @@ class Usuario(AbstractUser):
 
     objects = UsuarioManager() 
 
+    @property
     def is_client(self):
         return self.rol == self.ROL_CLIENTE
 
+    @property
     def is_custom_admin(self):
         return self.rol == self.ROL_ADMIN
     

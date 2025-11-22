@@ -141,6 +141,12 @@ div.modal-content {
   color: #ffffff !important;
 }
 
+/* BG Y TXT DEL PERFIL */
+div.card-content {
+  background-color: #2a2775b7 !important;
+  color: #ffffff !important;
+}
+
 /* BOTON (X) DEL MODAL */
 .modal-content {
   position: relative !important;
@@ -202,6 +208,37 @@ h4.barra_inferior::after {
 }
 
 /* COLOR PERSONALIZADO DE LABEL de los formularios de users */
-label.color-label{
+label.color-label,h4.color-h4{
   color: #94f3df !important;
+}
+
+span.txt-bold{
+  font-weight: bolder !important;
+}
+
+
+/* Boton general A */
+
+
+.btn-general {
+  background-color: #62f0f5 !important;
+  border-top-right-radius: 300px !important;
+  border-bottom-left-radius: 300px !important;
+  font-family: "Winky Rough", sans-serif !important;
+  color: black !important;
+  display: inline-block !important;
+  padding: 9px 27px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  border: 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  user-select: none !important;
+  margin: 0px 6px 0px 6px !important;
+}
+
+/* Opcional: Un pequeño efecto al hacer clic para que se sienta que funciona */
+.btn-general:hover {
+  transform: scale(0.98) !important;
+  opacity: 0.9 !important;
 }

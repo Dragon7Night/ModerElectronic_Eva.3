@@ -1,11 +1,16 @@
+
+# '======[Importaciones]============================'
 from django import forms
 
 # Importa tu modelo de usuario
 from .models import Usuario 
 # Para manejar el hashing de la contraseña
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+# '================================================='
 
-
+# °===========================°
+#    °Formulario -> Usuarios
+# °===========================°
 
 # --- FORMULARIO DE REGISTRO DE CLIENTES ---
 
@@ -18,8 +23,6 @@ class ClienteSignUpForm(UserCreationForm):
         fields = ('username', 'email', 'direccion') 
 
     def save(self, commit=True):
-        # 1. Llamar a super().save() sin commit=False, ya que UserCreationForm 
-        # está diseñado para hacer el hash y guardar la contraseña correctamente.
         user = super().save(commit=True) 
         
         # 2. Actualizar los campos adicionales
@@ -51,16 +54,12 @@ class AdminSignUpForm(UserCreationForm):
         return clave
 
     def save(self, commit=True):
-        # 1. Guardamos el usuario. Esto ya hashea la contraseña y crea el objeto.
-        # Quitamos commit=False para evitar problemas de contraseña.
         user = super().save(commit=True) 
         
-        # 2. Actualizamos los campos de rol y permisos
         user.rol = Usuario.ROL_ADMIN
         user.is_staff = True
         user.is_superuser = True
 
-        # 3. Guardamos los cambios de permisos y rol.
         user.save(update_fields=['rol', 'is_staff', 'is_superuser']) 
         return user
 

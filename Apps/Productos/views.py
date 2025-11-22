@@ -20,7 +20,7 @@ def homeGeneral(request):
     return render(request, 'index.html')
 
 #------------------------------------PRODUCTO-------------------------------------------------------
-def data_Producto(request):
+def catalogo_producto(request):
     productoObject = Producto.objects.all()
     data = {
         'productoKey':productoObject,
@@ -28,15 +28,15 @@ def data_Producto(request):
         'titulo':'producto registrado',
         'colorBg':'text-bg-success'
     }
-    return render(request, 'Producto/data_Producto.html',data)
+    return render(request, 'Producto/catalogo_producto.html',data)
     
-def register_Producto(request):
+def registrar_producto(request):
     form = RegisterProductoForm()
     if request.method == 'POST':
         form = RegisterProductoForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('data_Producto'))
+            return HttpResponseRedirect(reverse('catalogoProductos'))
         
     data = {
         'formKey':form,
@@ -45,7 +45,7 @@ def register_Producto(request):
         'txtBtn':'Registrar producto',
         'colorBg':'text-bg-warning'
     }
-    return render(request, 'Producto/registrarProducto.html',data)
+    return render(request, 'Producto/registrar_producto.html',data)
 
 
 def editar_producto(request, id_producto):
@@ -56,7 +56,7 @@ def editar_producto(request, id_producto):
         form = RegisterProductoForm(request.POST, instance=producto)
     if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('data_Producto'))
+            return HttpResponseRedirect(reverse('catalogoProductos'))
 
     data = {
         'formKey':form,
@@ -64,16 +64,18 @@ def editar_producto(request, id_producto):
         'txtBtn':'Editar producto',
         'colorBg':'text-bg-warning'
     }
-    return render(request, 'Productos/registrar_Producto.html',data)
+    return render(request, 'Productos/registrar_producto.html',data)
 
 def eliminar_producto(request, id_producto):
     productoObjects = Producto.objects.get(id=id_producto)
     productoObjects.delete()
-    return HttpResponseRedirect(reverse('data_Producto'))
+    return HttpResponseRedirect(reverse('catalogoProductos'))
+
+# ====↓↓↓↓ EN OBRAS AUN ==========================================================================================
 
 #------------------------------------CATEGORIA-------------------------------------------------------
 
-def data_Categoria(request):
+def data_categoria(request):
     categoriaObject = Categoria.objects.all()
     data = {
         'categoriaKey':categoriaObject,
@@ -101,7 +103,7 @@ def agregar_Calificacion(request, id_producto):
     try:
         producto_instance = Producto.objects.get(id=id_producto)  #Intentara obtener el id recibido en la URL
     except Producto.DoesNotExist:
-        return HttpResponseRedirect(reverse('data_Producto')) # si no existe lo dirige a data
+        return HttpResponseRedirect(reverse('catalogoProductos')) # si no existe lo dirige a data
         
     if request.method == 'POST':
         form_calificacion = RegisterCalificacionForm(request.POST) 
@@ -121,7 +123,7 @@ def agregar_Calificacion(request, id_producto):
                 producto_id=producto_instance
             )
 #creamos registros que relacionan calificacion y comentario de un producto
-            return HttpResponseRedirect(reverse('data_Producto'))
+            return HttpResponseRedirect(reverse('catalogoProductos'))
 
         form_calificacion_con_error = form_calificacion
         form_comentario_con_error = form_comentario
@@ -167,7 +169,7 @@ def register_Solicitud(request, id_producto):
     try:
         producto_instance = Producto.objects.get(id=id_producto) 
     except Producto.DoesNotExist:
-        return HttpResponseRedirect(reverse('data_Producto')) 
+        return HttpResponseRedirect(reverse('catalogoProductos')) 
     if request.method == 'POST':
         form_solicitud = RegisterSolicitudForm(request.POST) 
         if form_solicitud.is_valid():
@@ -177,7 +179,7 @@ def register_Solicitud(request, id_producto):
             solicitud_instance.estado = 'True' #con esto establecemos el estado de la soli
             solicitud_instance.tipo_solicitud = 'en revision' #tipo de solicitud
             solicitud_instance.save()
-            return HttpResponseRedirect(reverse('data_Producto'))
+            return HttpResponseRedirect(reverse('catalogoProductos'))
     else:
         form_solicitud = RegisterSolicitudForm()
     data= {

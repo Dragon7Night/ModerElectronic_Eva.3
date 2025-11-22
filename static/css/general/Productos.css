@@ -1,0 +1,58 @@
+/* ================================================= */
+/* ESTILOS GENERALES */
+/* ================================================= */
+
+
+/* Botón personalizado */
+.btn-registro {
+    background-color: #ff5733 !important;
+    border-color: #ff5733 !important;
+    color: white !important;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn-registro:hover {
+    background-color: #e04e2e !important; /* Un poco más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+
+/* ================================================= */
+/* ESTILOS LISTA DE PRODUCTOS (Mantenidos) */
+/* ================================================= */
+
+/* Puedes mantener tus estilos de lista tal cual estaban, 
+   ya que el HTML interno del include no cambió */
+
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff; /* Blanco se ve mejor en listas sobre fondo gris */
+    border: 1px solid #e3e6f0;
+    border-radius: 5px;
+}
+
+.product-image-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: #adb5bd;
+    border-radius: 4px;
+    margin-right: 15px;
+    flex-shrink: 0; /* Evita que la imagen se aplaste */
+}
+
+/* Ajuste para los inputs del formulario si se ven feos */
+.form-group-custom input, 
+.form-group-custom select, 
+.form-group-custom textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
