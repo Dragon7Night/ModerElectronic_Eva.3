@@ -47,7 +47,7 @@ class IniciarSesionViewAdmin(LoginView):
 
 
 
-# [-|-|--|-|-|-|-|-|-|VISTA PARA MOSTRAR EL PERFIL|-|--|-|-|-|-|-|-|-|-|-|-|-]
+# !|-|--|-|-|-|-|-|-|> VISTA PARA MOSTRAR EL PERFIL <|-|--|-|-|-|-|-|-|-|-|-|-|-
 class PerfilUsuarioDetailView(LoginRequiredMixin, DetailView):
     model = UsuariosModels.Usuario
     template_name = 'Usuario/Perfil/mostrar_perfil.html' # Crea este nuevo template
@@ -57,7 +57,7 @@ class PerfilUsuarioDetailView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         return self.request.user
 
-# [-|-|--|-|-|-|-|-|-|VISTA PARA EDITAR EL PERFIL|-|--|-|-|-|-|-|-|-|-|-|-|-]
+# !|-|--|-|-|-|-|-|-|> VISTA PARA EDITAR EL PERFIL <|-|--|-|-|-|-|-|-|-|-|-|-|-
 class PerfilUsuarioUpdateView(LoginRequiredMixin, UpdateView):
     model = UsuariosModels.Usuario
     form_class = UsuariosForms.PerfilUsuarioUpdateForm

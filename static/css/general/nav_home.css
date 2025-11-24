@@ -1,6 +1,32 @@
 /* IMPORTACION DE LETRAS DESDE GOOGLE FONTS */
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Patua+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
 
+/* FONDO PERSONALIZADO */
+
+.elementor-kit-7{
+  background-color: #212c63 !important;
+
+}
+
+/* NORMALIZACION DE MARGENES */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0.7rem !important;
+  margin-bottom: 0.7rem !important;
+}
+
+
+/* COLOR FORM REGISTRO DE PRODUCTO */
+
+.color-card-form{
+  background: #4056b9 !important;
+}
+
+/* PADDING 0 panel de informacion */
+
+.elementor-2 .elementor-element.elementor-element-352a816{
+  padding: 10px 0px 0px 0px !important;
+}
+
 /* SEPARACION DE MARGENES DE NAV */
 
 .elementor-element-e41c8cd {
@@ -114,7 +140,7 @@
 
 .offcanvas.offcanvas-end,
 .offcanvas {
-  background-color: rgba(12, 11, 45, 0.95) !important;
+  background-color: rgba(41, 39, 105, 0.95) !important;
   color: #ffffff;
 }
 
@@ -137,13 +163,13 @@
 
 /* BG Y TXT DEL MODAL */
 div.modal-content {
-  background-color: rgba(12, 11, 45, 0.95) !important;
+  background-color: rgba(41, 39, 105, 0.95) !important;
   color: #ffffff !important;
 }
 
 /* BG Y TXT DEL PERFIL */
 div.card-content {
-  background-color: #2a2775b7 !important;
+  background-color: #37348fb7 !important;
   color: #ffffff !important;
 }
 
@@ -208,7 +234,7 @@ h4.barra_inferior::after {
 }
 
 /* COLOR PERSONALIZADO DE LABEL de los formularios de users */
-label.color-label,h4.color-h4{
+label.color-label,.color-h4{
   color: #94f3df !important;
 }
 
@@ -217,8 +243,7 @@ span.txt-bold{
 }
 
 
-/* Boton general A */
-
+/* Boton general <a> */
 
 .btn-general {
   background-color: #62f0f5 !important;
@@ -237,7 +262,6 @@ span.txt-bold{
   margin: 0px 6px 0px 6px !important;
 }
 
-/* Opcional: Un pequeño efecto al hacer clic para que se sienta que funciona */
 .btn-general:hover {
   transform: scale(0.98) !important;
   opacity: 0.9 !important;

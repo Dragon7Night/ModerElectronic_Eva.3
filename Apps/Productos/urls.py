@@ -15,10 +15,14 @@ urlpatterns = [
     # ------------------------
     #   -URLs de Productos
     # ------------------------
-    path('catalogo-productos/', productoViews.catalogo_producto, name='catalogoProductos'),
+    path('catalogo-producto/', productoViews.catalogo_producto, name='catalogoProductos'),
     path('registrar-producto/', productoViews.registrar_producto, name='registrarProducto'),
     path('editar-producto/<int:id_producto>', productoViews.editar_producto, name='editarProducto'),
     path('eliminar-producto/<int:id_producto>', productoViews.eliminar_producto, name='eliminarProducto'),
+
+
+    # NUEVA RUTA PARA REGISTRAR CATEGORÍAS
+    path('registrar-categoria/', productoViews.registrar_categoria, name='registrarCategoria'),
     
     # ------------------------
     #   -URLs de Calificación
