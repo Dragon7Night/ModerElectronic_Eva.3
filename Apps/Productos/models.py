@@ -1,6 +1,8 @@
 
 # '======[Importaciones]============================'
 from django.db import models
+
+from Apps.Usuarios import models as UsuarioModel  # model de usuarios de Django
 # '================================================='
 
 # °===========================°
@@ -45,34 +47,62 @@ class ProductoCategoria(models.Model):
 # ~============= VALORACIONES =============~
 
 # |===> CLASS Comentario [PK id_comentario | FK cliente_id]
+
 class Comentario(models.Model):
 
-    # FK cliente
+    # producto_id
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='comentarios')
+    # cliente_id
+    cliente = models.ForeignKey(UsuarioModel.Usuario, on_delete=models.CASCADE)
     comentario = models.CharField(max_length=300)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Comentario de {self.usuario.username} en {self.producto.nombre}"
 
-# |===> CLASS ComentarioProducto [PK id_com_pro | FK comentario_id, producto_id]
-class ComentarioProducto(models.Model):
 
-    comentario_id = models.ForeignKey(Comentario, on_delete=models.CASCADE)
-    producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+# class Comentario(models.Model):
+
+#     # FK cliente
+#     comentario = models.CharField(max_length=300)
+#     fecha_registro = models.DateTimeField(auto_now_add=True)
+
+
+# # |===> CLASS ComentarioProducto [PK id_com_pro | FK comentario_id, producto_id]
+# class ComentarioProducto(models.Model):
+
+#     comentario_id = models.ForeignKey(Comentario, on_delete=models.CASCADE)
+#     producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
 
 # -----------------------------------------------------------
 
 # |===> CLASS Calificacion [PK id_calificacion | FK cliente_id]
 class Calificacion(models.Model):
 
-    # FK cliente
+    # producto_id
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='calificaciones')
+    # cliente_id
+    cliente = models.ForeignKey(UsuarioModel.Usuario, on_delete=models.CASCADE)
     cant_estrella = models.IntegerField()
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.cant_estrella} estrellas - {self.producto.nombre}"
 
-# |===> CLASS CalificacionProducto [PK id_cal_pro | FK calificacion_id, producto_id]
-class CalificacionProducto(models.Model):
 
-    calificacion_id = models.ForeignKey(Calificacion, on_delete=models.CASCADE)
-    producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+
+# class Calificacion(models.Model):
+
+#     # FK cliente
+#     cant_estrella = models.IntegerField()
+#     fecha_registro = models.DateTimeField(auto_now_add=True)
+
+
+# # |===> CLASS CalificacionProducto [PK id_cal_pro | FK calificacion_id, producto_id]
+# class CalificacionProducto(models.Model):
+
+#     calificacion_id = models.ForeignKey(Calificacion, on_delete=models.CASCADE)
+#     producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
 
 
 # ~============= SOLICITUDES =============~
@@ -80,25 +110,49 @@ class CalificacionProducto(models.Model):
 # |===> CLASS Solicitud [PK id_solicitud | FK cliente_id, producto_id]
 class Solicitud(models.Model):
 
-    # FK cliente
-    producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    # cliente_id
+    cliente = models.ForeignKey(UsuarioModel.Usuario, on_delete=models.CASCADE) 
+    # producto_id
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     descripcion = models.CharField(max_length=300)
-    estado = models.BooleanField()
-    tipo_solicitud = models.CharField(max_length=20)
+    estado = models.BooleanField(default=True)
+    tipo_solicitud = models.CharField(max_length=20, default='en revision')
     fecha_registro = models.DateTimeField(auto_now_add=True)
+
+
+# class Solicitud(models.Model):
+
+#     # FK cliente
+#     producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+#     descripcion = models.CharField(max_length=300)
+#     estado = models.BooleanField()
+#     tipo_solicitud = models.CharField(max_length=20)
+#     fecha_registro = models.DateTimeField(auto_now_add=True)
 
 
 
 # ~============= REGISTRO DE COMPRA =============~
 
 # |===> CLASS RegistroCompra [PK id_registro_compra | FK cliente_id, producto_id]
+
 class RegistroCompra(models.Model):
 
-    # FK cliente
-    producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    # cliente_id
+    cliente = models.ForeignKey(UsuarioModel.Usuario, on_delete=models.CASCADE) # Vinculado al usuario
+    # producto_id
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     precio_total = models.FloatField()
-    garantia = models.BooleanField()
-    delivery = models.BooleanField()
+    garantia = models.BooleanField(default=False)
+    delivery = models.BooleanField(default=False)
     fecha_compra = models.DateTimeField(auto_now_add=True)
+
+# class RegistroCompra(models.Model):
+
+#     # FK cliente
+#     producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+#     precio_total = models.FloatField()
+#     garantia = models.BooleanField()
+#     delivery = models.BooleanField()
+#     fecha_compra = models.DateTimeField(auto_now_add=True)
 
 

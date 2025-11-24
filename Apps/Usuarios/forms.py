@@ -72,3 +72,5 @@ class PerfilUsuarioUpdateForm(forms.ModelForm):
         fields = ('email', 'direccion')
 
 
+
+

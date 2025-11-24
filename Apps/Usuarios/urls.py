@@ -28,3 +28,4 @@ urlpatterns = [
     path("perfil/", usuarioViews.PerfilUsuarioDetailView.as_view(), name="perfilUsuario"), 
     path("perfil/editar/", usuarioViews.PerfilUsuarioUpdateView.as_view(), name="editarPerfilUsuario"),
 ]
+

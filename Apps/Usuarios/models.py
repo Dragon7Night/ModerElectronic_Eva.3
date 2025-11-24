@@ -59,3 +59,5 @@ class Usuario(AbstractUser):
     # ~contructor
     def __str__(self):
         return self.username or self.email or f"Usuario {self.id}"
+
+

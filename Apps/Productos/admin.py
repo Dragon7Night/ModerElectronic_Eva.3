@@ -31,3 +31,5 @@ class SolicitudAdmin(admin.ModelAdmin):
     list_display = ['id','descripcion','estado','tipo_solicitud']
 
 admin.site.register(Solicitud, SolicitudAdmin)
+
+

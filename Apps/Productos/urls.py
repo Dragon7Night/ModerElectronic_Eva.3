@@ -35,4 +35,11 @@ urlpatterns = [
     # ------------------------
     path('registrar-solicitud/<int:id_producto>', productoViews.register_Solicitud, name='registrarSolicitud'),
     path('data-solicitud/', productoViews.data_Solicitud, name='dataSolicitud'),
+
+        # NUEVA RUTA DETALLE
+    path('producto/<int:id_producto>/', productoViews.detalle_producto, name='detalleProducto'),
+    
+    # RUTA PARA PROCESAR EL COMENTARIO (POST)
+    path('producto/feedback/<int:id_producto>/', productoViews.agregar_feedback, name='agregarFeedback'),
 ]
+

@@ -52,6 +52,8 @@ urlpatterns = [
 
 
 
+
+
 """
 URL configuration for ModerElectronic project.
 

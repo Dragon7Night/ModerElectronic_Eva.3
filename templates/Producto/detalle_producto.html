@@ -1,0 +1,150 @@
+{% extends 'Base/base_index.html' %}
+{% load static %}
+
+{% block titulo %} {{ producto.nombre }} {% endblock %}
+
+{% block contenido %}
+<div class="container py-5">
+    
+    <!-- SECCIÓN SUPERIOR: INFO PRODUCTO -->
+    <div class="card shadow-sm border-0 mb-5">
+        <div class="row g-0">
+            <!-- Imagen -->
+            <div class="col-md-6 bg-light d-flex align-items-center justify-content-center p-5">
+                {% if producto.url_categoria %}
+                    <img src="{{ producto.url_categoria }}" class="img-fluid rounded shadow-sm" style="max-height: 400px;" alt="{{ producto.nombre }}">
+                {% else %}
+                    <i class="fas fa-image fa-5x text-secondary"></i>
+                {% endif %}
+            </div>
+            
+            <!-- Detalles -->
+            <div class="col-md-6">
+                <div class="card-body p-4 p-lg-5">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h4 class="text-uppercase text-muted small">{{ producto.nombre_categoria|default:"General" }}</h4>
+                        
+                        <!-- Botones Admin (Solo visibles si es staff o dueño) -->
+                        <!-- Puedes cambiar la condición a 'if user.is_staff' -->
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm rounded-circle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'editarProducto' producto.id %}"><i class="fas fa-edit me-2"></i>Editar</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'eliminarProducto' producto.id %}"><i class="fas fa-trash-alt me-2"></i>Eliminar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h1 class="display-6 fw-bold text-dark mb-2">{{ producto.nombre }}</h1>
+                    
+                    <div class="mb-3">
+                        {% if promedio_calificacion %}
+                            <span class="text-warning"><i class="fas fa-star"></i> {{ promedio_calificacion|floatformat:1 }}</span>
+                            <span class="text-muted small">/ 5.0</span>
+                        {% else %}
+                            <span class="text-muted small">Sin calificaciones aún</span>
+                        {% endif %}
+                    </div>
+
+                    <h2 class="text-primary fw-bold mb-4">${{ producto.precio|floatformat:0 }}</h2>
+
+                    <p class="lead text-muted mb-4">
+                        <!-- Aquí iría la descripción larga si la tuvieras en el modelo -->
+                        Producto de alta calidad disponible en nuestra tienda. Revisa las especificaciones abajo.
+                    </p>
+
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-primary btn-lg px-4 me-md-2" type="button">
+                            <i class="fas fa-shopping-cart me-2"></i> Comprar Ahora
+                        </button>
+                        {% if producto.stock > 0 %}
+                            <span class="btn btn-outline-success btn-lg disabled opacity-100">
+                                Stock: {{ producto.stock }}
+                            </span>
+                        {% else %}
+                            <span class="btn btn-outline-danger btn-lg disabled opacity-100">Agotado</span>
+                        {% endif %}
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <small class="text-muted">
+                        <i class="fas fa-truck me-2"></i> Envío disponible a todo el país.<br>
+                        <i class="fas fa-shield-alt me-2"></i> Garantía de devolución de 30 días.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN INFERIOR: COMENTARIOS Y CALIFICACIONES -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white p-4 border-bottom-0">
+                    <h4 class="fw-bold mb-0">Opiniones de Clientes</h4>
+                </div>
+                <div class="card-body p-4">
+                    
+                    <!-- Formulario para comentar -->
+                    <div class="bg-light p-4 rounded-3 mb-5">
+                        <h6 class="fw-bold mb-3">Deja tu opinión</h6>
+                        <form action="{% url 'agregarFeedback' producto.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label small">Calificación</label>
+                                    {{ formCalificacion.cant_estrella }}
+                                </div>
+                                <div class="col-md-9">
+                                    <label class="form-label small">Comentario</label>
+                                    {{ formComentario.comentario }}
+                                </div>
+                                <div class="col-12 text-end">
+                                    {% if user.is_authenticated %}
+                                        <button type="submit" class="btn btn-dark btn-sm">Publicar Opinión</button>
+                                    {% else %}
+                                        <a href="/login" class="btn btn-outline-dark btn-sm">Inicia sesión para opinar</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Lista de Comentarios -->
+                    <div class="list-group list-group-flush">
+                        {% for comentario in comentarios %}
+                        <div class="list-group-item px-0 py-3">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1 fw-bold text-dark">
+                                    <i class="fas fa-user-circle me-2 text-secondary"></i>{{ comentario.usuario.username }}
+                                </h6>
+                                <small class="text-muted">{{ comentario.fecha_registro|date:"d M Y" }}</small>
+                            </div>
+                            <!-- Aquí intentamos buscar la calificación del usuario si existiera lógica para unirla, 
+                                 por ahora mostramos solo el texto -->
+                            <p class="mb-1 mt-2 text-secondary">{{ comentario.comentario }}</p>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-4 text-muted">
+                            <i class="far fa-comment-dots fa-2x mb-2"></i>
+                            <p>Aún no hay comentarios. ¡Sé el primero en opinar!</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar Lateral (Opcional: Productos relacionados, Publicidad, etc) -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <!-- Puedes agregar aquí productos relacionados más adelante -->
+        </div>
+    </div>
+
+</div>
+{% endblock %}

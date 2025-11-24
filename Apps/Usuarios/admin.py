@@ -10,3 +10,5 @@ class UsuarioAdmin(UserAdmin):
     list_display = ['username', 'email', 'rol', 'is_staff']
 
 admin.site.register(Usuario, UsuarioAdmin)
+
+

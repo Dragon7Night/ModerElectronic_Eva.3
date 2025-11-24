@@ -7,6 +7,17 @@ from django.core.paginator import Paginator
 from django.db.models import Count # filtros
 from django.templatetags.static import static
 
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.core.paginator import Paginator
+from django.db.models import Count, Avg # Agregado Avg
+from django.templatetags.static import static
+from django.contrib.auth.decorators import login_required # Asegurando que la importación exista
+from django.db import IntegrityError # Importación útil para manejo de errores de DB
+
+
 #   -------------------------------MODELS & FORMS IMPORTS--------------------------------------------
 from Apps.Productos import models as ProductoModel
 
@@ -120,8 +131,75 @@ def catalogo_producto(request):
     }
     return render(request, 'Producto/catalogo_producto.html', data)
 
-# .|----------------[REGISTRAR PRODUCTO]----------------|.
+def detalle_producto(request, id_producto):
+    # Usamos get_object_or_404 para manejar si el producto no existe
+    producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
+    
+    # Calcular promedio de estrellas
+    # 'calificaciones' es el related_name que definimos en models.py
+    promedio_calificacion = producto.calificaciones.aggregate(Avg('cant_estrella'))['cant_estrella__avg']
+    
+    # Formularios vacíos para la vista
+    form_comentario = ProductoForm.RegisterComentarioForm()
+    form_calificacion = ProductoForm.RegisterCalificacionForm()
 
+    # --- Lógica para obtener la URL de la imagen ---
+    # Usamos el campo FK producto_id para el filtro
+    relacion = ProductoModel.ProductoCategoria.objects.filter(producto_id=producto).first() 
+    
+    if relacion:
+        nombre_cat = relacion.categoria_id.nombre.lower() # Usamos el campo FK categoria_id
+        # Usa el diccionario que definiste arriba
+        producto.url_categoria = static(CATEGORIA_IMAGENES.get(nombre_cat)) if nombre_cat in CATEGORIA_IMAGENES else None
+        producto.nombre_categoria = relacion.categoria_id.nombre
+    else:
+        producto.url_categoria = None
+        producto.nombre_categoria = "General"
+    # --- FIN Lógica para obtener la URL de la imagen ---
+
+    data = {
+        'producto': producto,
+        'promedio_calificacion': promedio_calificacion,
+        'formComentario': form_comentario,
+        'formCalificacion': form_calificacion,
+        # Usando related_name para obtener los comentarios del producto
+        'comentarios': producto.comentarios.all().order_by('-fecha_registro'), 
+    }
+    return render(request, 'Producto/detalle_producto.html', data)
+
+
+
+@login_required(login_url='/login/') # Redirige al login si el usuario no está autenticado
+def agregar_feedback(request, id_producto):
+    # Obtenemos el producto para asegurar que existe y para asignarlo al feedback
+    producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
+    
+    if request.method == 'POST':
+        form_com = ProductoForm.RegisterComentarioForm(request.POST)
+        form_cal = ProductoForm.RegisterCalificacionForm(request.POST)
+        
+        # 1. Guardamos Comentario
+        if form_com.is_valid():
+            comentario = form_com.save(commit=False)
+            # ASIGNACIÓN CORREGIDA: Usamos el nombre de campo `cliente_id` de tu models.py
+            comentario.cliente_id = request.user      
+            comentario.producto_id = producto         
+            comentario.save()
+
+        # 2. Guardamos Calificación
+        if form_cal.is_valid():
+            if request.POST.get('cant_estrella'):
+                calificacion = form_cal.save(commit=False)
+                # ASIGNACIÓN CORREGIDA: Usamos el nombre de campo `cliente_id` de tu models.py
+                calificacion.cliente_id = request.user
+                calificacion.producto_id = producto
+                calificacion.save()
+            
+    # Redirigimos al usuario de vuelta a la página de detalle del producto
+    return HttpResponseRedirect(reverse('detalleProducto', args=[id_producto]))
+
+# .|----------------[REGISTRAR PRODUCTO]----------------|.
+@login_required(login_url='/login/') # Se asume que solo los admins pueden registrar
 def registrar_producto(request):
     formProducto = ProductoForm.RegisterProductoForm() 
     
@@ -129,7 +207,12 @@ def registrar_producto(request):
         formProducto = ProductoForm.RegisterProductoForm(request.POST)
         if formProducto.is_valid():
             # Guardar Producto
-            producto_instance = formProducto.save()
+            producto_instance = formProducto.save(commit=False) # No guardar aún para asignar admin_id
+            
+            # ASIGNACIÓN DEL ADMIN: Asignamos el usuario actual (que debe ser un admin)
+            # El campo admin_id es opcional (null=True, blank=True), pero si lo usas:
+            producto_instance.admin_id = request.user 
+            producto_instance.save()
             
             # Guardar Relación Muchos a Muchos (Categorías)
             categorias_seleccionadas = formProducto.cleaned_data.get('categoria_id')
@@ -146,6 +229,7 @@ def registrar_producto(request):
             return HttpResponseRedirect(reverse('catalogoProductos'))
     
     # Mostrar últimos 5 productos registrados
+    # NOTA: Esta línea es la que causó el error DB, pero se arreglará con 'migrate'
     ultimos_productos = ProductoModel.Producto.objects.all().order_by('-fecha_registro')[:5]
     _procesar_imagenes(ultimos_productos)
 
@@ -159,6 +243,7 @@ def registrar_producto(request):
 
 # .|----------------[EDITAR PRODUCTO]----------------|.
 
+@login_required(login_url='/login/')
 def editar_producto(request, id_producto):
     # Obtiene el producto o lanza error 404 si no existe
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
@@ -167,6 +252,11 @@ def editar_producto(request, id_producto):
         form = ProductoForm.RegisterProductoForm(request.POST, instance=producto)
         if form.is_valid():
             producto_instance = form.save(commit=False)
+            
+            # Si el campo admin_id está vacío, se podría reasignar al usuario actual
+            if not producto_instance.admin_id:
+                producto_instance.admin_id = request.user
+                
             producto_instance.save()
             
             # Actualizar Categorías
@@ -192,8 +282,10 @@ def editar_producto(request, id_producto):
     return render(request, 'Producto/registrar_producto.html', data)
 
 
+
 # .|----------------[ELIMINAR PRODUCTO]----------------|.
 
+@login_required(login_url='/login/')
 def eliminar_producto(request, id_producto):
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     producto.delete()
@@ -214,6 +306,7 @@ def data_categoria(request):
 
 # .|----------------[REGISTRAR CATEGORIAS]----------------|.
 
+@login_required(login_url='/login/')
 def registrar_categoria(request):
     formCategoria = ProductoForm.RegisterCategoriaForm()
     
@@ -235,38 +328,9 @@ def registrar_categoria(request):
 
 # -----------------------------------CALIFICACION-------------------------------------------------------
 
+
 def agregar_Calificacion(request, id_producto):
-    producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
-        
-    if request.method == 'POST':
-        form_calificacion = ProductoForm.RegisterCalificacionForm(request.POST) 
-        form_comentario = ProductoForm.RegisterComentarioForm(request.POST)
-        
-        if form_calificacion.is_valid() and form_comentario.is_valid():
-            calif_instance = form_calificacion.save()
-            coment_instance = form_comentario.save()
-
-            # Crear relaciones
-            ProductoModel.CalificacionProducto.objects.create(
-                calificacion_id=calif_instance, producto_id=producto
-            )
-            ProductoModel.ComentarioProducto.objects.create(
-                comentario_id=coment_instance, producto_id=producto
-            )
-            return HttpResponseRedirect(reverse('catalogoProductos'))
-    else:
-        form_calificacion = ProductoForm.RegisterCalificacionForm()
-        form_comentario = ProductoForm.RegisterComentarioForm()
-    
-    data = {
-        'formCalificacionKey': form_calificacion, 
-        'formComentarioKey': form_comentario, 
-        'mainTitle': 'Registro de calificaciones',
-        'txtBtn': 'Registrar calificación',
-        'id_producto': id_producto
-    }
-    return render(request, 'Valoraciones/estrellas.html', data)
-
+    return HttpResponseRedirect(reverse('detalleProducto', args=[id_producto])) 
 
 def data_Calificacion(request):
     calificacionObject = ProductoModel.Calificacion.objects.all()
@@ -285,7 +349,8 @@ def register_Solicitud(request, id_producto):
         if form_solicitud.is_valid():
             solicitud = form_solicitud.save(commit=False)
             solicitud.producto_id = producto 
-            solicitud.estado = True  # Asumiendo True por defecto
+            solicitud.cliente_id = request.user # Asumo que el usuario actual es el cliente
+            solicitud.estado = True 
             solicitud.tipo_solicitud = 'en revision'
             solicitud.save()
             return HttpResponseRedirect(reverse('catalogoProductos'))
@@ -302,6 +367,84 @@ def register_Solicitud(request, id_producto):
 
 
 def data_Solicitud(request):
+    solicitudObject = ProductoModel.Solicitud.objects.all()
+    data = {
+        'solicitudKey': solicitudObject,
+        'mainTitle': 'Registro de solicitudes',
+    }
+    return render(request, 'Usuario/Solicitud/data_solicitud.html', data)
+
+
+
+
+
+# def agregar_Calificacion(request, id_producto):
+#     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
+        
+#     if request.method == 'POST':
+#         form_calificacion = ProductoForm.RegisterCalificacionForm(request.POST) 
+#         form_comentario = ProductoForm.RegisterComentarioForm(request.POST)
+        
+#         if form_calificacion.is_valid() and form_comentario.is_valid():
+#             calif_instance = form_calificacion.save()
+#             coment_instance = form_comentario.save()
+
+#             # Crear relaciones
+#             ProductoModel.CalificacionProducto.objects.create(
+#                 calificacion_id=calif_instance, producto_id=producto
+#             )
+#             ProductoModel.ComentarioProducto.objects.create(
+#                 comentario_id=coment_instance, producto_id=producto
+#             )
+#             return HttpResponseRedirect(reverse('catalogoProductos'))
+#     else:
+#         form_calificacion = ProductoForm.RegisterCalificacionForm()
+#         form_comentario = ProductoForm.RegisterComentarioForm()
+    
+#     data = {
+#         'formCalificacionKey': form_calificacion, 
+#         'formComentarioKey': form_comentario, 
+#         'mainTitle': 'Registro de calificaciones',
+#         'txtBtn': 'Registrar calificación',
+#         'id_producto': id_producto
+#     }
+#     return render(request, 'Valoraciones/estrellas.html', data)
+
+
+# def data_Calificacion(request):
+#     calificacionObject = ProductoModel.Calificacion.objects.all()
+#     data = {
+#          'calificacionKey': calificacionObject,
+#          'mainTitle': 'Registro de calificaciones',
+#     }
+#     return render(request, 'Valoraciones/data_estrellas.html', data)
+
+
+# def register_Solicitud(request, id_producto):
+#     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
+    
+#     if request.method == 'POST':
+#         form_solicitud = ProductoForm.RegisterSolicitudForm(request.POST) 
+#         if form_solicitud.is_valid():
+#             solicitud = form_solicitud.save(commit=False)
+#             solicitud.producto_id = producto 
+#             solicitud.estado = True  # Asumiendo True por defecto
+#             solicitud.tipo_solicitud = 'en revision'
+#             solicitud.save()
+#             return HttpResponseRedirect(reverse('catalogoProductos'))
+#     else:
+#         form_solicitud = ProductoForm.RegisterSolicitudForm()
+        
+#     data= {
+#         'formSolicitudKey': form_solicitud, 
+#         'mainTitle': 'Registrar solicitud',
+#         'txtBtn': 'Guardar solicitud',
+#         'id_producto': id_producto
+#     }
+#     return render(request, 'Usuario/Solicitud/solicitud.html', data)
+
+
+# def data_Solicitud(request):
     solicitudObject = ProductoModel.Solicitud.objects.all()
     data = {
         'solicitudKey': solicitudObject,

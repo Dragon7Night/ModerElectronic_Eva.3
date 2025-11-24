@@ -19,7 +19,6 @@ class RegisterCategoriaForm(forms.ModelForm):
     class Meta:
         model = ProductoModel.Categoria
         fields = ['nombre']
-        # fields = '__all__'
     
     # Definicion + validacion + style + label de campos
     nombre = forms.CharField(validators=[
@@ -73,13 +72,13 @@ class RegisterComentarioForm(forms.ModelForm):
     # Modelo de registro del formulario
     class Meta:
         model = ProductoModel.Comentario
-        fields = '__all__'
+        fields = ['comentario']
 
     # Definicion + validacion + style + label de campos
     comentario = forms.CharField(validators=[
         validators.MinLengthValidator(3),
         validators.MaxLengthValidator(300)],
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+        widget=forms.Textarea(attrs={'class':'form-control', 'rows': 3, 'placeholder': 'Escribe tu comentario aquí...'}),
         label='Comentario del producto'
     )
     
@@ -92,7 +91,6 @@ class RegisterCalificacionForm(forms.ModelForm):
     class Meta:
         model = ProductoModel.Calificacion
         fields = {'cant_estrella'}
-        # fields = '__all__'
 
     # Definicion + validacion + style + label de campos
     cant_estrella = forms.IntegerField(validators=[
@@ -103,29 +101,6 @@ class RegisterCalificacionForm(forms.ModelForm):
     )
 
 # ~============= SOLICITUDES =============~
-
-# |===> Formulario de EDICION <Solicitudes>
-# class RegisterSolicitudForm(forms.Form):
-
-#     # Definicion + validacion de campos
-#     descripcion = forms.CharField(validators=[
-#         validators.MinLengthValidator(0),
-#         validators.MaxLengthValidator(300)
-#     ])
-#     estado = forms.BooleanField()
-#     tipo_solicitud = forms.CharField()
-    
-#     # Tags personalizado para los campos
-#     descripcion.label = 'Descripcion del producto'
-#     estado.label = 'Estado'
-#     tipo_solicitud.label = 'Tipo de Solicitud'
-
-#     # Style para formulario - BS5
-#     descripcion.widget.attrs['class'] = 'form-control'
-#     estado.widget.attrs['class'] = 'form-control'
-#     tipo_solicitud.widget.attrs['class'] = 'form-control'
-
-# ._____________________
 
 # |===> Formulario de CREACION <Solicitud>
 class RegisterSolicitudForm(forms.ModelForm):
