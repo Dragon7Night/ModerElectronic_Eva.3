@@ -20,8 +20,9 @@ urlpatterns = [
     path('editar-producto/<int:id_producto>', productoViews.editar_producto, name='editarProducto'),
     path('eliminar-producto/<int:id_producto>', productoViews.eliminar_producto, name='eliminarProducto'),
 
-
-    # NUEVA RUTA PARA REGISTRAR CATEGORÍAS
+    # ------------------------
+    #   -URLs de Categoria
+    # ------------------------
     path('registrar-categoria/', productoViews.registrar_categoria, name='registrarCategoria'),
     
     # ------------------------

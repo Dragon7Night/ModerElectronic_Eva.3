@@ -18,7 +18,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #    °Vistas -> Usuarios
 # °===========================°
 
-# Vistas para el registro e ingreso de clientes
+# !|-|--|-|-|-|-|-|-|> VISTA BASADAS EN CLASE PARA LA GESTION DE CLIENTES <|-|--|-|-|-|-|-|-|-|-|-|-|-
+
 class CrearCuentaViewCliente(CreateView):
     form_class = UsuariosForms.ClienteSignUpForm # Formulario personalizado
     success_url = reverse_lazy("iniciarSesionCliente") # redireccionamiento 
@@ -30,14 +31,12 @@ class IniciarSesionViewCliente(LoginView):
     template_name = "usuario/ingreso/iniciar_sesion/iniciar_cliente.html"
     redirect_authenticated_user = False
 
-
-
+# !|-|--|-|-|-|-|-|-|> VISTA BASADAS EN CLASE PARA LA GESTION DE ADMINISTRADORES <|-|--|-|-|-|-|-|-|-|-|-|-|-
 
 class CrearCuentaViewAdmin(CreateView):
     form_class = UsuariosForms.AdminSignUpForm
     success_url = reverse_lazy("iniciarSesionAdmin")
     template_name = "Usuario/ingreso/crear_cuenta/crear_admin.html"
-
 
 class IniciarSesionViewAdmin(LoginView):
     form_class = AuthenticationForm
@@ -45,9 +44,8 @@ class IniciarSesionViewAdmin(LoginView):
     redirect_authenticated_user = False
 
 
-
-
 # !|-|--|-|-|-|-|-|-|> VISTA PARA MOSTRAR EL PERFIL <|-|--|-|-|-|-|-|-|-|-|-|-|-
+
 class PerfilUsuarioDetailView(LoginRequiredMixin, DetailView):
     model = UsuariosModels.Usuario
     template_name = 'Usuario/Perfil/mostrar_perfil.html' # Crea este nuevo template
@@ -58,6 +56,7 @@ class PerfilUsuarioDetailView(LoginRequiredMixin, DetailView):
         return self.request.user
 
 # !|-|--|-|-|-|-|-|-|> VISTA PARA EDITAR EL PERFIL <|-|--|-|-|-|-|-|-|-|-|-|-|-
+
 class PerfilUsuarioUpdateView(LoginRequiredMixin, UpdateView):
     model = UsuariosModels.Usuario
     form_class = UsuariosForms.PerfilUsuarioUpdateForm
