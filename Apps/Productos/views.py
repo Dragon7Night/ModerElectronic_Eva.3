@@ -3,22 +3,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.core.paginator import Paginator
-from django.db.models import Count # filtros
+from django.core.paginator import Paginator # PAGINAS DINAMICAS
+from django.db.models import Count, Avg # CONTADOR DE FILTROS Y AVG (promedio)
 from django.templatetags.static import static
 
+from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.core.paginator import Paginator
-from django.db.models import Count, Avg # Agregado Avg
-from django.templatetags.static import static
-from django.contrib.auth.decorators import login_required # Asegurando que la importación exista
-from django.db import IntegrityError # Importación útil para manejo de errores de DB
-
-
-#   -------------------------------MODELS & FORMS IMPORTS--------------------------------------------
+# ----[MODELS & FORMS IMPORTS]-------------------
 from Apps.Productos import models as ProductoModel
 
 from Apps.Productos import forms as ProductoForm

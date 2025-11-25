@@ -34,7 +34,7 @@ urlpatterns = [
     # ------------------------
     #   -URLs de Solicitud
     # ------------------------
-    path('registrar-solicitud/<int:id_producto>', productoViews.register_Solicitud, name='registrarSolicitud'),
+    # path('registrar-solicitud/<int:id_producto>', productoViews.register_Solicitud, name='registrarSolicitud'),
     path('data-solicitud/', productoViews.data_Solicitud, name='dataSolicitud'),
 
         # NUEVA RUTA DETALLE
