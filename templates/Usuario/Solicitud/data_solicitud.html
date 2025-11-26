@@ -4,27 +4,17 @@
 {% block titulo %} SOLICITUDES {% endblock %}
 
 {% block contenido %}
-    <div class="container mt-5">
+    <div class="container mb-5">
 
-        <header class="mb-4 d-flex justify-content-between align-items-center border-bottom pb-2">
-            <h3 class="text-primary">Moder Electronic / Registro de solicitudes</h3>
-        </header>
 
         <div class="card shadow-sm p-4">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="card-title">Listado de Solicitudes</h1>
+                <h1 class="card-title txt-grey">Listado de Solicitudes</h1>
                 
                 {% if solicitudKey %}
-                    <span class="badge bg-primary fs-5">{{ solicitudKey|length }}</span>
+                    <span class="badge bg-primary fs-5">Cantidad de solicitudes: {{ solicitudKey|length }}</span>
                 {% endif %}
-            </div>
-
-            <div class="mb-4">
-                <a href="{% url 'catalogoProductos' %}" class="btn btn-info text-white">
-                    <i class="fas fa-plus"></i> Nueva Solicitud
-                </a>
-                <p class="text-muted mt-1 small">Selecciona un producto del catálogo para crear una solicitud.</p>
             </div>
 
             <div class="table-responsive">
@@ -43,11 +33,13 @@
                     <tbody>
                         {% for sol in solicitudKey %}
                         <tr>
+                            <!-- ID DE LA SOLICITUD -->
                             <td>#{{ sol.id }}</td>
                             <td class="fw-bold">{{ sol.producto.nombre }}</td>
                             
                             <td>{{ sol.descripcion|truncatechars:50 }}</td>
 
+                            <!-- ESTADO DE LA SOLICITUD -->
                             <td>
                                 {% if sol.estado %}
                                     <span class="badge bg-success">Activo</span>
@@ -56,19 +48,22 @@
                                 {% endif %}
                             </td>
 
+                            <!-- TIPO DE LA SOLICITUD -->
                             <td>
-                                {% if sol.tipo_solicitud == "Garantía" %}
+                                {% if sol.tipo_solicitud == "garantia" %}
                                     <span class="badge bg-warning text-dark">{{ sol.tipo_solicitud }}</span>
-                                {% elif sol.tipo_solicitud == "Reparación" %}
+                                {% elif sol.tipo_solicitud == "devolucion" %}
                                     <span class="badge bg-danger">{{ sol.tipo_solicitud }}</span>
                                 {% else %}
                                     <span class="badge bg-info text-dark">{{ sol.tipo_solicitud|title }}</span>
                                 {% endif %}
                             </td>
 
+                            <!-- ACCIONES A REALIZAR -->
                             <td>
-                                <a href="{% url 'detalleProducto' sol.producto.id %}" class="btn btn-sm btn-outline-primary">
-                                    Ver Producto
+                                <!-- BOTON PARA VER PRODUCTO -->
+                                <a href="{% url 'detalleProducto' sol.producto.id %}" class="btn btn-primary text-light">
+                                        <i class="fas fa-eye"></i></i>
                                 </a>
                             </td>
                         </tr>

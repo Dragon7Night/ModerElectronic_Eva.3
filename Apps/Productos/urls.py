@@ -40,8 +40,8 @@ urlpatterns = [
         # NUEVA RUTA DETALLE
     path('producto/<int:id_producto>/', productoViews.detalle_producto, name='detalleProducto'),
     
-    # RUTA PARA PROCESAR EL COMENTARIO (POST)
-    path('producto/feedback/<int:id_producto>/', productoViews.agregar_feedback, name='agregarFeedback'),
+    # RUTA PARA PROCESAR EL COMENTARIO
+    path('producto/calificacion/<int:id_producto>/', productoViews.agregar_calificacion, name='agregarCalificacion'),
 
 
 ]

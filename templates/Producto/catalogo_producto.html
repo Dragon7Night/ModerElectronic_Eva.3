@@ -27,6 +27,7 @@
                     <div class="card-body">
                         <h5 class="card-title txt-grey mb-3"><i class="fas fa-search me-2 text-primary"></i>Buscar</h5>
                         <form method="GET">
+                            
                             <!-- Truco simple: Mantenemos los filtros activos (precio, categoría) como ocultos -->
                             {% for key, value in request.GET.items %}
                                 {% if key != 'q' and key != 'page' %}

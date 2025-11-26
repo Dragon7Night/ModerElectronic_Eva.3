@@ -7,7 +7,7 @@ from django.core.paginator import Paginator # PAGINAS DINAMICAS
 from django.db.models import Count, Avg # CONTADOR DE FILTROS Y AVG (promedio)
 from django.templatetags.static import static
 
-from django.contrib import messages # Importante para feedback visual
+from django.contrib import messages # Importante para calificacion visual
 
 from django.contrib.auth.decorators import login_required
 
@@ -58,7 +58,7 @@ def _procesar_imagenes(lista_productos):
             producto.nombre_categoria = relacion.categoria_id.nombre
         else:
             producto.url_categoria = None
-            producto.nombre_categoria = "General"
+            producto.nombre_categoria = "Otras"
     return lista_productos
 
 # !|-|--|-|-|-|-|-|-|> VISTAS GENERALES <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
@@ -71,6 +71,8 @@ def homeGeneral(request):
 
 # .|----------------[MOSTRAR PRODUCTOS]----------------|.
 
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def catalogo_producto(request):
     # GUARDA TODOS LOS DATOS EN EL OBJETOS odenados por fecha de registro
     productos_list = ProductoModel.Producto.objects.all().order_by('-fecha_registro')
@@ -124,20 +126,21 @@ def catalogo_producto(request):
     }
     return render(request, 'Producto/catalogo_producto.html', data)
 
-""" EN TESTING AUN """
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def detalle_producto(request, id_producto):
     # Usamos get_object_or_404 para manejar si el producto no existe
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     
     # Calcular promedio de estrellas
-    # 'calificaciones' es el related_name que definimos en models.py
+    # 'calificaciones' es el related_name que se definie en el models.py
     promedio_calificacion = producto.calificaciones.aggregate(Avg('cant_estrella'))['cant_estrella__avg']
     
-    # Formularios vacíos para la vista
+    # Formularios vacios para la vista
     form_comentario = ProductoForm.RegisterComentarioForm()
     form_calificacion = ProductoForm.RegisterCalificacionForm()
 
-    # --- Lógica para obtener la URL de la imagen ---
+    # --- Logica para obtener la URL de la imagen ---
     # Usamos el campo FK producto_id para el filtro
     relacion = ProductoModel.ProductoCategoria.objects.filter(producto_id=producto).first() 
     
@@ -148,8 +151,8 @@ def detalle_producto(request, id_producto):
         producto.nombre_categoria = relacion.categoria_id.nombre
     else:
         producto.url_categoria = None
-        producto.nombre_categoria = "General"
-    # --- FIN Lógica para obtener la URL de la imagen ---
+        producto.nombre_categoria = "Otros"
+    # --- FIN Logica para obtener la URL de la imagen ---
 
     data = {
         'producto': producto,
@@ -162,23 +165,21 @@ def detalle_producto(request, id_producto):
     return render(request, 'Producto/detalle_producto.html', data)
 
 
-# .|----------------[AGREGAR FEEDBACK (ESTRELLAS + COMENTARIO)]----------------|.
-@login_required(login_url='/login/')
-def agregar_feedback(request, id_producto):
-    """
-    Procesa el formulario de estrellas y comentario enviado desde detalle_producto.
-    """
+# .|----------------[AGREGAR CALIFICACION (ESTRELLAS + COMENTARIO)]----------------|.
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
+def agregar_calificacion(request, id_producto):
+
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     
     if request.method == 'POST':
-        # Instanciamos los formularios con los datos del POST
-        # Nota: Al usar inputs manuales HTML, Django buscará los 'name' coincidentes
+
         form_com = ProductoForm.RegisterComentarioForm(request.POST)
         form_cal = ProductoForm.RegisterCalificacionForm(request.POST)
         
         # Validamos y Guardamos
         try:
-            # 1. Guardar Comentario (si el usuario escribió algo)
+            # Guardar Comentario (si el usuario escribió algo)
             if form_com.is_valid():
                 comentario_texto = request.POST.get('comentario', '').strip()
                 if comentario_texto: # Solo guardar si no está vacío
@@ -187,35 +188,30 @@ def agregar_feedback(request, id_producto):
                     comentario.producto = producto    # Corregido: producto_id -> producto
                     comentario.save()
 
-            # 2. Guardar Calificación (Estrellas)
-            # Verificamos si form_cal es válido O si el dato crudo viene en el POST
+            # Guardar Calificación (Estrellas)
             if form_cal.is_valid():
                 calificacion = form_cal.save(commit=False)
                 calificacion.cliente = request.user
                 calificacion.producto = producto
                 calificacion.save()
             else:
-                # Fallback por si el form validation falla pero el dato existe
+
                 estrellas = request.POST.get('cant_estrella')
                 if estrellas:
-                    ProductoModel.Calificacion.objects.create(
-                        producto=producto,
-                        cliente=request.user,
-                        cant_estrella=int(estrellas)
-                    )
+                    ProductoModel.Calificacion.objects.create(producto=producto, cliente=request.user, cant_estrella=int(estrellas))
             
-            messages.success(request, '¡Gracias por tu calificación!')
+            messages.success(request, '¡Gracias por tu calificacion!')
             
-        except Exception as e:
-            messages.error(request, f'Error al guardar tu opinión: {e}')
+        except Exception as err:
+            messages.error(request, f'Error al guardar tu opinión: {err}')
             
     # Redirigimos al usuario de vuelta a la página de detalle del producto
     return HttpResponseRedirect(reverse('detalleProducto', args=[id_producto]))
 
 # .|----------------[REGISTRAR PRODUCTO]----------------|.
 
-# PERMITE REQUERIR QUE EL USER ESTE LOGEADO (decorador)
-@login_required(login_url='/login/')
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def registrar_producto(request):
     formProducto = ProductoForm.RegisterProductoForm() 
     
@@ -257,8 +253,8 @@ def registrar_producto(request):
 
 # .|----------------[EDITAR PRODUCTO]----------------|.
 
-""" EN TESTING AUN """
-@login_required(login_url='/login/')
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def editar_producto(request, id_producto):
 
     # OBTIENE EL OBJETO O SI NO UN ERROR 404 (dos en uno)
@@ -301,9 +297,8 @@ def editar_producto(request, id_producto):
 
 # .|----------------[ELIMINAR PRODUCTO]----------------|.
 
-""" EN TESTING AUN """
-# PERMITE REQUERIR QUE EL USER ESTE LOGEADO (decorador)
-@login_required(login_url='/login/')
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def eliminar_producto(request, id_producto):
 
     # OBTIENE EL OBJETO O SI NO UN ERROR 404 (dos en uno)
@@ -315,6 +310,9 @@ def eliminar_producto(request, id_producto):
 # !|-|--|-|-|-|-|-|-|> VISTAS DE CATEGORIAS <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 
 # .|----------------[MOSTRAR CATEGORIAS]----------------|.
+
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def data_categoria(request):
     categoriaObject = ProductoModel.Categoria.objects.all()
     data = {
@@ -325,8 +323,8 @@ def data_categoria(request):
 
 # .|----------------[REGISTRAR CATEGORIAS]----------------|.
 
-# PERMITE REQUERIR QUE EL USER ESTE LOGEADO (decorador)
-@login_required(login_url='/login/')
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def registrar_categoria(request):
     formCategoria = ProductoForm.RegisterCategoriaForm()
     
@@ -340,18 +338,21 @@ def registrar_categoria(request):
     
     data = {
         'formKey': formCategoria,
-        'mainTitle': 'Registro de Categorías',
-        'txtBtn': 'Guardar Categoría',
+        'mainTitle': 'Registro de Categorias',
+        'txtBtn': 'Guardar Categoria',
         'categorias_registradas': categorias_registradas,
     }
     return render(request, 'Producto/Extras/registrar_categoria.html', data)
 
 # -----------------------------------CALIFICACION-------------------------------------------------------
 
-
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def agregar_Calificacion(request, id_producto):
     return HttpResponseRedirect(reverse('detalleProducto', args=[id_producto])) 
 
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def data_Calificacion(request):
     calificacionObject = ProductoModel.Calificacion.objects.all()
     data = {
@@ -360,9 +361,9 @@ def data_Calificacion(request):
     }
     return render(request, 'Valoraciones/data_estrellas.html', data)
 
-
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def register_Solicitud(request, id_producto):
-
     # OBTIENE EL OBJETO O SI NO UN ERROR 404 (dos en uno)
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     
@@ -371,7 +372,7 @@ def register_Solicitud(request, id_producto):
         if form_solicitud.is_valid():
             solicitud = form_solicitud.save(commit=False)
             solicitud.producto_id = producto 
-            solicitud.cliente_id = request.user # Asumo que el usuario actual es el cliente
+            solicitud.cliente_id = request.user
             solicitud.estado = True 
             solicitud.tipo_solicitud = 'en revision'
             solicitud.save()
@@ -387,7 +388,8 @@ def register_Solicitud(request, id_producto):
     }
     return render(request, 'Usuario/Solicitud/solicitud.html', data)
 
-
+# DECORADOR, OBLIGA A QUE LOS USUARIOS ESTEN LOGEADO PARA ACCEDER A ESTA PAGINA
+@login_required(login_url='/productos/home/')
 def data_Solicitud(request):
     solicitudObject = ProductoModel.Solicitud.objects.all()
     data = {

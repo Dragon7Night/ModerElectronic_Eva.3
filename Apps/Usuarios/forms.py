@@ -36,7 +36,7 @@ class ClienteSignUpForm(UserCreationForm):
         return user
 
 
-# --- 2. FORMULARIO DE REGISTRO DE ADMINISTRADORES ---
+# --- FORMULARIO DE REGISTRO DE ADMINISTRADORES ---
 
 class AdminSignUpForm(UserCreationForm):
     admin_key = forms.CharField(max_length=64, label="Clave de Administrador") 
@@ -64,7 +64,7 @@ class AdminSignUpForm(UserCreationForm):
         return user
 
 
-# --- 3. FORMULARIO DE EDICIÓN DE PERFIL ---
+# --- FORMULARIO DE EDICIÓN DE PERFIL ---
 
 class PerfilUsuarioUpdateForm(forms.ModelForm):
     class Meta:

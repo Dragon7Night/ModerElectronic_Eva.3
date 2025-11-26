@@ -21,7 +21,7 @@ from django.conf import settings
 # |===> CLASS Categoria [PK id_categoria]
 class Categoria(models.Model):
 
-    nombre = models.CharField(max_length=25, unique=False)
+    nombre = models.CharField(max_length=50, unique=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -32,7 +32,7 @@ class Producto(models.Model):
 
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,null=True,blank=True, related_name='productos_administrados')
     
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
     precio = models.FloatField()
     stock = models.IntegerField()
     fecha_registro = models.DateTimeField(auto_now_add=True)
