@@ -14,6 +14,25 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.7rem !important;
 }
 
+/* NORMALIZACION DE COLORES */
+h1, h2, h3, h4, h5, h6, p, a, label {
+  color: #4ddbe6 !important;
+}
+
+
+/* COLOR PERSONALIZADO DE LABEL de los formularios de users */
+label.color-label,.color-h4{
+  color: #4ddbe6 !important;
+}
+
+span.txt-bold{
+  font-weight: bolder !important;
+}
+
+/* COLOR TEXTO PERSONALIZADO */
+.txt-grey{
+  color: #616161 !important;
+}
 
 /* COLOR FORM REGISTRO DE PRODUCTO */
 
@@ -233,20 +252,13 @@ h4.barra_inferior::after {
   z-index: 1 !important;
 }
 
-/* COLOR PERSONALIZADO DE LABEL de los formularios de users */
-label.color-label,.color-h4{
-  color: #94f3df !important;
-}
-
-span.txt-bold{
-  font-weight: bolder !important;
-}
 
 
 /* Boton general <a> */
 
 .btn-general {
   background-color: #62f0f5 !important;
+  border: 3px solid #212c63 !important;
   border-top-right-radius: 300px !important;
   border-bottom-left-radius: 300px !important;
   font-family: "Winky Rough", sans-serif !important;
@@ -255,14 +267,50 @@ span.txt-bold{
   padding: 9px 27px !important;
   text-align: center !important;
   text-decoration: none !important;
-  border: 0 !important;
   font-size: 16px !important;
   font-weight: 600 !important;
-  user-select: none !important;
   margin: 0px 6px 0px 6px !important;
 }
 
 .btn-general:hover {
   transform: scale(0.98) !important;
   opacity: 0.9 !important;
+  border: 3px solid #687de6 !important;
 }
+
+
+/* CSS PARA EL DATA DE PRODUCTOS */
+
+/* CSS Mínimo para el sistema de estrellas en el modal */
+
+.rating-stars {
+    direction: rtl; /* Para alinear las estrellas de derecha a izquierda */
+    font-size: 30px;
+    display: inline-block;
+    color: #FFC700; /* Color de la estrella seleccionada */
+}
+
+.rating-stars input[type="radio"] {
+    display: none; /* Oculta los radio buttons originales */
+}
+
+.rating-stars label {
+    margin: 0;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.rating-stars label:before {
+    content: '★';
+    color: #ccc; /* Color de la estrella sin seleccionar */
+}
+
+.rating-stars input[type="radio"]:checked ~ label:before {
+    color: #FFC700; /* Color cuando está seleccionada */
+}
+
+
+
+
+
+

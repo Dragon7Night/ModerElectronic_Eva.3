@@ -204,7 +204,7 @@ def registrar_producto(request):
             producto_instance = formProducto.save(commit=False)
             
             # ASIGNACIÓN DEL ADMIN
-            producto_instance.admin_id = request.user 
+            producto_instance.admin = request.user 
             producto_instance.save()
             
             # RELACION MANY TO MANY (Categoria)

@@ -3,6 +3,8 @@
 from django.db import models
 
 from Apps.Usuarios import models as UsuarioModel  # model de usuarios de Django
+
+from django.conf import settings
 # '================================================='
 
 # °===========================°
@@ -28,13 +30,14 @@ class Categoria(models.Model):
 # |===> CLASS Producto [PK id_producto | FK admin_id]
 class Producto(models.Model):
 
-    # FK del admin
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,null=True,blank=True, related_name='productos_administrados')
+    
     nombre = models.CharField(max_length=50)
     precio = models.FloatField()
     stock = models.IntegerField()
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def _str_(self):
         return self.nombre
 
 # |===> CLASS ProductoCategoria [PK id_produc_cate | FK producto_id, categoria_id]
