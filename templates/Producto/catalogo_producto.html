@@ -25,7 +25,7 @@
                 <!-- A. BUSCADOR -->
                 <div class="card shadow-sm border-0 mb-4">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold mb-3"><i class="fas fa-search me-2 text-primary"></i>Buscar</h5>
+                        <h5 class="card-title txt-grey mb-3"><i class="fas fa-search me-2 text-primary"></i>Buscar</h5>
                         <form method="GET">
                             <!-- Truco simple: Mantenemos los filtros activos (precio, categoría) como ocultos -->
                             {% for key, value in request.GET.items %}
@@ -45,7 +45,7 @@
                 <!-- CATEGORÍAS -->
                 <div class="card shadow-sm border-0 mb-4">
                     <div class="card-header bg-white border-bottom-0 pt-3">
-                        <h5 class="fw-bold mb-0"><i class="fas fa-list me-2 text-primary"></i>Categorías</h5>
+                        <h5 class="txt-grey mb-0"><i class="fas fa-list me-2 text-primary"></i>Categorías</h5>
                     </div>
                     <div class="list-group list-group-flush">
                         <!-- Opción "Todas" -->

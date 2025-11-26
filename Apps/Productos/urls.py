@@ -42,5 +42,7 @@ urlpatterns = [
     
     # RUTA PARA PROCESAR EL COMENTARIO (POST)
     path('producto/feedback/<int:id_producto>/', productoViews.agregar_feedback, name='agregarFeedback'),
+
+
 ]
 

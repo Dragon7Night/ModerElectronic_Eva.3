@@ -7,6 +7,8 @@ from django.core.paginator import Paginator # PAGINAS DINAMICAS
 from django.db.models import Count, Avg # CONTADOR DE FILTROS Y AVG (promedio)
 from django.templatetags.static import static
 
+from django.contrib import messages # Importante para feedback visual
+
 from django.contrib.auth.decorators import login_required
 
 # ----[MODELS & FORMS IMPORTS]-------------------
@@ -160,32 +162,52 @@ def detalle_producto(request, id_producto):
     return render(request, 'Producto/detalle_producto.html', data)
 
 
-""" EN TESTING AUN """
+# .|----------------[AGREGAR FEEDBACK (ESTRELLAS + COMENTARIO)]----------------|.
 @login_required(login_url='/login/')
 def agregar_feedback(request, id_producto):
-    # Obtenemos el producto para asegurar que existe y para asignarlo al feedback
+    """
+    Procesa el formulario de estrellas y comentario enviado desde detalle_producto.
+    """
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     
     if request.method == 'POST':
+        # Instanciamos los formularios con los datos del POST
+        # Nota: Al usar inputs manuales HTML, Django buscará los 'name' coincidentes
         form_com = ProductoForm.RegisterComentarioForm(request.POST)
         form_cal = ProductoForm.RegisterCalificacionForm(request.POST)
         
-        # 1. Guardamos Comentario
-        if form_com.is_valid():
-            comentario = form_com.save(commit=False)
-            # ASIGNACIÓN CORREGIDA: Usamos el nombre de campo `cliente_id` de tu models.py
-            comentario.cliente_id = request.user      
-            comentario.producto_id = producto         
-            comentario.save()
+        # Validamos y Guardamos
+        try:
+            # 1. Guardar Comentario (si el usuario escribió algo)
+            if form_com.is_valid():
+                comentario_texto = request.POST.get('comentario', '').strip()
+                if comentario_texto: # Solo guardar si no está vacío
+                    comentario = form_com.save(commit=False)
+                    comentario.cliente = request.user # Corregido: cliente_id -> cliente
+                    comentario.producto = producto    # Corregido: producto_id -> producto
+                    comentario.save()
 
-        # 2. Guardamos Calificación
-        if form_cal.is_valid():
-            if request.POST.get('cant_estrella'):
+            # 2. Guardar Calificación (Estrellas)
+            # Verificamos si form_cal es válido O si el dato crudo viene en el POST
+            if form_cal.is_valid():
                 calificacion = form_cal.save(commit=False)
-                # ASIGNACIÓN CORREGIDA: Usamos el nombre de campo `cliente_id` de tu models.py
-                calificacion.cliente_id = request.user
-                calificacion.producto_id = producto
+                calificacion.cliente = request.user
+                calificacion.producto = producto
                 calificacion.save()
+            else:
+                # Fallback por si el form validation falla pero el dato existe
+                estrellas = request.POST.get('cant_estrella')
+                if estrellas:
+                    ProductoModel.Calificacion.objects.create(
+                        producto=producto,
+                        cliente=request.user,
+                        cant_estrella=int(estrellas)
+                    )
+            
+            messages.success(request, '¡Gracias por tu calificación!')
+            
+        except Exception as e:
+            messages.error(request, f'Error al guardar tu opinión: {e}')
             
     # Redirigimos al usuario de vuelta a la página de detalle del producto
     return HttpResponseRedirect(reverse('detalleProducto', args=[id_producto]))

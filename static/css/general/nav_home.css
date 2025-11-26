@@ -279,38 +279,52 @@ h4.barra_inferior::after {
 }
 
 
-/* CSS PARA EL DATA DE PRODUCTOS */
-
-/* CSS Mínimo para el sistema de estrellas en el modal */
-
-.rating-stars {
-    direction: rtl; /* Para alinear las estrellas de derecha a izquierda */
-    font-size: 30px;
-    display: inline-block;
-    color: #FFC700; /* Color de la estrella seleccionada */
-}
-
-.rating-stars input[type="radio"] {
-    display: none; /* Oculta los radio buttons originales */
-}
-
-.rating-stars label {
-    margin: 0;
-    padding: 0 5px;
-    cursor: pointer;
-}
-
-.rating-stars label:before {
-    content: '★';
-    color: #ccc; /* Color de la estrella sin seleccionar */
-}
-
-.rating-stars input[type="radio"]:checked ~ label:before {
-    color: #FFC700; /* Color cuando está seleccionada */
-}
 
 
+/* ESTEKKAS */
 
 
+/* Centra el contenedor del formulario */
+    .rating-container {
+        text-align: center !important;
+        padding: 20px !important;
+        border: 1px solid #e1e1e1 !important; /* Opcional: borde suave */
+        border-radius: 8px !important; /* Opcional: bordes redondeados */
+        margin-top: 20px !important;
+    }
 
+    /* --- EFECTO DE ESTRELLAS --- */
+    
+    /* El contenedor usa dirección RTL para que el hover funcione de derecha a izquierda visualmente */
+    .stars {
+        direction: rtl !important;
+        font-size: 2.5rem !important; /* Hice las estrellas un poco más grandes */
+        display: inline-block !important;
+        border: 0 !important;
+    }
 
+    /* Ocultar los radio buttons originales */
+    .stars input[type="radio"] {
+        display: none !important;
+    }
+
+    /* Estilo base de la estrella (gris) */
+    .stars label {
+        color: #ccc !important;
+        cursor: pointer !important;
+        padding: 0 0.2rem !important;
+        transition: color 0.2s ease-in-out !important;
+    }
+
+    /* --- INTERACCIÓN --- */
+
+    /* Al pasar el mouse, ilumina la actual y las siguientes (que en RTL son las anteriores) */
+    .stars label:hover,
+    .stars label:hover ~ label {
+        color: #ffcc00 !important; /* Amarillo dorado */
+    }
+
+    /* Mantener iluminadas las estrellas seleccionadas */
+    .stars input[type="radio"]:checked ~ label {
+        color: #ffcc00 !important;
+    }

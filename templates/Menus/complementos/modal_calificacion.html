@@ -1,0 +1,54 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--    °Modal -> Calificacion   -->
+<!-- °=============================° -->
+ 
+<div class="modal fade" id="calificacionModal" tabindex="-1" aria-labelledby="calificacionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="calificacionModalLabel">Añadir tu Calificación y Comentario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'agregarFeedback' id_producto=producto.id %}">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    <div class="mb-3 text-center">
+                        <label class="form-label fw-bold">Tu Calificación:</label>
+                        <div class="stars">
+                            <input type="radio" id="star-5" name="cant_estrella" value="5" required />
+                            <label for="star-5" title="5 estrellas"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" id="star-4" name="cant_estrella" value="4" />
+                            <label for="star-4" title="4 estrellas"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" id="star-3" name="cant_estrella" value="3" />
+                            <label for="star-3" title="3 estrellas"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" id="star-2" name="cant_estrella" value="2" />
+                            <label for="star-2" title="2 estrellas"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" id="star-1" name="cant_estrella" value="1" />
+                            <label for="star-1" title="1 estrella"><i class="fa-solid fa-star"></i></label>
+                        </div>
+                    </div>
+                    <hr class="mb-2">
+
+                    <div class="mb-3">
+                        <label for="{{ formComentario.comentario.id_for_label }}" class="form-label">Tu
+                            Comentario:</label>
+                        {{ formComentario.comentario }}
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

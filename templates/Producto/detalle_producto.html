@@ -8,16 +8,6 @@
 <div class="container py-5">
 
     <div class="card-content px-4 py-2 rounded-3">
-        <div class="mb-4">
-            <h1 class="fw-bold mb-0">{{ producto.nombre }}</h1>
-            <small class="text-muted">
-                <a href="{% url 'catalogoProductos' %}" class="text-decoration-none">Catálogo</a> /
-                <span>{{ producto.nombre }}</span>
-            </small>
-        </div>
-
-
-
 
         <div class="row gx-5">
 
@@ -42,7 +32,9 @@
             <div class="col-lg-6">
                 <div class="card p-4 shadow-sm border-0">
 
-                    <h2 class="card-title fw-bold mb-2">{{ producto.nombre }}</h2>
+                    <h2 class="card-title fw-bold txt-grey mb-2">{{ producto.nombre }}</h2>
+
+                    {% if request.user.is_client %}
 
                     <div class="d-flex align-items-center mb-3">
 
@@ -51,30 +43,35 @@
                             data-bs-target="#calificacionModal" style="cursor: pointer;"></i>
                     </div>
 
+                    {% else %}
+                    {#No se muestra nada, opcion exclusiva del cliente#}
+
+                    {% endif %}
+
                     <h3 class="text-primary fw-bolder mb-3">${{ producto.precio }}</h3>
 
                     <hr>
 
-                    <h5 class="fw-bold mb-3"><i class="fas fa-info-circle me-2 text-info"></i>Caracteristicas</h5>
+                    <h5 class="txt-grey mb-3"><i class="fas fa-info-circle me-2 "></i>Caracteristicas</h5>
                     <ul class="list-group list-group-flush mb-4">
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span class="fw-light">Categoría:</span>
+                            <span class="text-black fw-bolder">Categoría:</span>
                             <span class="fw-medium">{{ producto.nombre_categoria }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span class="fw-light">Stock:</span>
+                            <span class="text-black fw-bolder">Stock:</span>
                             {% if producto.stock > 0 %}
                             <span class="fw-medium text-success">{{ producto.stock }} unidades</span>
                             {% else %}
                             <span class="fw-medium text-danger">Agotado</span>
                             {% endif %}
                         </li>
-                        {% comment %}
+
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span class="fw-light">Garantía:</span>
-                            <span class="fw-medium">{{ producto.garantia }}</span>
+                            <span class="text-black fw-bolder">Garantía:</span>
+                            <span class="txt-grey fw-light">{{ producto.garantia }}</span>
                         </li>
-                        {% endcomment %}
+
                     </ul>
 
                     <div class="mt-auto pt-3 border-top">
@@ -115,50 +112,7 @@
 
 </div>
 
-<div class="modal fade" id="calificacionModal" tabindex="-1" aria-labelledby="calificacionModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="calificacionModalLabel">Añadir Calificación y Comentario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="POST" action="{% url 'agregarFeedback' id_producto=producto.id %}">
-                {% csrf_token %}
-                <div class="modal-body">
+{% include 'Menus/Complementos/modal_calificacion.html' %}
 
-                    <div class="mb-3 text-center">
-                        <label class="form-label fw-bold">Tu Calificación:</label>
-                        <div class="rating-stars">
-                            <input type="radio" id="star5" name="{{ formCalificacion.cant_estrella.name }}"
-                                value="5" /><label for="star5" title="5 estrellas">★</label>
-                            <input type="radio" id="star4" name="{{ formCalificacion.cant_estrella.name }}"
-                                value="4" /><label for="star4" title="4 estrellas">★</label>
-                            <input type="radio" id="star3" name="{{ formCalificacion.cant_estrella.name }}"
-                                value="3" /><label for="star3" title="3 estrellas">★</label>
-                            <input type="radio" id="star2" name="{{ formCalificacion.cant_estrella.name }}"
-                                value="2" /><label for="star2" title="2 estrellas">★</label>
-                            <input type="radio" id="star1" name="{{ formCalificacion.cant_estrella.name }}"
-                                value="1" /><label for="star1" title="1 estrella">★</label>
-
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="{{ formComentario.comentario.id_for_label }}" class="form-label">Tu
-                            Comentario:</label>
-                        {{ formComentario.comentario }}
-                        <small class="form-text text-muted">Máximo 255 caracteres.</small>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Enviar Feedback</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 {% endblock %}

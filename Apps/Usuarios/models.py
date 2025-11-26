@@ -13,7 +13,8 @@ from django.contrib.auth.models import UserManager
 class UsuarioManager(UserManager):
     # Astraccion de class ↑↑ linea 163
     """Sobrescribe el Manager para asegurar que el rol se asigne
-       correctamente al crear superusuarios."""
+       correctamente al crear superusuarios. De caso contrario se registran
+       todo los users con el rol cliente, por defecto"""
     
     def create_superuser(self, username, email, password, **extra_fields):
         # Si el user tiene staff y superuser en True se le asigna por defecto el rol Admin
