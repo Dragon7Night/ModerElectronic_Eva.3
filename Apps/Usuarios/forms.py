@@ -2,10 +2,9 @@
 # '======[Importaciones]============================'
 from django import forms
 
-# Importa tu modelo de usuario
-from .models import Usuario 
-# Para manejar el hashing de la contraseña
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from Apps.Usuarios.models import Usuario 
+
+from django.contrib.auth.forms import UserCreationForm
 # '================================================='
 
 # °===========================°
@@ -15,7 +14,6 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 # --- FORMULARIO DE REGISTRO DE CLIENTES ---
 
 class ClienteSignUpForm(UserCreationForm):
-    # Campos adicionales no incluidos en UserCreationForm por defecto
     direccion = forms.CharField(max_length=90)
     
     class Meta(UserCreationForm.Meta):
@@ -25,7 +23,7 @@ class ClienteSignUpForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=True) 
         
-        # 2. Actualizar los campos adicionales
+        # Actualizar los campos adicionales
         user.direccion = self.cleaned_data['direccion']
         user.rol = Usuario.ROL_CLIENTE
         user.is_staff = False
