@@ -85,7 +85,30 @@
     <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.colVis.min.js"></script>
 
     <!-- SCROLL HORIZONTAL + BOTONES DE DataTable + Language ES -->
-    <script>
+
+
+<script>
+    new DataTable('#tablaData', {
+        scrollX: true,
+        layout: {
+            topStart: {
+                buttons: [
+                    { extend: 'copy', className: 'dt-button' },
+                    { extend: 'excel', className: 'dt-button' },
+                    { extend: 'pdf', className: 'dt-button' },
+                    { extend: 'colvis', className: 'dt-button' }
+                ]
+            }
+        },
+        language: { url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json' },
+    });
+</script>
+
+
+
+
+
+    <!-- <script>
         new DataTable('#tablaData', {
             scrollX: true,
             layout: {
@@ -97,7 +120,7 @@
                 url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
             },
         });
-    </script>
+    </script> -->
 
 
 

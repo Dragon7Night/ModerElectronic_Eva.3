@@ -348,3 +348,55 @@ h4.barra_inferior::after {
     .stars input[type="radio"]:checked ~ label {
         color: #ffcc00 !important;
     }
+
+
+
+
+
+
+
+/* Estilo global para botones DataTable | con !important */
+.dt-button,
+button.dt-button {
+    background:#96bdf7!important;
+    color:#000!important;
+    border:none!important;
+    border-radius:6px!important;
+    padding:6px 14px!important;
+    margin-right:5px!important;
+}
+
+
+  
+
+li.dt-button, li.dt-button-active-a, li.buttons-columnVisibility{
+    background-color: rgba(255, 255, 255, 0) !important;
+    color: #000 !important;
+}
+
+a.dropdown-item{
+    background-color: rgba(255, 255, 255, 0) !important;
+    color: #000 !important;
+    padding: 0% !important;
+    border-radius: 3px !important;
+}
+
+
+a.dropdown-item:hover{
+    background-color: rgba(165, 186, 241, 0.575) !important;
+    color: #000 !important;
+}
+
+
+/* tamaño del paginador */
+.dataTables_paginate .paginate_button {
+    font-size:14px!important;
+    padding:6px 12px!important;
+    border-radius:4px!important;
+}
+.dataTables_paginate .paginate_button.current {
+    background:#0d6efd!important;
+    color:#fff!important;
+}
+
+

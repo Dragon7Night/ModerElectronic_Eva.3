@@ -5,12 +5,9 @@
 <!--    °Vista -> Historial de Compras             -->
 <!-- °============================================° -->
 
-<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} HISTORIAL DE COMPRAS {% endblock %}
 
-<!-- CONTENIDO DEL HISTORIAL DE COMPRAS -->
 {% block contenido %}
-
 
 <div class="container py-5">
 
@@ -24,7 +21,8 @@
     <div class="card shadow-sm p-4">
         <h3 class="fw-light txt-grey mb-3">Historial de Compras</h3>
 
-        <table class="table table-hover">
+        <!-- ✨ solo agregué ID para DataTable -->
+        <table id="tablaData" class="table table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>Producto</th>
@@ -40,23 +38,19 @@
                 {% for registro in registros_compra %}
                 <tr>
 
-                    <!-- Producto -->
                     <td>
                         <a href="{% url 'detalleProducto' registro.producto.id %}" class="text-decoration-none fw-bold">
                             {{ registro.producto.nombre }}
                         </a>
                     </td>
 
-                    <!-- Fecha -->
                     <td>
                         <span>{{ registro.fecha_compra|date:"d/m/Y" }}</span><br>
                         <small class="text-secondary">{{ registro.fecha_compra|date:"H:i" }} hrs</small>
                     </td>
 
-                    <!-- Total -->
                     <td class="text-center fw-bold">${{ registro.precio_total|floatformat:0 }}</td>
 
-                    <!-- Garantía -->
                     <td class="text-center">
                         {% if registro.garantia %}
                             <span class="badge bg-success">Sí</span>
@@ -65,7 +59,6 @@
                         {% endif %}
                     </td>
 
-                    <!-- Delivery -->
                     <td class="text-center">
                         {% if registro.delivery %}
                             <span class="badge bg-success">Sí</span>
@@ -74,7 +67,6 @@
                         {% endif %}
                     </td>
 
-                    <!-- Acción -->
                     <td class="text-center">
                         <a href="{% url 'registrarSolicitud' registro_id=registro.id %}"
                            class="btn btn-effect-modal2 btn-primary">

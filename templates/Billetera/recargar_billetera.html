@@ -5,43 +5,51 @@
 <!--    °Pagina -> Vista de formulario de recarga    -->
 <!-- °===============================================° -->
 
-<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} RECARGAR BILLETERA {% endblock %}
 
-<!-- CONTENIDO DEL FORMULARIO DE RECARGAR BILLETERA -->
 {% block contenido %}
-<div class="container mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-primary text-white text-center">
-            <h2 class="mb-0"> Recargar Billetera</h2>
+
+<div class="container py-5" style="max-width: 600px;">
+
+    <div class="card shadow border-0 rounded-4">
+
+        <!-- CABECERA -->
+        <div class="card-header text-center rounded-top-4 py-4">
+            <h3 class="mb-0 fw-light txt-grey text-uppercase">
+                <i class="bi bi-wallet-fill me-2"></i> Ingrese el Monto
+            </h3>
         </div>
-        <div class="card-body">
 
-            {% if messages %}
-                <div class="alert alert-info">
-                    <ul class="mb-0">
-                        {% for message in messages %}
-                            <li class="{{ message.tags }}">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+        <div class="card-body p-4">
 
+            <!-- FORMULARIO -->
             <form method="post" class="mt-3">
                 {% csrf_token %}
-                <div class="form-group">
-                    {{ form.as_p }}
+
+                <!-- Input Monto -->
+                <div class="mb-4">
+                    <label for="monto" class="form-label txt-grey fs-5 fw-light">Monto a recargar</label>
+                    <div class="input-group">
+                        <span class="input-group-text fw-bold">$</span>
+                        <input type="number" name="monto" id="monto"
+                            class="form-control form-control-lg text-center fw-semibold"
+                            placeholder="Ej: 10000" min="500" required>
+                    </div>
+                    <small class="text-muted">Monto mínimo recomendado: $500</small>
                 </div>
-                <button type="submit" class="btn btn-success btn-block">
-                    Recargar billetera
+
+                <button type="submit" class="btn btn-effect-modal2 bg-success text-light w-100 py-2 fs-5 shadow-sm">
+                    <i class="bi bi-plus-circle me-2"></i> Recargar Billetera
                 </button>
             </form>
 
-            <div class="alert alert-warning mt-4 text-center">
-                <strong>AVISO IMPORTANTE:</strong> Esto es solo un ambiente de pruebas.  
-                No se solicitan datos de tarjeta ni validaciones reales.
+            <!-- ALERTA INFORMATIVA -->
+            <div class="alert alert-warning mt-4 text-center border-warning shadow-sm rounded-3">
+                <strong>AVISO IMPORTANTE:</strong><br>
+                Ambiente para pruebas | No se solicitan datos reales.
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

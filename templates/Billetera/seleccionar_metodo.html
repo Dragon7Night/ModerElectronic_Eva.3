@@ -1,32 +1,52 @@
 {% extends 'Base/base_index.html' %}
 
 <!-- °======================================================° -->
-<!--    °Pagina -> Vista de selecctor de metodo de recarga    -->
+<!--    °Pagina -> Selección del método de recarga          -->
 <!-- °======================================================° -->
 
-<!-- TITULO DE LA PAGINA WEB -->
-{% block titulo %} SELECCION DE METODO {% endblock %}
+{% block titulo %} Selección de Método {% endblock %}
 
-<!-- CONTENIDO DEL SELECCTOR DE METODO DE RECARGA -->
 {% block contenido %}
-<div class="container mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-info text-white text-center">
-            <h2 class="mb-0 display-6"> Seleccionar método de recarga</h2>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg border-0 rounded-4" style="max-width: 600px; width: 100%;">
+        
+        <div class="card-header text-center rounded-top-4 py-4">
+            <h3 class="mb-0 fw-light txt-grey text-uppercase">
+                <i class="bi bi-wallet-fill me-2"></i> Seleccione el metodo para recargar su billetera
+            </h3>
         </div>
-        <div class="card-body text-center">
-            <p class="fs-5 fw-semibold text-dark">
-                Seleccione ccmo desea recargar su billetera:
+
+        <div class="card-body text-center p-4">
+
+            <p class="fs-5 fw-semibold text-secondary mb-4">
+                Elige cómo deseas recargar tu billetera digital:
             </p>
 
-            <div class="d-flex justify-content-center gap-4 mt-4">
-                <a class="btn btn-primary btn-lg px-4" href="{% url 'recargarBilletera' %}">
-                    Recarga via tarjeta de debito
-                </a>
-                <button class="btn btn-secondary btn-lg px-4" disabled>
-                    Recarga via tarjeta credito (no disponible de momento)
-                </button>
+            <div class="row g-3 justify-content-center">
+
+                <!-- Opción disponible -->
+                <div class="col-12 col-md-10">
+                    <a href="{% url 'recargarBilletera' %}"
+                       class="btn btn-success text-light btn-lg w-100 py-3 rounded-3 d-flex justify-content-center align-items-center gap-2">
+                        <i class="bi bi-credit-card-2-front fs-4"></i>
+                        <span>Recargar con Tarjeta de Débito</span>
+                    </a>
+                </div>
+
+                <!-- Opción deshabilitada -->
+                <div class="col-12 col-md-10">
+                    <button class="btn btn-outline-secondary btn-lg w-100 py-3 rounded-3 d-flex justify-content-center align-items-center gap-2" disabled>
+                        <i class="bi bi-credit-card fs-4"></i>
+                        <span>Tarjeta de Crédito (Próximamente)</span>
+                    </button>
+                </div>
+
             </div>
+
+            <div class="mt-4 text-muted small">
+                <i class="bi bi-info-circle"></i> Nuevos métodos se habilitarán pronto.
+            </div>
+
         </div>
     </div>
 </div>
