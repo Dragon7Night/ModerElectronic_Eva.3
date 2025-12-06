@@ -1,59 +1,59 @@
 {% load static %}
+
+<!-- °==============================================° -->
+<!--   °Complemento -> Sección listado de productos  ° -->
+<!-- °==============================================° -->
+
 <div class="product-list-wrapper">
 
     <div class="list-group list-group-flush">
-        
+
         {% for producto in ultimos_productos %}
         <div class="list-group-item d-flex align-items-center p-3 border rounded mb-2 shadow-sm product-hover-effect">
 
-            <div class="mr-4 flex-shrink-0">
-                
+            <!-- IMG -->
+            <div class="me-3 flex-shrink-0">
                 {% if producto.url_categoria %}
-                    <img src="{{ producto.url_categoria }}" alt="{{ producto.nombre_categoria }}" class="rounded"
-                        style="width: 60px; height: 60px; object-fit: cover;">
-                
+                <img src="{{ producto.url_categoria }}" alt="{{ producto.nombre_categoria }}"
+                     class="rounded" style="width:60px;height:60px;object-fit:cover;">
                 {% else %}
-                    <div class="bg-light d-flex justify-content-center align-items-center rounded"
-                        style="width: 60px; height: 60px;">
-                        <i class="fas fa-image text-muted fa-lg"></i>
-                    </div>
+                <div class="bg-light rounded d-flex justify-content-center align-items-center"
+                     style="width:60px;height:60px;">
+                     <i class="fas fa-image text-muted"></i>
+                </div>
                 {% endif %}
-                
             </div>
 
+            <!-- INFO -->
             <div class="w-100">
-                <div class="d-flex w-100 justify-content-between align-items-center">
-                    <h6 class="mb-1 font-weight-bold text-dark">{{ producto.nombre }}</h6>
-                    <span class="badge badge-success badge-pill p-2" style="font-size: 0.9rem;">
-                        ${{ producto.precio|floatformat:0 }} </span>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold m-0">{{ producto.nombre }}</h6>
+                    <span class="badge bg-success p-2">${{ producto.precio|floatformat:0 }}</span>
                 </div>
-                
+
                 <div class="d-flex justify-content-between mt-1">
                     <small class="text-muted">
-                        <i class="fas fa-tag mr-1"></i> Categoria:
-                        {% if producto.nombre_categoria %}
-                            {{ producto.nombre_categoria }} 
-                        {% else %}
-                            General
-                        {% endif %}
+                        <i class="fas fa-tag"></i>
+                        Categoria: {{ producto.nombre_categoria|default:"General" }}
                     </small>
-                    
-                    <small class="{% if producto.stock < 5 %}text-danger font-weight-bold{% else %}text-black{% endif %}">
+
+                    <small class="{% if producto.stock < 5 %}text-danger fw-bold{% endif %}">
                         Stock: {{ producto.stock }} und.
                     </small>
                 </div>
+
             </div>
+
         </div>
 
         {% empty %}
-        <div class="text-center py-5">
-            <div class="mb-3">
-                <i class="fas fa-box-open fa-3x text-gray-300"></i>
-            </div>
-            <h6 class="text-muted">No hay productos registrados aún.</h6>
+        <div class="text-center py-4">
+            <i class="fas fa-box-open fa-3x text-muted mb-2"></i>
+            <p class="text-muted mb-0">No hay productos registrados aún.</p>
         </div>
+
         {% endfor %}
 
     </div>
 </div>
-

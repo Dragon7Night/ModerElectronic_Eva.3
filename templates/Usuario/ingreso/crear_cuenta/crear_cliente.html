@@ -1,12 +1,11 @@
 {% extends 'Base/base_index.html' %}
 
 <!-- °============================================° -->
-<!--    °Formulario -> Registro del cliente         -->
+<!--       °Formulario -> Registro del Cliente      -->
 <!-- °============================================° -->
 
 <!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} REGISTRO CLIENTE {% endblock %}
-
 
 <!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
 {% block contenido %}
@@ -14,64 +13,103 @@
 <div class="row justify-content-center">
     <div class="col-lg-6">
         <div class="p-5">
+
+            <!-- Encabezado del formulario -->
             <div class="text-center">
                 <h1 class="mb-1">Registro de cuenta</h1>
                 <h4 class="barra_inferior text-light">Cliente</h4>
             </div>
 
+            <!-- FORMULARIO PRINCIPAL -->
             <form class="row g-3 user" method="post">
                 {% csrf_token %}
 
-                <!-- UserName -->
+                <!-- Errores generales del formulario -->
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for errorGeneral in form.non_field_errors %}
+                    <p class="mb-0 text-white fw-bold">{{ errorGeneral }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Nombre de usuario -->
                 <div class="col-12">
                     <label for="id_username" class="form-label color-label">Nombre de usuario</label>
-                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
-                        placeholder="Nombre de usuario" value="{{ form.username.value|default:'' }}" required autofocus>
+                    <input type="text"
+                        class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
+                        id="id_username" name="username" placeholder="Nombre de usuario"
+                        value="{{ form.username.value|default:'' }}" required autofocus>
 
+                    {% for errorUserName in form.username.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorUserName }}</div>
+                    {% endfor %}
                 </div>
 
-                <!-- Correo electronico -->
+                <!-- Correo electrónico -->
                 <div class="col-12">
                     <label for="id_email" class="form-label color-label">Correo electrónico</label>
-                    <input type="email" class="form-control form-control-user" id="id_email" name="email"
-                        placeholder="nombre@ejemplo.com" value="{{ form.email.value|default:'' }}" required>
+                    <input type="email"
+                        class="form-control form-control-user {% if form.email.errors %}is-invalid{% endif %}"
+                        id="id_email" name="email" placeholder="nombre@ejemplo.com"
+                        value="{{ form.email.value|default:'' }}" required>
 
+                    {% for errorEmail in form.email.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorEmail }}</div>
+                    {% endfor %}
                 </div>
 
-                <!-- Direccion -->
+                <!-- Dirección -->
                 <div class="col-12">
                     <label for="id_direccion" class="form-label color-label">Dirección de envío</label>
-                    <input type="text" class="form-control form-control-user" id="id_direccion" name="direccion"
-                        placeholder="Dirección de envío" value="{{ form.direccion.value|default:'' }}" required>
+                    <input type="text"
+                        class="form-control form-control-user {% if form.direccion.errors %}is-invalid{% endif %}"
+                        id="id_direccion" name="direccion" placeholder="Dirección de envío"
+                        value="{{ form.direccion.value|default:'' }}" required>
 
+                    {% for errorDireccion in form.direccion.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorDireccion }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Contraseña N°1 -->
                 <div class="col-md-6">
                     <label for="id_password1" class="form-label color-label">Contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password1" name="password1"
-                        placeholder="Contraseña" required>
+                    <input type="password"
+                        class="form-control form-control-user {% if form.password1.errors %}is-invalid{% endif %}"
+                        id="id_password1" name="password1" placeholder="Contraseña" required>
+
+                    {% for errorPassword1 in form.password1.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorPassword1 }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Contraseña N°2 -->
                 <div class="col-md-6">
                     <label for="id_password2" class="form-label color-label">Repetir Contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password2" name="password2"
-                        placeholder="Repetir Contraseña" required>
+                    <input type="password"
+                        class="form-control form-control-user {% if form.password2.errors %}is-invalid{% endif %}"
+                        id="id_password2" name="password2" placeholder="Repetir Contraseña" required>
 
+                    {% for errorPassword2 in form.password2.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorPassword2 }}</div>
+                    {% endfor %}
                 </div>
 
                 <hr class="my-2">
 
+                <!-- Botón crear cuenta -->
                 <div class="col-12 mt-4">
-                    <button type="submit" class="btn btn-primary btn-user btn-block w-100 mb-2">Crear Cuenta</button>
+                    <button type="submit" class="btn btn-warning btn-user text-dark fs-5 btn-block w-100 mb-2">Crear
+                        Cuenta</button>
                 </div>
             </form>
 
             <hr class="mt-3">
 
+            <!-- Redirección a inicio de sesión -->
             <div class="text-center mt-2">
-                <a class="small" href="{% url 'iniciarSesionCliente' %}">¿Ya tienes una cuenta? Inicia sesión</a>
+                <a class="small text-white fw-bold" href="{% url 'iniciarSesionCliente' %}">¿Ya tienes una cuenta? Inicia sesión</a>
             </div>
 
         </div>
@@ -79,8 +117,6 @@
 </div>
 
 {% endblock %}
-
-
 
 
 

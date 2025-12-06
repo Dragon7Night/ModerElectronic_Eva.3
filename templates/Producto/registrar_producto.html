@@ -1,3 +1,4 @@
+
 {% extends 'Base/base_index.html' %}
 {% load static %}
 
@@ -6,7 +7,7 @@
 <!-- °=================================° -->
 
 <!-- TITULO DE LA PAGINA WEB -->
-{% block titulo %} REGISTRO DE PRODUCTOS {% endblock %}
+{% block titulo %}REGISTRO DE PRODUCTOS{% endblock %}
 
 <!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
 {% block contenido %}
@@ -46,17 +47,39 @@
                     <form method="post">
                         {% csrf_token %}
 
+                        <!-- Mensajes de errores en caso de fallo -->
+                        {% if formKey.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul>
+                                {% for errorIngreso in formKey.non_field_errors %}
+                                <li>{{ errorIngreso }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
                         <div class="form-group-custom">
-                            {{ formKey.as_p }}
+
+                            {% for campo in formKey %}
+                            <div class="form-group mb-3">
+                                {{ campo.label_tag }}
+                                {{ campo }}
+                                {% for error in campo.errors %}
+                                <div class="alert alert-danger p-1 mt-1 small" role="alert">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+
                         </div>
 
                         <div class="d-grid mt-4">
-                            <input type="submit" class="btn btn-primary btn-block w-100" value="{{txtBtn}}">
+                            <input type="submit" class="btn btn-primary btn-block w-100" value="Registrar producto">
                         </div>
                         <hr class="my-3 border-bottom">
                         <div class="mb-2 text-center">
-                            <a href="{% url 'registrarCategoria' %}">Agregar
-                                nueva categoria</a>
+                            <a href="{% url 'registrarCategoria' %}">Agregar nueva categoría</a>
                         </div>
                     </form>
                 </div>
@@ -68,5 +91,3 @@
 </div>
 
 {% endblock %}
-
-

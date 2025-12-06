@@ -1,0 +1,31 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--     °Modal -> Comprar producto ° -->
+<!-- °=============================° -->
+
+<!-- IDs SIN ESPACIOS -->
+{% block id_modal %}modalComprarProducto{% endblock %}
+{% block label_modal %}modalComprarProductoLabel{% endblock %}
+{% block label_modal2 %}modalComprarProductoLabel{% endblock %}
+
+<!-- TITULO -->
+{% block titulo_modal %}
+Confirmar Compra
+{% endblock %}
+
+<!-- CONTENIDO -->
+{% block contenido_modal %}
+<div class="text-center py-3">
+    <i class="fas fa-shopping-bag fa-3x text-success mb-3"></i>
+    <h4 class="mb-1 text-white fw-light">¿Deseas comprar <strong>{{ producto.nombre }}</strong>?</h4>
+    <h4 class="text-success mt-2">Precio: ${{ producto.precio }}</h4>
+    <small class="text-white fw-bold d-block mt-2">El monto se descontará de tu billetera.</small>
+</div>
+{% endblock %}
+
+<!-- BOTONES (ESTILO MODAL DE EJEMPLO) -->
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary" data-bs-dismiss="modal">Cancelar</a>
+<a class="btn btn-effect-modal bg-success" href="{% url 'comprarProducto' producto.id %}">Confirmar Compra</a>
+{% endblock %}

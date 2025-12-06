@@ -1,0 +1,28 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--   °Modal -> Desbanear Cliente ° -->
+<!-- °=============================° -->
+
+<!-- IDs SIN ESPACIOS (dinámico por usuario) -->
+{% block id_modal %}modalDesbanearCliente{{ usuario.id }}{% endblock %}
+{% block label_modal %}modalDesbanearClienteLabel{{ usuario.id }}{% endblock %}
+{% block label_modal2 %}modalDesbanearClienteLabel{{ usuario.id }}{% endblock %}
+
+<!-- TITULO -->
+{% block titulo_modal %}Desbanear Usuario{% endblock %}
+
+<!-- CONTENIDO -->
+{% block contenido_modal %}
+<div class="text-center py-3">
+    <i class="fa-solid fa-unlock fa-3x text-success mb-3"></i>
+    <h4 class="mb-1 text-white fw-light">¿Deseas desbanear a <strong>{{ usuario.username }}</strong>?</h4>
+    <small class="text-white fw-bold d-block mt-2">El usuario podrá ingresar nuevamente.</small>
+</div>
+{% endblock %}
+
+<!-- BOTONES -->
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary" data-bs-dismiss="modal">Cancelar</a>
+<a class="btn btn-effect-modal bg-success" href="{% url 'desbanear_cliente' usuario.id %}">Confirmar</a>
+{% endblock %}

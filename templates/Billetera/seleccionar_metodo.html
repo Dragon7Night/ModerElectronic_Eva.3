@@ -1,0 +1,33 @@
+{% extends 'Base/base_index.html' %}
+
+<!-- °======================================================° -->
+<!--    °Pagina -> Vista de selecctor de metodo de recarga    -->
+<!-- °======================================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
+{% block titulo %} SELECCION DE METODO {% endblock %}
+
+<!-- CONTENIDO DEL SELECCTOR DE METODO DE RECARGA -->
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-info text-white text-center">
+            <h2 class="mb-0 display-6"> Seleccionar método de recarga</h2>
+        </div>
+        <div class="card-body text-center">
+            <p class="fs-5 fw-semibold text-dark">
+                Seleccione ccmo desea recargar su billetera:
+            </p>
+
+            <div class="d-flex justify-content-center gap-4 mt-4">
+                <a class="btn btn-primary btn-lg px-4" href="{% url 'recargarBilletera' %}">
+                    Recarga via tarjeta de debito
+                </a>
+                <button class="btn btn-secondary btn-lg px-4" disabled>
+                    Recarga via tarjeta credito (no disponible de momento)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

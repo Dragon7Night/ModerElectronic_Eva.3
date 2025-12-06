@@ -1,57 +1,87 @@
 {% extends 'Base/base_index.html' %}
 
 <!-- °============================================° -->
-<!--    °Formulario -> Registro del administrador    -->
+<!--    °Formulario -> Ingreso del administrador     -->
 <!-- °============================================° -->
 
 <!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} ACCESO ADMINISTRADOR {% endblock %}
 
-<!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
+<!-- CONTENIDO DEL FORMULARIO DE LOGIN -->
 {% block contenido %}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="w-50">
+            <!-- ERRORES GENERALES -->
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger text-center fw-bold py-2">
+                {% for errorGeneral in form.non_field_errors %}
+                <span>{{ errorGeneral }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="p-5">
+
+            <!-- TÍTULOS Y DESCRIPCIÓN -->
             <div class="text-center">
                 <h1 class="mb-1">Iniciar Sesión</h1>
                 <h4 class="barra_inferior text-light">Administrador</h4>
-                <p class="text-warning small mt-2">Solo para personal autorizado.</p>
+                <p class="text-warning mt-2 fw-bold">Solo para personal autorizado.</p>
             </div>
 
+            <!-- FORMULARIO PRINCIPAL -->
             <form class="row g-3 user" method="post">
                 {% csrf_token %}
 
                 <!-- UserName -->
                 <div class="col-12">
                     <label for="id_username" class="form-label color-label">Nombre de usuario</label>
-                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
-                        placeholder="Ej. Junito" value="{{ form.username.value|default:'' }}" required
-                        autofocus>
+                    <input type="text"
+                        class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
+                        id="id_username" name="username" placeholder="Ej. Junito"
+                        value="{{ form.username.value|default:'' }}" required autofocus>
+                    <!-- Mensajes de error específicos del username -->
+                    {% for errorUserName in form.username.errors %}
+                    <div class="invalid-feedback">{{ errorUserName }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Contraseña -->
                 <div class="col-12">
                     <label for="id_password" class="form-label color-label">Contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password" name="password"
-                        placeholder="Ej. x32rjks5df87" required autocomplete="current-password">
+                    <input type="password"
+                        class="form-control form-control-user {% if form.password.errors %}is-invalid{% endif %}"
+                        id="id_password" name="password" placeholder="Ej. x32rjks5df87" required
+                        autocomplete="current-password">
+                    <!-- Mensajes de error específicos de contraseña -->
+                    {% for errorPassword in form.password.errors %}
+                    <div class="invalid-feedback">{{ errorPassword }}</div>
+                    {% endfor %}
                 </div>
 
+                <!-- Botón enviar -->
                 <div class="col-12 mt-4">
-                    <button type="submit" class="btn btn-warning btn-user btn-block w-100 mb-2">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-warning btn-user text-dark fs-5 btn-block w-100 mb-2">Iniciar sesión</button>
                 </div>
             </form>
 
             <hr class="mt-3">
 
+            <!-- Enlaces secundarios -->
             <div class="text-center mt-2">
-                <a class="small" href="{% url 'password_reset' %}">¿Recuperar contraseña?</a>
+                <a class="small text-white fw-bold" href="{% url 'password_reset' %}">¿Recuperar contraseña?</a>
             </div>
             <div class="text-center">
-                <a class="small" href="{% url 'crearCuentaAdmin' %}">Crear cuenta</a>
+                <a class="small text-white fw-bold" href="{% url 'crearCuentaAdmin' %}">Crear cuenta</a>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
-

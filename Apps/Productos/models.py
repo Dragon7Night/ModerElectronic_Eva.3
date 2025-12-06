@@ -61,7 +61,7 @@ class Comentario(models.Model):
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Comentario de {self.usuario.username} en {self.producto.nombre}"
+        return f"Comentario de {self.cliente.username} en {self.producto.nombre}"
 
 # -----------------------------------------------------------
 
@@ -91,7 +91,6 @@ class Solicitud(models.Model):
     estado = models.BooleanField(default=True)
     tipo_solicitud = models.CharField(max_length=20, default='en revision')
     fecha_registro = models.DateTimeField(auto_now_add=True)
-
 
 
 # ~============= REGISTRO DE COMPRA =============~

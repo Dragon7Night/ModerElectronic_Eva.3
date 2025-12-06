@@ -13,61 +13,103 @@
 <div class="row justify-content-center">
     <div class="col-lg-6">
         <div class="p-5">
+
+            <!-- Encabezado del formulario -->
             <div class="text-center">
                 <h1 class="mb-1">Registro de cuenta</h1>
                 <h4 class="barra_inferior text-light">Administrador</h4>
-                <p class="text-danger small mt-2">Se requiere una clave de acceso secreta.</p>
+                <p class="text-warning mt-2 fw-bold">Se requiere una clave de acceso secreta.</p>
             </div>
 
+            <!-- FORMULARIO PRINCIPAL -->
             <form class="row g-3 user" method="post">
                 {% csrf_token %}
+
+                <!-- Errores generales -->
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for errorGeneral in form.non_field_errors %}
+                    <p class="mb-0 text-white fw-bold">{{ errorGeneral }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
                 <!-- UserName -->
                 <div class="col-12">
                     <label for="id_username" class="form-label color-label">Nombre de usuario</label>
-                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
-                        placeholder="Nombre de usuario" value="{{ form.username.value|default:'' }}" required autofocus>
+                    <input type="text"
+                        class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
+                        id="id_username" name="username" placeholder="Nombre de usuario"
+                        value="{{ form.username.value|default:'' }}" required autofocus>
+
+                    {% for errorUserName in form.username.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorUserName }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Email -->
                 <div class="col-12">
                     <label for="id_email" class="form-label color-label">Correo electronico</label>
-                    <input type="email" class="form-control form-control-user" id="id_email" name="email"
-                        placeholder="nombre@ejemplo.com" value="{{ form.email.value|default:'' }}" required>
+                    <input type="email"
+                        class="form-control form-control-user {% if form.email.errors %}is-invalid{% endif %}"
+                        id="id_email" name="email" placeholder="nombre@ejemplo.com"
+                        value="{{ form.email.value|default:'' }}" required>
+
+                    {% for errorEmail in form.email.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorEmail }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Clave de acceso -->
                 <div class="col-12">
                     <label for="id_admin_key" class="form-label color-label">Clave de acceso administrativa</label>
-                    <input type="password" class="form-control form-control-user" id="id_admin_key" name="admin_key"
-                        placeholder="Ingrese la clave secreta" required>
+                    <input type="password"
+                        class="form-control form-control-user {% if form.admin_key.errors %}is-invalid{% endif %}"
+                        id="id_admin_key" name="admin_key" placeholder="Ingrese la clave secreta" required>
+
+                    {% for errorAdminKey in form.admin_key.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorAdminKey }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Contraseña N°1 -->
                 <div class="col-md-6">
                     <label for="id_password1" class="form-label color-label">Contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password1" name="password1"
-                        placeholder="Contraseña" required>
+                    <input type="password"
+                        class="form-control form-control-user {% if form.password1.errors %}is-invalid{% endif %}"
+                        id="id_password1" name="password1" placeholder="Contraseña" required>
+
+                    {% for errorPassword1 in form.password1.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorPassword1 }}</div>
+                    {% endfor %}
                 </div>
 
                 <!-- Contraseña N°2 -->
                 <div class="col-md-6">
                     <label for="id_password2" class="form-label color-label">Repetir Contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password2" name="password2"
-                        placeholder="Repetir Contraseña" required>
+                    <input type="password"
+                        class="form-control form-control-user {% if form.password2.errors %}is-invalid{% endif %}"
+                        id="id_password2" name="password2" placeholder="Repetir Contraseña" required>
+
+                    {% for errorPassword2 in form.password2.errors %}
+                    <div class="invalid-feedback text-white fw-bold">{{ errorPassword2 }}</div>
+                    {% endfor %}
                 </div>
 
                 <hr class="my-2">
 
+                <!-- Botón -->
                 <div class="col-12 mt-4">
-                    <button type="submit" class="btn btn-warning btn-user btn-block w-100 mb-2">Crear cuenta</button>
+                    <button type="submit" class="btn btn-warning btn-user text-dark fs-5 btn-block w-100 mb-2">Crear
+                        cuenta</button>
                 </div>
             </form>
 
             <hr class="mt-3">
 
+            <!-- Redirección a login -->
             <div class="text-center mt-2">
-                <a class="small" href="{% url 'iniciarSesionAdmin' %}">¿Ya tienes una cuenta? Inicia sesión</a>
+                <a class="small text-white fw-bold" href="{% url 'iniciarSesionAdmin' %}">¿Ya tienes una cuenta? Inicia sesión</a>
             </div>
 
         </div>
@@ -75,4 +117,3 @@
 </div>
 
 {% endblock %}
-

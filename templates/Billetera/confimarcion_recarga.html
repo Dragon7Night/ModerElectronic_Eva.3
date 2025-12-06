@@ -1,0 +1,31 @@
+{% extends 'Base/base_index.html' %}
+
+<!-- °===============================================° -->
+<!--    °Pagina -> Vista de confirmacion de recarga    -->
+<!-- °===============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
+{% block titulo %} Confirmación de Recarga {% endblock %}
+
+<!-- CONTENIDO DE LA CONFIRMACION DE RECARGA -->
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white text-center">
+            <h2 class="mb-0 display-6"> Recarga completada</h2>
+        </div>
+        <div class="card-body text-center">
+            <p class="fs-5 fw-semibold text-dark">
+                Su billetera ha sido recargada con éxito.
+            </p>
+            <p class="fs-4 text-primary">
+                Nuevo saldo: <strong>${{ usuario.billetera }}</strong>
+            </p>
+
+            <a class="btn btn-outline-success btn-lg mt-3" href="{% url 'perfilUsuario' %}">
+                     Volver al perfil
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,55 +1,97 @@
 {% extends 'Base/base_index.html' %}
 
 <!-- °============================================° -->
-<!--    °Formulario -> Ingreso del cliente         -->
+<!--     °Formulario -> Ingreso del cliente         -->
 <!-- °============================================° -->
 
-<!-- TITULO DE LA PAGINA WEB -->
-{% block titulo %} INICIAR SESIÓN CLIENTE {% endblock %}
+{% block titulo %} INICIAR SESIÓN CLIENTE{% endblock %}
 
-<!-- CONTENIDO DEL FORMULARIO DE REGISTRO -->
 {% block contenido %}
+
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="w-50">
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger text-center fw-bold py-2">
+                {% for errorGeneral in form.non_field_errors %}
+
+                {# Mostrar el mensaje de error que viene del CustomAuthForm #}
+                <span>{{ errorGeneral }}</span><br>
+
+                {# ELIMINAR O COMENTAR la lógica de baneo que estaba aquí, ya no es necesaria #}
+                {# {% if user.is_active == False %} ... {% endif %} #}
+
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
 
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="p-5">
+
+            <!-- TÍTULOS DEL FORMULARIO -->
             <div class="text-center">
                 <h1 class="mb-1">Iniciar Sesión</h1>
                 <h4 class="barra_inferior text-light">Cliente</h4>
             </div>
 
+            <!-- FORMULARIO PRINCIPAL -->
             <form class="row g-3 user" method="post">
                 {% csrf_token %}
 
+
                 <!-- UserName -->
                 <div class="col-12">
-                    <label for="id_username" class="form-label color-label">Nombre de usuario</label>
-                    <input type="text" class="form-control form-control-user" id="id_username" name="username"
-                        placeholder="Ej. paquito27" value="{{ form.username.value|default:'' }}" required autofocus>
-                </div>
-                <!-- Contraseña -->
-                <div class="col-12">
-                    <label for="id_password" class="form-label color-label">Contraseña</label>
-                    <input type="password" class="form-control form-control-user" id="id_password" name="password"
-                        placeholder="Ej. x2gk4+vd" required autocomplete="current-password">
+                    <label for="id_username" class="form-label color-label text-white">Nombre de usuario</label>
+                    <input type="text"
+                        class="form-control form-control-user {% if form.username.errors %}is-invalid{% endif %}"
+                        id="id_username" name="username" placeholder="Ej. paquito27"
+                        value="{{ form.username.value|default:'' }}" required autofocus>
+
+                    {% for errorUserName in form.username.errors %}
+                    <span class="text-danger small fw-bold d-block mt-1">{{ errorUserName }}</span>
+                    {% endfor %}
                 </div>
 
+                <!-- Contraseña -->
+                <div class="col-12">
+                    <label for="id_password" class="form-label color-label text-white">Contraseña</label>
+                    <input type="password"
+                        class="form-control form-control-user {% if form.password.errors %}is-invalid{% endif %}"
+                        id="id_password" name="password" placeholder="Ej. x2gk4+vd" required
+                        autocomplete="current-password">
+
+                    {% for errorPassword in form.password.errors %}
+                    <span class="text-danger small fw-bold d-block mt-1">{{ errorPassword }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Botón enviar -->
                 <div class="col-12 mt-4">
-                    <button type="submit" class="btn btn-primary btn-user btn-block w-100 mb-2">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-warning btn-user text-dark fs-5 btn-block w-100 mb-2">
+                        Iniciar sesión
+                    </button>
                 </div>
             </form>
 
             <hr class="mt-3">
 
+            <!-- Enlaces secundarios -->
             <div class="text-center mt-2">
-                <a class="small" href="{% url 'password_reset' %}">¿Recuperar contraseña?</a>
+                <a class="small text-white fw-bold" href="{% url 'password_reset' %}">¿Recuperar contraseña?</a>
             </div>
             <div class="text-center">
-                <a class="small" href="{% url 'crearCuentaCliente' %}">Crear cuenta</a>
+                <a class="small text-white fw-bold" href="{% url 'crearCuentaCliente' %}">Crear cuenta</a>
             </div>
+
         </div>
     </div>
 </div>
-
 {% endblock %}
-

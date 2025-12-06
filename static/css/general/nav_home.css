@@ -1,6 +1,9 @@
 /* IMPORTACION DE LETRAS DESDE GOOGLE FONTS */
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Patua+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
 
+
+
+
 /* FONDO PERSONALIZADO */
 
 .elementor-kit-7{
@@ -14,15 +17,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.7rem !important;
 }
 
-/* NORMALIZACION DE COLORES */
-h1, h2, h3, h4, h5, h6, p, a, label {
-  color: #4ddbe6 !important;
-}
-
 
 /* COLOR PERSONALIZADO DE LABEL de los formularios de users */
 label.color-label,.color-h4{
-  color: #4ddbe6 !important;
+  color: #f8fbfc !important;
+  font-weight: 100 !important;
 }
 
 span.txt-bold{
@@ -228,6 +227,27 @@ div.card-content {
   position: relative !important;
 }
 
+/* BOTONES GENERALES CON BORDE */
+
+.btn-effect-modal2 {
+  font-family: "Roboto", sans-serif !important;
+  color: rgb(0, 0, 0) !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  border: 3px solid #000000 !important;
+  position: relative !important;
+  width: 9rem !important;
+}
+
+
+/* BORDE DE DE SOLICITUD */
+
+.border-effect {
+  color: rgb(0, 0, 0) !important;
+  background-color: transparent !important;
+  border: 3px solid #000000 !important;
+  border-radius: 30px !important;
+}
 
 /* BARRA INFERIOR DE REGISTRO Y LOGIN */
 

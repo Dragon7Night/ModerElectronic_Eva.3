@@ -1,7 +1,13 @@
 {% extends 'Base/base_index.html' %}
 
+<!-- °============================================° -->
+<!--        °Formulario -> Edición de Perfil        -->
+<!-- ==============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} EDITAR PERFIL {% endblock %}
 
+<!-- CONTENIDO DEL FORMULARIO -->
 {% block contenido %}
 
 <div class="container-fluid my-5">
@@ -9,7 +15,10 @@
 
         <div class="col-12 col-md-8 col-lg-6 col-xl-6">
 
+            <!-- CARD PRINCIPAL -->
             <div class="card card-content shadow-lg border-0 rounded-lg">
+
+                <!-- CABECERA DE LA CARD -->
                 <div class="card-header py-3 d-flex justify-content-between align-items-center text-white">
                     <h3 class="m-0">Editar Perfil</h3>
                     <h4 class="color-h4">{{ user.get_username }}</h4>
@@ -17,9 +26,11 @@
 
                 <div class="card-body card-content p-4">
 
+                    <!-- FORMULARIO PRINCIPAL -->
                     <form class="user" method="post">
                         {% csrf_token %}
 
+                        <!-- Errores generales del formulario -->
                         {% if form.non_field_errors %}
                         <div class="alert alert-danger">
                             {{ form.non_field_errors }}
@@ -28,44 +39,53 @@
 
                         <div class="list-group px-3 mb-4 border-0">
 
+                            <!-- Correo electrónico (se muestra solo si existe en el form) -->
                             {% if 'email' in form.fields %}
                             <div class="form-group mb-4">
                                 <label for="id_email" class="form-label color-label font-weight-bold">Correo electrónico:</label>
-                                <input type="email" class="form-control form-control-user" id="id_email" name="email"
-                                    placeholder="nombre@ejemplo.com" value="{{ form.email.value|default:'' }}" required>
+                                <input 
+                                    type="email" 
+                                    class="form-control form-control-user" 
+                                    id="id_email" 
+                                    name="email"
+                                    placeholder="nombre@ejemplo.com" 
+                                    value="{{ form.email.value|default:'' }}" 
+                                    required>
                             </div>
                             {% endif %}
 
+                            <!-- Dirección (solo si existe en el form) -->
                             {% if 'direccion' in form.fields %}
                             <div class="form-group mb-4">
-                                <label for="id_direccion" class="form-label color-label font-weight-bold">Dirección de
-                                    envío:</label>
-                                <input type="text" class="form-control form-control-user" id="id_direccion"
-                                    name="direccion" placeholder="Tu dirección completa"
+                                <label for="id_direccion" class="form-label color-label font-weight-bold">Dirección de envío:</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control form-control-user" 
+                                    id="id_direccion"
+                                    name="direccion" 
+                                    placeholder="Tu dirección completa"
                                     value="{{ form.direccion.value|default:'' }}">
                             </div>
                             {% endif %}
 
                         </div>
 
+                        <!-- Botones de acción -->
                         <div class="text-center mt-3">
-                            <div>
-                                <a href="{% url 'perfilUsuario' %}" class="btn btn-general bg-light mr-2">
-                                    Cancelar
-                                </a>
-
-                                <button type="submit" class="btn btn-general bg-warning text-dark">
-                                    Guardar Cambios
-                                </button>
-                            </div>
+                            <a href="{% url 'perfilUsuario' %}" class="btn btn-general bg-light mr-2">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-general bg-warning text-dark">
+                                Guardar Cambios
+                            </button>
                         </div>
 
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
 {% endblock %}
-

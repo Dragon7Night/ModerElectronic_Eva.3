@@ -1,82 +1,50 @@
 {% extends 'Base/base_index.html' %}
 {% load static %}
 
+<!-- °============================================° -->
+<!--    °Formulario -> Registro de Solicitudes      -->
+<!-- °============================================° -->
+
 {% block titulo %} REGISTRO DE SOLICITUDES {% endblock %}
 
 {% block contenido %}
 
-<div data-elementor-type="wp-page" data-elementor-id="2" class="elementor elementor-2">
-    <div id="page" class="hfeed site">
-        <div class="elementor-element elementor-element-f09b9e4 e-flex e-con-boxed e-con e-parent">
-            <div class="e-con-inner">
-                <main id="content" class="site-main">
+<div class="container py-5">
 
-                    <div class="page-header text-center mt-4">
-                        <h1 class="entry-title">Solicitud de Servicio</h1>
-                    </div>
+    <div class="card shadow-lg p-4">
+        <h2 class="fw-light text-dark mb-3 text-center">Solicitud de Servicio</h2>
+        <p class="text-muted text-center">Reporta un problema con tu producto adquirido.</p>
 
-                    <div class="page-content">
-                        <div class="container mb-5">
-                            <div class="row text-center">
-                                <div class="col-md-4">
-                                    <h3>Dirección</h3>
-                                    <p>Avenida San Miguel 3496</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <h3>Teléfono</h3>
-                                    <p>(105) 115-2920</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <h3>Correo</h3>
-                                    <p>moderelectronic9@gmail.com</p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="row mb-4 justify-content-center">
+            <div class="col-md-4 border-effect mx-3 my-2 text-justify-content-between">
+                <h4 class="fw-light text-dark">Cliente</h4>
+                <p class="ms-2 text-dark"> <strong>Nombre: </strong>{{ request.user.username }}</p>
+                <p class="ms-2 text-dark"> <strong>Correo: </strong>{{ request.user.email }}</p>
+                <p class="ms-2 text-dark"> <strong>Direccion: </strong>{{ request.user.direccion }}</p>
+            </div>
 
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-md-8">
-                                    
-                                    <p class="text-center mb-4">
-                                        Describe tu problema con el producto seleccionado.
-                                    </p>
-
-                                    <form method="POST" action="{% url 'registrarSolicitud' id_producto %}" class="metform-form-content">
-                                        
-                                        {% csrf_token %}
-
-                                        <div class="metform-form-main-wrapper">
-                                            
-                                            <div class="mb-3">
-                                                <label class="mf-input-label form-label font-weight-bold" for="id_descripcion">
-                                                    Descripción del problema <span class="text-danger">*</span>
-                                                </label>
-                                                
-                                                {{ formSolicitudKey.descripcion }}
-                                                
-                                                {% if formSolicitudKey.descripcion.errors %}
-                                                    <div class="text-danger small mt-1">
-                                                        {{ formSolicitudKey.descripcion.errors }}
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="text-center mt-4">
-                                                <button type="submit" class="btn btn-primary btn-lg w-100">
-                                                    Enviar Solicitud
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                    </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </main>
+            <div class="col-md-4 border-effect mx-3 my-2 text-justify-content-between">
+                <h4 class="fw-light text-dark">Producto asociado</h4>
+                <p class="ms-2 text-dark"> <strong>Nombre: </strong>{{ RegistroCompra.producto.nombre }}</p>
+                <p class="ms-2 text-dark"> <strong>ID compra: </strong>{{ RegistroCompra.id }}</p>
             </div>
         </div>
+
+        <form method="POST" action="{% url 'registrarSolicitud' registro_id %}">
+            {% csrf_token %}
+
+            <label for="id_descripcion" class="fw-light text-dark fs-3 mb-1">Describe el problema</label>
+            {{ formSolicitudKey.descripcion }}
+
+            {% if formSolicitudKey.descripcion.errors %}
+                <div class="text-danger small mt-1">{{ formSolicitudKey.descripcion.errors }}</div>
+            {% endif %}
+
+            <button class="btn btn-effect-modal2 bg-info w-100 mt-4" type="submit">
+                Enviar Solicitud
+            </button>
+        </form>
+
     </div>
 </div>
 

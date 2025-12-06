@@ -1,0 +1,67 @@
+
+<!-- °==============================================° -->
+<!--    °Complemento -> Grid de productos catalogo    -->
+<!-- °==============================================° -->
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+    {% for producto in productoKey %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0 product-hover-effect">
+
+            <div class="position-relative overflow-hidden bg-light" style="height: 220px;">
+                <span class="position-absolute top-0 start-0 badge bg-primary m-2 shadow-sm">
+                    {{ producto.nombre_categoria }}
+                </span>
+
+                {% if user.is_custom_admin %}
+                <span class="position-absolute top-0 end-0 badge bg-warning m-2 shadow-sm">
+                    ID: {{ producto.id }}
+                </span>
+                {% endif %}
+
+                {% if producto.url_categoria %}
+                <img src="{{ producto.url_categoria }}" class="w-100 h-100" style="object-fit: contain; padding: 20px;"
+                    alt="{{ producto.nombre }}">
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center h-100 text-secondary">
+                    <i class="fas fa-image fa-5x"></i>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="card-body d-flex flex-column">
+                <h4 class="card-title txt-grey text-truncate" title="{{ producto.nombre }}">{{ producto.nombre }}</h4>
+                <hr>
+
+                <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-light ms-1 py-1 px-2 bg-success rounded-2">${{ producto.precio }}</h5>
+
+                        {% if producto.stock > 0 %}
+                        <small class="text-success"><i class="fas fa-check-circle me-1"></i>Stock: {{ producto.stock }}</small>
+                        {% else %}
+                        <small class="text-danger"><i class="fas fa-times-circle me-1"></i>Agotado</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-center">
+                        <a href="{% url 'detalleProducto' producto.id %}" class="btn btn-general">
+                            <i class="fas fa-eye ms-1"></i> Ver producto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+    <div class="col-12">
+        <div class="text-center py-5 bg-light rounded-3">
+            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+            <h4>No encontramos productos</h4>
+            <p class="text-muted">Intenta ajustar los filtros o tu búsqueda.</p>
+            <a href="{% url 'catalogoProductos' %}" class="btn btn-primary mt-2">Ver todo el catálogo</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

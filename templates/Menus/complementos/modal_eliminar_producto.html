@@ -1,0 +1,31 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--     °Modal -> Eliminar producto ° -->
+<!-- °=============================° -->
+
+<!-- IDs SIN ESPACIOS -->
+{% block id_modal %}modalEliminarProducto{% endblock %}
+{% block label_modal %}modalEliminarProductoLabel{% endblock %}
+{% block label_modal2 %}modalEliminarProductoLabel{% endblock %}
+
+<!-- TITULO -->
+{% block titulo_modal %}
+Eliminar Producto
+{% endblock %}
+
+<!-- CONTENIDO -->
+{% block contenido_modal %}
+<div class="text-center py-3">
+    <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+    <h4 class="mb-1 text-white fw-light">¿Estás seguro que deseas eliminar <strong>{{ producto.nombre }}</strong>?</h4>
+    <p class="text-white fw-bold mt-2">Esta acción es irreversible.</p>
+</div>
+{% endblock %}
+
+<!-- BOTONES -->
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary " data-bs-dismiss="modal">Cancelar</a>
+<a class="btn btn-effect-modal bg-danger text-light"
+   href="{% url 'eliminarProducto' id_producto=producto.id %}">Eliminar</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'Base/base_index.html' %}
+{% load static %}
+
+<!-- °===============================================° -->
+<!--    °Pagina -> Vista de formulario de recarga    -->
+<!-- °===============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
+{% block titulo %} RECARGAR BILLETERA {% endblock %}
+
+<!-- CONTENIDO DEL FORMULARIO DE RECARGAR BILLETERA -->
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0"> Recargar Billetera</h2>
+        </div>
+        <div class="card-body">
+
+            {% if messages %}
+                <div class="alert alert-info">
+                    <ul class="mb-0">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="post" class="mt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-success btn-block">
+                    Recargar billetera
+                </button>
+            </form>
+
+            <div class="alert alert-warning mt-4 text-center">
+                <strong>AVISO IMPORTANTE:</strong> Esto es solo un ambiente de pruebas.  
+                No se solicitan datos de tarjeta ni validaciones reales.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

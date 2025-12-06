@@ -46,8 +46,25 @@ class Usuario(AbstractUser):
     direccion = models.CharField(max_length=90)
     rol = models.CharField(max_length=15, choices=OPCIONES_ROL, default=ROL_CLIENTE)
     billetera = models.FloatField(default=0.0, blank=True)
+    es_baneado = models.BooleanField(default=False)
 
     objects = UsuarioManager() 
+
+    def baneo_usuario(self, reason=None):
+        if self.is_client:
+            self.is_active = False
+            self.es_baneado = True
+            self.save(update_fields=['is_active', 'es_baneado'])
+            return True
+        return False
+    
+    def desbaneo_usuario(self):
+        if self.is_client:
+            self.is_active = True
+            self.es_baneado = False
+            self.save(update_fields=['is_active', 'es_baneado'])
+            return True
+        return False
 
     @property
     def is_client(self):
@@ -60,5 +77,3 @@ class Usuario(AbstractUser):
     # ~contructor
     def __str__(self):
         return self.username or self.email or f"Usuario {self.id}"
-
-

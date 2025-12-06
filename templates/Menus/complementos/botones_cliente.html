@@ -19,13 +19,13 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link btn-effect-head" href="#">
+    <a class="nav-link btn-effect-head" href="{% url 'historialCompras' %}">
         <div class="linktext">Historial de compras</div>
     </a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link btn-effect-head" href="#">
+    <a class="nav-link btn-effect-head" href="{% url 'seleccionarMetodo' %}">
         <div class="linktext">Recargar billetera</div>
     </a>
 </li>
@@ -42,15 +42,13 @@
 
 <!-- Offcanvas SECCION PARA PANTALLAS PEQUEÑAS -->
 
-{% block sub_titulo %}
-Cliente registrado
-{% endblock %}
+{% block sub_titulo %}Cliente registrado{% endblock %}
 
 
 {% block botones_superiores %}
 <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'homeGeneral' %}">Home</a> </li>
 <li class="nav-item"> <a class="nav-link" href="{% url 'catalogoProductos' %}">Catalogo de productos</a> </li>
-<li class="nav-item"> <a class="nav-link" href="#">Historial de compras</a> </li>
+<li class="nav-item"> <a class="nav-link" href="{% url 'historialCompras' %}">Historial de compras</a> </li>
 {% endblock %}
 
 {% block botones_inferiores %}

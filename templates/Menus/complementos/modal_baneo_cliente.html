@@ -1,0 +1,28 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--     °Modal -> Banear Cliente  ° -->
+<!-- °=============================° -->
+
+<!-- IDs SIN ESPACIOS (dinámico por usuario) -->
+{% block id_modal %}modalBanearCliente{{ usuario.id }}{% endblock %}
+{% block label_modal %}modalBanearClienteLabel{{ usuario.id }}{% endblock %}
+{% block label_modal2 %}modalBanearClienteLabel{{ usuario.id }}{% endblock %}
+
+<!-- TITULO -->
+{% block titulo_modal %}Banear Usuario{% endblock %}
+
+<!-- CONTENIDO -->
+{% block contenido_modal %}
+<div class="text-center py-3">
+    <i class="fa-solid fa-ban fa-3x text-warning mb-3"></i>
+    <h4 class="mb-1 text-white fw-light">¿Deseas banear a <strong>{{ usuario.username }}</strong>?</h4>
+    <small class="text-white fw-bold d-block mt-2">El usuario perderá acceso al sistema.</small>
+</div>
+{% endblock %}
+
+<!-- BOTONES -->
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary" data-bs-dismiss="modal">Cancelar</a>
+<a class="btn btn-effect-modal bg-warning text-dark" href="{% url 'banear_cliente' usuario.id %}">Confirmar</a>
+{% endblock %}
