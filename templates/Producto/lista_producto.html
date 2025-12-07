@@ -19,7 +19,7 @@
                 {% else %}
                 <div class="bg-light rounded d-flex justify-content-center align-items-center"
                      style="width:60px;height:60px;">
-                     <i class="fas fa-image text-muted"></i>
+                     <i class="fa fa-shopping-basket fa-3x"></i>
                 </div>
                 {% endif %}
             </div>
@@ -28,7 +28,7 @@
             <div class="w-100">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h6 class="fw-bold m-0">{{ producto.nombre }}</h6>
+                    <h6 class="fs-4 txt-grey m-0">{{ producto.nombre }}</h6>
                     <span class="badge bg-success p-2">${{ producto.precio|floatformat:0 }}</span>
                 </div>
 

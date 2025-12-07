@@ -100,23 +100,30 @@ class RecargarBilleteraView(LoginRequiredMixin, FormView):
         usuario.billetera = saldo_actual + monto
         usuario.save()
 
+        self.request.session['ultimo_monto'] = str(monto)
+
         messages.success(self.request, f"Recarga exitosa. Tu nuevo saldo es: {usuario.billetera}")
         return super().form_valid(form)
 
- 
+
 class ConfirmacionRecargaView(LoginRequiredMixin, TemplateView):
     template_name = "Billetera/confimarcion_recarga.html"
 
     def get_context_data(self, **kwargs):
-        recargar = super().get_context_data(**kwargs)
-        recargar["usuario"] = self.request.user
-        monto_str = self.request.session.get('ultimo_monto', '0.00')  # recupera el monto
+        contexto = super().get_context_data(**kwargs)
+        contexto["usuario"] = self.request.user
+
+        monto_str = self.request.session.get('ultimo_monto', '0.00')
+
         try:
             monto_decimal = Decimal(monto_str)
         except:
             monto_decimal = Decimal('0.00')
-            recargar["monto"]
-        return recargar
+
+        contexto["monto"] = monto_decimal
+
+        return contexto
+
     
 
 # !|-|--|-|-|-|-|-|-|> VISTA PARA COMPRAS <|-|--|-|-|-|-|-|-|-|-|-|-|-

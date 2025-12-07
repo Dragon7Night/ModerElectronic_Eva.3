@@ -20,9 +20,6 @@ from Apps.Productos import forms as ProductoForm
 # '================================================='
 
 
-
-from decimal import Decimal 
-
 # °===========================°
 #    °Vistas -> Productos
 # °===========================°
@@ -79,7 +76,7 @@ def homeGeneral(request):
 @login_required(login_url='/productos/home/') # <- DECORADOR que obliga a los usuarios a estar logeados
 def catalogo_producto(request):
 
-    productos_list = ProductoModel.Producto.objects.all().order_by('-fecha_registro')
+    productos_list = ProductoModel.Producto.objects.all().order_by('nombre')
     
     # --------||=--== FILTROS ==--=||--------
     # Buscar por ID
@@ -313,13 +310,22 @@ def editar_producto(request, id_producto):
             return HttpResponseRedirect(reverse('catalogoProductos'))
     else:
         # Pre-llenar el formulario con las categorías actuales
-        ids_cats = ProductoModel.ProductoCategoria.objects.filter(producto_id=producto).values_list('categoria_id', flat=True)
-        form = ProductoForm.RegisterProductoForm(instance=producto, initial={'categoria_id': ids_cats})
+        ids_cats = ProductoModel.ProductoCategoria.objects.filter(
+            producto_id=producto
+        ).values_list('categoria_id', flat=True)
+
+        form = ProductoForm.RegisterProductoForm(
+            instance=producto,
+            initial={'categoria_id': ids_cats}
+        )
 
     data = {
-        'formKey': form
+        'formKey': form,
+        'producto': producto,
     }
-    return render(request, 'Producto/registrar_producto.html', data)
+
+    return render(request, 'Producto/Extras/editar_producto.html', data)
+
 
 
 # .|----------------[ELIMINAR PRODUCTO]----------------|.
@@ -348,23 +354,28 @@ def data_categoria(request):
 
 # .|----------------[REGISTRAR CATEGORIAS]----------------|.
 @login_required(login_url='/productos/home/')
-@permission_required(UsuarioModels.Usuario.ROL_ADMIN, login_url='/productos/home/') 
+@permission_required(UsuarioModels.Usuario.ROL_ADMIN, login_url='/productos/home/')
 def registrar_categoria(request):
-    formCategoria = ProductoForm.RegisterCategoriaForm()
     
+    categoriaObject = ProductoModel.Categoria.objects.all().order_by('nombre')
+
+    # Paginador de 8 categorias por pagina 
+    paginator = Paginator(categoriaObject, 10)
+    page_number = request.GET.get('page')
+    categorias_page = paginator.get_page(page_number)
+
+    # Formulario
     if request.method == 'POST':
         formCategoria = ProductoForm.RegisterCategoriaForm(request.POST)
         if formCategoria.is_valid():
             formCategoria.save()
-            return HttpResponseRedirect(reverse('registrarProducto')) 
-    
-    categorias_registradas = ProductoModel.Categoria.objects.all().order_by('nombre')
-    
+            return HttpResponseRedirect(reverse('registrarProducto'))
+    else:
+        formCategoria = ProductoForm.RegisterCategoriaForm()
+
     data = {
         'formKey': formCategoria,
-        'mainTitle': 'Registro de Categorias',
-        'txtBtn': 'Guardar Categoria',
-        'categorias_registradas': categorias_registradas,
+        'categorias_registradas': categorias_page,
     }
     return render(request, 'Producto/Extras/registrar_categoria.html', data)
 
@@ -373,7 +384,7 @@ def registrar_categoria(request):
 
 # .|----------------[REGISTRAR SOLICITUD]----------------|.
 @login_required(login_url='/productos/home/')
-def register_Solicitud(request, registro_id):
+def register_solicitud(request, registro_id):
    
     registro_compra = get_object_or_404(ProductoModel.RegistroCompra, id=registro_id)
     

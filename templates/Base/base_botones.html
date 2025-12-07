@@ -4,28 +4,33 @@
 <!--    °Botones -> Base             -->
 <!-- °=============================° -->
 
-<nav class="navbar navbar-expand-lg rounded" aria-label="Thirteenth navbar example">
+<nav class="navbar navbar-expand-lg rounded" aria-label="Barra principal">
     <div class="container-fluid">
+
         <!-- Toggler: en desktop actúa sobre collapse; en mobile abre offcanvas -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Alternar navegación">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- SECCION PARA PANTALLAS GRANDES -->
         <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-            <a class="navbar-brand col-lg-3 me-0" href="#">
-                <img width="100" height="22" src="{% static 'img/LOGO_MAIN.png' %}"
-                    class="attachment-full size-full wp-image-50" alt="LOGO_PAGE" />
+
+            <!-- Logo / enlace directo al home -->
+            <a class="navbar-brand col-lg-3 col-xl-2 me-0" href="{% url 'homeGeneral' %}">
+                <img width="120" height="26" src="{% static 'img/LOGO_MAIN.png' %}"
+                    class="attachment-full size-full wp-image-50" alt="LOGO ModerElectronic" />
             </a>
 
-            <ul class="navbar-nav col-lg-6 justify-content-lg-center nav-2">
+            <!-- Botones centrales según el tipo de usuario -->
+            <ul class="navbar-nav col-lg-7 col-xl-8 justify-content-lg-center nav-2 gap-2">
                 {% block botones_centrales %}
                 BOTONES CENTRALES
                 {% endblock %}
             </ul>
 
-            <div class="d-lg-flex col-lg-3 justify-content-lg-end">
+            <!-- Botones laterales (perfil, login, etc) -->
+            <div class="d-lg-flex col-lg-2 justify-content-lg-end">
                 {% block botones_laterales %}
                 BOTONES LATERALES
                 {% endblock %}
@@ -33,30 +38,37 @@
 
         </div>
     </div>
-</nav>
 
-<!-- Offcanvas SECCION PARA PANTALLAS PEQUEÑAS -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-    <div class="offcanvas-header">
+    <!-- Offcanvas SECCION PARA PANTALLAS PEQUEÑAS -->
+    <!-- Nota: d-lg-none = ocultar este menú en escritorio -->
+    <div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasNavbar"
+         aria-labelledby="offcanvasNavbarLabel">
 
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú | {% block sub_titulo %} TIPO DE USUARIO {% endblock %}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            {% block botones_superiores %}
-            BOTONES SUPERIORES
-            {% endblock %}
-        </ul>
-
-        <hr>
-
-        <div class="mt-3">
-            {% block botones_inferiores %}
-            BOTONES INFERIORES
-            {% endblock %}
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                Menú | {% block sub_titulo %} TIPO DE USUARIO {% endblock %}
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
         </div>
 
+        <div class="offcanvas-body">
+
+            <!-- Botones principales dentro del menú lateral -->
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                {% block botones_superiores %}
+                BOTONES SUPERIORES
+                {% endblock %}
+            </ul>
+
+            <hr>
+
+            <!-- Acciones secundarias (crear cuenta, perfil, etc) -->
+            <div class="mt-3">
+                {% block botones_inferiores %}
+                BOTONES INFERIORES
+                {% endblock %}
+            </div>
+
+        </div>
     </div>
-</div>
+</nav>

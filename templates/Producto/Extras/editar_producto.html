@@ -1,0 +1,189 @@
+{% extends 'Base/base_index.html' %}
+{% load static %}
+
+<!-- °============================================° -->
+<!--    °Pagina -> Edición de un producto único     -->
+<!-- °============================================° -->
+
+<!-- TITULO DE LA PAGINA WEB -->
+{% block titulo %} Editar {{ producto.nombre }} {% endblock %}
+
+<!-- CONTENIDO DEL PANEL DE EDICIÓN DE UN PRODUCTO -->
+{% block contenido %}
+
+<div class="container py-5">
+
+    <!-- Bloque de mensajes -->
+    {% if messages %}
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}
+                                    alert-dismissible fade show shadow-sm text-center"
+                         role="alert">
+                        {% if message.tags == 'success' %}
+                            <i class="fas fa-check-circle me-2"></i>
+                        {% else %}
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                        {% endif %}
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Cabecera de la página de edición -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+            <h1 class="fw-light mb-1">
+                <i class="fas fa-edit me-2"></i>Editar producto
+            </h1>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="{% url 'detalleProducto' id_producto=producto.id %}" class="btn-general">
+                <i class="fas fa-arrow-left me-1"></i> Volver al detalle
+            </a>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="card-content px-4 py-4 rounded-3">
+        <div class="row gx-5">
+
+            <!-- Columna izquierda: vista previa del producto -->
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="card p-4 shadow-sm border-0 h-100">
+                    <h4 class="fw-bold txt-grey mb-3">
+                        <i class="fas fa-image me-2"></i>Vista previa
+                    </h4>
+
+                    <div class="text-center mb-3" style="height: 320px;">
+                        {% if producto.url_categoria %}
+                            <img src="{{ producto.url_categoria }}"
+                                 alt="{{ producto.nombre }}"
+                                 class="img-fluid h-100"
+                                 style="object-fit: contain;">
+                        {% else %}
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-light rounded text-secondary">
+                                <i class="fas fa-shopping-basket fa-6x"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <hr>
+
+                    <p class="mb-1">
+                        <span class="fw-bold text-dark">ID del producto:</span>
+                        <span class="txt-grey">{{ producto.id }}</span>
+                    </p>
+                    <p class="mb-1">
+                        <span class="fw-bold text-dark">Nombre actual:</span>
+                        <span class="txt-grey">{{ producto.nombre }}</span>
+                    </p>
+                    <p class="mb-1">
+                        <span class="fw-bold text-dark">Precio actual:</span>
+                        <span class="text-primary fw-bolder">${{ producto.precio }}</span>
+                    </p>
+                    <p class="mb-1">
+                        <span class="fw-bold text-dark">Stock actual:</span>
+                        {% if producto.stock > 0 %}
+                            <span class="text-success fw-semibold">{{ producto.stock }} unidades</span>
+                        {% else %}
+                            <span class="text-danger fw-semibold">Agotado</span>
+                        {% endif %}
+                    </p>
+                    {% if producto.fecha_registro %}
+                        <p class="mb-0 text-muted small">
+                            Registrado el: {{ producto.fecha_registro|date:"d/m/Y H:i" }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Columna derecha: formulario de edición -->
+            <div class="col-lg-7">
+                <div class="card p-4 shadow-sm border-0 h-100">
+
+                    <h3 class="fw-bold txt-grey mb-3">
+                        <i class="fas fa-wrench me-2"></i>Formulario de edición
+                    </h3>
+
+                    <!-- Errores generales del formulario -->
+                    {% if formKey.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in formKey.non_field_errors %}
+                                <div>{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Formulario -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <div class="row g-3">
+
+                            {% for field in formKey %}
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+
+                                        <!-- Label -->
+                                        <label for="{{ field.id_for_label }}" class="form-label txt-grey fw-light">
+                                            {{ field.label }}
+                                            {% if field.field.required %}
+                                                <span class="text-warning">*</span>
+                                            {% endif %}
+                                        </label>
+
+                                        <!-- Campo -->
+                                        {{ field }}
+
+                                        <!-- Help text -->
+                                        {% if field.help_text %}
+                                            <div class="form-text text-muted small">
+                                                {{ field.help_text }}
+                                            </div>
+                                        {% endif %}
+
+                                        <!-- Errores campo -->
+                                        {% if field.errors %}
+                                            <div class="text-danger small mt-1">
+                                                {% for error in field.errors %}
+                                                    <div>{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Botones de acción -->
+                        <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                            <a href="{% url 'catalogoProductos' %}"
+                               class="btn btn-outline-light fw-semibold">
+                                <i class="fas fa-times me-1"></i> Cancelar
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success fw-semibold">
+                                <i class="fas fa-save me-2"></i> Guardar cambios
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,14 +1,13 @@
 /* IMPORTACION DE LETRAS DESDE GOOGLE FONTS */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Patua+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Text:ital@0;1&family=Lilita+One&family=Nabla&family=Patua+One&family=Roboto:ital,wght@0,900;1,900&family=Science+Gothic:wght@100..900&family=Titan+One&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
 
 
-
+/* |=========--<[ESTILOS GENERALES Y LAYOUT]>--=========| */
+/* .____/----|Fondos, márgenes y contenedores base|----\____.  */
 
 /* FONDO PERSONALIZADO */
-
-.elementor-kit-7{
+.elementor-kit-7 {
   background-color: #212c63 !important;
-
 }
 
 /* NORMALIZACION DE MARGENES */
@@ -17,38 +16,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.7rem !important;
 }
 
-
-/* COLOR PERSONALIZADO DE LABEL de los formularios de users */
-label.color-label,.color-h4{
-  color: #f8fbfc !important;
-  font-weight: 100 !important;
-}
-
-span.txt-bold{
-  font-weight: bolder !important;
-}
-
-/* COLOR TEXTO PERSONALIZADO */
-.txt-grey{
-  color: #616161 !important;
-}
-
-/* COLOR FORM REGISTRO DE PRODUCTO */
-
-.color-card-form{
-  background: #4056b9 !important;
-}
-
 /* PADDING 0 panel de informacion */
-
-.elementor-2 .elementor-element.elementor-element-352a816{
+.elementor-2 .elementor-element.elementor-element-352a816 {
   padding: 10px 0px 0px 0px !important;
 }
 
 /* SEPARACION DE MARGENES DE NAV */
-
 .elementor-element-e41c8cd {
-  padding-top: 5px !important; /* Ajusta este valor */
+  padding-top: 5px !important;   /* Ajusta este valor */
   padding-bottom: 5px !important; /* Ajusta este valor */
 }
 
@@ -57,8 +32,84 @@ span.txt-bold{
   margin-bottom: 0 !important;
 }
 
-/* ESTILOS DE BOTONES */
+/* COLOR FORM REGISTRO DE PRODUCTO */
+.color-card-form {
+  background: #4056b9 !important;
+}
 
+
+
+/* |=========--<[ESTILOS DE TIPOGRAFÍA Y TEXTO]>--=========| */
+/* .____/----|Textos generales, colores y barras decorativas|----\____.  */
+
+/* COLOR PERSONALIZADO DE LABEL de los formularios de users */
+label.color-label,
+.color-h4, label, h2, h3, h4, h5, h6 {
+  color: #f8fbfc !important;
+  font-weight: 300 !important;
+  font-family: "Patua One", serif !important;
+}
+
+h1 {
+  color: #fa7407 !important;
+  font-weight: 300 !important;
+  font-family: "Patua One", serif !important;
+}
+
+
+span.txt-bold {
+  font-weight: bolder !important;
+}
+
+/* COLOR TEXTO PERSONALIZADO */
+.txt-grey {
+  color: #616161 !important;
+}
+
+/* Botón general: tipografías de apoyo */
+.txt-general {
+  font-family: "Patua One", serif !important;
+}
+
+.txt-general-bk {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-family: "Patua One", serif !important;
+}
+
+.txt-general-wh {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-family: "Patua One", serif !important;
+}
+
+/* BARRA INFERIOR DE REGISTRO Y LOGIN */
+h4.barra_inferior {
+  position: relative !important;
+  display: inline-block !important;
+  padding-bottom: 8px !important;
+  margin: 4 auto !important;
+  text-align: center !important;
+  z-index: 2 !important;
+}
+
+h4.barra_inferior::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  height: 4px !important;
+  bottom: 0 !important;
+  background: #01ffff !important;
+  width: 150% !important;
+  z-index: 1 !important;
+}
+
+
+
+/* |=========--<[ESTILOS DE BOTONES]>--=========| */
+
+/* .____/----|Efectos para botones generales|----\____.  */
 .btn-effect {
   font-family: "Roboto", sans-serif !important;
   color: snow !important;
@@ -88,88 +139,297 @@ span.txt-bold{
   color: snow !important;
 }
 
-/* BOTONES HEADER */
 
+
+/* .____/----|Botones de cabecera (navbar)|----\____.  */
 .navbar-nav .nav-item .nav-link.btn-effect-head {
-  background: transparent;
-  padding: 0;
-  border: 0;
-  display: inline-block;
-  text-decoration: none;
-  position: relative;
-  z-index: 2;
-  color: inherit;
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+  color: inherit !important;
 }
 
 .navbar-nav .nav-item .nav-link.btn-effect-head .linktext {
-  font-size: 1.3rem;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  color: #ffffff;
-  text-decoration: none;
-  font-family: "Winky Rough", sans-serif;
-  text-transform: uppercase;
-  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-  -webkit-transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-  display: inline-block;
-  padding: 10px 8px;
+  font-size: 1.3rem !important;
+  text-align: center !important;
+  position: relative !important;
+  z-index: 2 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-family: "Winky Rough", sans-serif !important;
+  text-transform: uppercase !important;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out !important;
+  -webkit-transition: transform 0.3s ease-in-out, color 0.3s ease-in-out !important;
+  display: inline-block !important;
+  padding: 10px 8px !important;
 }
 
 .navbar-nav .nav-item .nav-link.btn-effect-head .linktext::before {
-  display: inline-block;
-  content: "";
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  top: calc(100% - 6px);
-  left: 50%;
-  transition: all 0.3s ease-in-out;
-  transition-delay: 0s;
-  opacity: 1;
-  background: #ff6a06;
-  max-width: 0%;
-  overflow: hidden;
-  transform: translateX(-50%);
+  display: inline-block !important;
+  content: "" !important;
+  position: absolute !important;
+  height: 3px !important;
+  width: 100% !important;
+  top: calc(100% - 6px) !important;
+  left: 50% !important;
+  transition: all 0.3s ease-in-out !important;
+  transition-delay: 0s !important;
+  opacity: 1 !important;
+  background: #ff6a06 !important;
+  max-width: 0% !important;
+  overflow: hidden !important;
+  transform: translateX(-50%) !important;
 }
 
 .navbar-nav .nav-item {
-  display: inline-block;
-  margin: 0 25px 20px 25px;
-  vertical-align: top;
+  display: inline-block !important;
+  margin: 0 25px 20px 25px !important;
+  vertical-align: top !important;
 }
 
 .navbar-nav .nav-item .nav-link.btn-effect-head:hover .linktext,
 .navbar-nav .nav-item .nav-link.btn-effect-head:focus .linktext {
-  transform: rotateY(360deg) scale(1.3);
-  -webkit-transform: rotateY(360deg) scale(1.3);
-  color: #fda56b;
+  transform: rotateY(360deg) scale(1.3) !important;
+  -webkit-transform: rotateY(360deg) scale(1.3) !important;
+  color: #fda56b !important;
 }
 
 .navbar-nav .nav-item .nav-link.btn-effect-head:hover .linktext::before,
 .navbar-nav .nav-item .nav-link.btn-effect-head:focus .linktext::before {
-  transition-delay: 0.3s;
-  max-width: 100%;
-  left: 0%;
-  transform: none;
+  transition-delay: 0.3s !important;
+  max-width: 100% !important;
+  left: 0% !important;
+  transform: none !important;
 }
 
-/* Offcanvas EN PANTALLAS PEQUEÑAS */
 
+
+/* .____/----|Botones inferiores de modal y bordes|----\____.  */
+
+/* BOTONES INFERIORES MODAL */
+.btn-effect-modal {
+  font-family: "Roboto", sans-serif !important;
+  color: snow !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  border: 3px solid #00ffdd !important;
+  position: relative !important;
+}
+
+/* BOTONES GENERALES CON BORDE */
+.btn-effect-modal2 {
+  font-family: "Roboto", sans-serif !important;
+  color: rgb(0, 0, 0) !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  border: 3px solid #000000 !important;
+  position: relative !important;
+  width: 9rem !important;
+}
+
+/* BORDE DE DE SOLICITUD */
+.border-effect {
+  color: rgb(0, 0, 0) !important;
+  background-color: transparent !important;
+  border: 3px solid #000000 !important;
+  border-radius: 30px !important;
+}
+
+
+
+/* .____/----|Botón general reutilizable|----\____.  */
+
+/* Boton general <a> */
+.btn-general {
+  background-color: #62f0f5 !important;
+  border: 3px solid #212c63 !important;
+  border-top-right-radius: 300px !important;
+  border-bottom-left-radius: 300px !important;
+  font-family: "Winky Rough", sans-serif !important;
+  color: black !important;
+  display: inline-block !important;
+  padding: 9px 27px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin: 0px 6px 0px 6px !important;
+}
+
+.btn-general:hover {
+  transform: scale(0.98) !important;
+  opacity: 0.9 !important;
+  border: 3px solid #687de6 !important;
+}
+
+
+/* .____/----|Botones DataTable|----\____.  */
+
+/* Estilo global para botones DataTable | con !important */
+.dt-button,
+button.dt-button {
+  background: #96bdf7 !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 6px 14px !important;
+  margin-right: 5px !important;
+  font-size: 1.1rem !important;
+}
+
+li.dt-button,
+li.dt-button-active-a,
+li.buttons-columnVisibility {
+  background-color: rgba(255, 255, 255, 0) !important;
+  color: #000 !important;
+}
+
+a.dropdown-item {
+  background-color: rgba(255, 255, 255, 0) !important;
+  color: #000 !important;
+  padding: 0% !important;
+  border-radius: 3px !important;
+}
+
+a.dropdown-item:hover {
+  background-color: rgba(165, 186, 241, 0.575) !important;
+  color: #000 !important;
+}
+
+/* tamaño del paginador */
+.dataTables_paginate .paginate_button {
+  font-size: 14px !important;
+  padding: 6px 12px !important;
+  border-radius: 4px !important;
+}
+
+.dataTables_paginate .paginate_button.current {
+  background: #0d6efd !important;
+  color: #fff !important;
+}
+
+dt-paging-info {
+  font-size: 14px !important;
+}
+
+
+/* .____/----|Paginador DataTable|----\____.  */
+
+.dt-paging .pagination {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Estilo base de cada botón de página */
+.dt-paging .dt-paging-button.page-item,
+.dt-paging .dt-paging-button.page-item > a,
+.dt-paging .dt-paging-button.page-item > button {
+  background: #96bdf7 !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 2px 10px !important;
+  margin-right: 5px !important;
+  cursor: pointer !important;
+  font-size: 1.3rem !important;
+  text-decoration: none !important;
+}
+
+/* Estado ACTIVO (página actual) */
+.dt-paging .dt-paging-button.page-item.active,
+.dt-paging .dt-paging-button.page-item.active > a,
+.dt-paging .dt-paging-button.page-item.active > button {
+  background: #0d6efd !important;
+  color: #fff !important;
+}
+
+/* Estado DESHABILITADO (flechas al inicio/fin) */
+.dt-paging .dt-paging-button.page-item.disabled,
+.dt-paging .dt-paging-button.page-item.disabled > a,
+.dt-paging .dt-paging-button.page-item.disabled > button {
+  background: #e0e0e0 !important;
+  color: #888 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* Quitar bordes por defecto de Bootstrap en los links del paginador */
+.dt-paging .page-link {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+
+/* .____/----|Botón sección Real World|----\____.  */
+.rw-btn {
+  display: inline-block !important;
+  padding: 0.85rem 2.4rem !important;
+  border-radius: 999px !important;
+  background: #f6b21a !important;
+  color: #111111 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  font-size: 0.9rem !important;
+  box-shadow: 0 10px 25px rgba(246, 178, 26, 0.45) !important;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.rw-btn:hover {
+  background: #ffcb4a !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 30px rgba(246, 178, 26, 0.55) !important;
+}
+
+
+
+/* |=========--<[ESTILOS NAVBAR Y RESPONSIVE]>--=========| */
+/* .____/----|Ajustes de navbar y textos en una sola línea|----\____.  */
+
+/* AJUSTES NAVBAR: textos de botones en una sola línea */
+.navbar-nav.nav-2 .nav-item {
+  margin-inline: 0.35rem !important;
+}
+
+.navbar-nav.nav-2 .nav-link .linktext {
+  white-space: nowrap !important;      /* Evita que corte una palabra en dos líneas */
+  font-size: 1.15rem !important;       /* Un pelín más pequeño para textos largos */
+}
+
+/* En escritorio mantenemos la barra en una sola fila */
+@media (min-width: 992px) {
+  #navbarsExample11 {
+    flex-wrap: nowrap !important;
+  }
+}
+
+
+/* |=========--<[ESTILOS OFFCANVAS, MODALES Y PERFIL]>--=========| */
+/* .____/----|Sidebars, fondos de modales y botones de cierre|----\____.  */
+
+/* Offcanvas EN PANTALLAS PEQUEÑAS */
 .offcanvas.offcanvas-end,
 .offcanvas {
   background-color: rgba(41, 39, 105, 0.95) !important;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .offcanvas .btn-close {
   filter: invert(1) grayscale(1) !important;
-  opacity: 0.9;
+  opacity: 0.9 !important;
 }
 
 .elementskit-menu-overlay,
 .offcanvas-backdrop {
-  z-index: 1050;
+  z-index: 1050 !important;
 }
 
 .offcanvas a.nav-link,
@@ -202,7 +462,7 @@ div.card-content {
   right: 0.5rem !important;
   width: 38px !important;
   height: 40px !important;
-  background: transparent;
+  background: transparent !important;
   border: none !important;
   padding: 0.25rem !important;
   display: inline-flex !important;
@@ -216,187 +476,200 @@ div.card-content {
   color: #333 !important;
 }
 
-/* BOTONES INFERIORES MODAL */
 
-.btn-effect-modal {
-  font-family: "Roboto", sans-serif !important;
-  color: snow !important;
-  font-weight: 700 !important;
-  background-color: transparent !important;
-  border: 3px solid #00ffdd !important;
-  position: relative !important;
-}
-
-/* BOTONES GENERALES CON BORDE */
-
-.btn-effect-modal2 {
-  font-family: "Roboto", sans-serif !important;
-  color: rgb(0, 0, 0) !important;
-  font-weight: 700 !important;
-  background-color: transparent !important;
-  border: 3px solid #000000 !important;
-  position: relative !important;
-  width: 9rem !important;
-}
-
-
-/* BORDE DE DE SOLICITUD */
-
-.border-effect {
-  color: rgb(0, 0, 0) !important;
-  background-color: transparent !important;
-  border: 3px solid #000000 !important;
-  border-radius: 30px !important;
-}
-
-/* BARRA INFERIOR DE REGISTRO Y LOGIN */
-
-h4.barra_inferior {
-  position: relative !important;
-  display: inline-block !important;
-  padding-bottom: 8px !important;
-  margin: 4 auto !important;
-  text-align: center !important;
-  z-index: 2 !important;
-}
-
-h4.barra_inferior::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  height: 4px !important;
-  bottom: 0 !important;
-  background: #01ffff !important;
-  width: 150% !important;
-  z-index: 1 !important;
-}
-
-
-
-/* Boton general <a> */
-
-.btn-general {
-  background-color: #62f0f5 !important;
-  border: 3px solid #212c63 !important;
-  border-top-right-radius: 300px !important;
-  border-bottom-left-radius: 300px !important;
-  font-family: "Winky Rough", sans-serif !important;
-  color: black !important;
-  display: inline-block !important;
-  padding: 9px 27px !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  margin: 0px 6px 0px 6px !important;
-}
-
-.btn-general:hover {
-  transform: scale(0.98) !important;
-  opacity: 0.9 !important;
-  border: 3px solid #687de6 !important;
-}
-
-
-
-
-/* ESTEKKAS */
-
+/* |=========--<[ESTILOS DE CALIFICACIONES]>--=========| */
+/* .____/----|Sistema de estrellas para calificación|----\____.  */
 
 /* Centra el contenedor del formulario */
-    .rating-container {
-        text-align: center !important;
-        padding: 20px !important;
-        border: 1px solid #e1e1e1 !important; /* Opcional: borde suave */
-        border-radius: 8px !important; /* Opcional: bordes redondeados */
-        margin-top: 20px !important;
-    }
+.rating-container {
+  text-align: center !important;
+  padding: 20px !important;
+  border: 1px solid #e1e1e1 !important;
+  border-radius: 8px !important;
+  margin-top: 20px !important;
+}
 
-    /* --- EFECTO DE ESTRELLAS --- */
-    
-    /* El contenedor usa dirección RTL para que el hover funcione de derecha a izquierda visualmente */
-    .stars {
-        direction: rtl !important;
-        font-size: 2.5rem !important; /* Hice las estrellas un poco más grandes */
-        display: inline-block !important;
-        border: 0 !important;
-    }
+/* --- EFECTO DE ESTRELLAS --- */
 
-    /* Ocultar los radio buttons originales */
-    .stars input[type="radio"] {
-        display: none !important;
-    }
+/* El contenedor usa dirección RTL para que el hover funcione de derecha a izquierda visualmente */
+.stars {
+  direction: rtl !important;
+  font-size: 2.5rem !important; 
+  display: inline-block !important;
+  border: 0 !important;
+}
 
-    /* Estilo base de la estrella (gris) */
-    .stars label {
-        color: #ccc !important;
-        cursor: pointer !important;
-        padding: 0 0.2rem !important;
-        transition: color 0.2s ease-in-out !important;
-    }
+/* Ocultar los radio buttons originales */
+.stars input[type="radio"] {
+  display: none !important;
+}
 
-    /* --- INTERACCIÓN --- */
+/* Estilo base de la estrella (gris) */
+.stars label {
+  color: #ccc !important;
+  cursor: pointer !important;
+  padding: 0 0.2rem !important;
+  transition: color 0.2s ease-in-out !important;
+}
 
-    /* Al pasar el mouse, ilumina la actual y las siguientes (que en RTL son las anteriores) */
-    .stars label:hover,
-    .stars label:hover ~ label {
-        color: #ffcc00 !important; /* Amarillo dorado */
-    }
+/* --- INTERACCIÓN --- */
 
-    /* Mantener iluminadas las estrellas seleccionadas */
-    .stars input[type="radio"]:checked ~ label {
-        color: #ffcc00 !important;
-    }
+/* Al pasar el mouse, ilumina la actual y las siguientes (que en RTL son las anteriores) */
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #ffcc00 !important; /* Amarillo dorado */
+}
 
+/* Mantener iluminadas las estrellas seleccionadas */
+.stars input[type="radio"]:checked ~ label {
+  color: #ffcc00 !important;
+}
 
+/* |=========--<[ESTILOS DE SECCIÓN: REAL WORLD]>--=========| */
+/* .____/----|Sección destacada con carrusel + texto|----\____.  */
 
+.rw-real-world {
+  background: #071824 !important;   /* tono oscuro tipo template */
+  color: #ffffff !important;
+  padding: 4rem 0 !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
 
+/* Contenedor a ancho completo */
+.rw-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
 
+/* Título */
+.rw-title-wrapper {
+  text-align: center !important;
+  margin-bottom: 3rem !important;
+}
 
+/* Título con fuente Nabla */
+.nabla-rw-title {
+  font-family: "Nabla", system-ui !important;
+  font-optical-sizing: auto !important;
+  font-size: 5.4rem !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
 
-/* Estilo global para botones DataTable | con !important */
-.dt-button,
-button.dt-button {
-    background:#96bdf7!important;
-    color:#000!important;
-    border:none!important;
-    border-radius:6px!important;
-    padding:6px 14px!important;
-    margin-right:5px!important;
+/* Layout principal (carrusel + texto) */
+.rw-content {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 3rem !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+/* Columna de texto */
+.rw-text-block {
+  flex: 1 1 280px !important;
+  max-width: 520px !important;
+}
+
+.rw-text {
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+  color: #d3dde7 !important;
+  margin-bottom: 1.8rem !important;
+}
+
+/* Responsive: stack vertical en pantallas pequeñas */
+@media (max-width: 768px) {
+  .nabla-rw-title {
+    font-size: 3rem !important;
+  }
+
+  .rw-content {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .rw-text-block {
+    max-width: 100% !important;
+  }
 }
 
 
-  
 
-li.dt-button, li.dt-button-active-a, li.buttons-columnVisibility{
-    background-color: rgba(255, 255, 255, 0) !important;
-    color: #000 !important;
+/* .____/----|Carrusel de la sección Real World|----\____.  */
+
+/* Wrapper del carrusel: ocupa más espacio y ancho completo */
+.rw-carousel-wrapper {
+  flex: 1 1 60% !important;
+  max-width: 100% !important;
 }
 
-a.dropdown-item{
-    background-color: rgba(255, 255, 255, 0) !important;
-    color: #000 !important;
-    padding: 0% !important;
-    border-radius: 3px !important;
+/* Contenedor interno del carrusel con altura más grande */
+.rw-carousel-inner {
+  height: 420px !important;          /* más alto en escritorio */
+  position: relative !important;
 }
 
-
-a.dropdown-item:hover{
-    background-color: rgba(165, 186, 241, 0.575) !important;
-    color: #000 !important;
+/* Cada slide ocupa todo el alto del carrusel */
+.rw-carousel-inner .carousel-item {
+  height: 100% !important;
 }
 
-
-/* tamaño del paginador */
-.dataTables_paginate .paginate_button {
-    font-size:14px!important;
-    padding:6px 12px!important;
-    border-radius:4px!important;
-}
-.dataTables_paginate .paginate_button.current {
-    background:#0d6efd!important;
-    color:#fff!important;
+/* Imágenes: se adaptan al espacio, recortando lo que sobre */
+.rw-carousel-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
+/* Ajuste de altura en pantallas pequeñas */
+@media (max-width: 768px) {
+  .rw-carousel-inner {
+    height: 260px !important;
+  }
+}
 
+/* Caption: en la parte inferior, con fondo sutil */
+.rw-caption {
+  background: rgba(7, 24, 36, 0.7) !important;
+  border-radius: 12px !important;
+  padding: 0.6rem 0.9rem !important;
+  bottom: 0.8rem !important;
+}
+
+/* Puntos del carrusel más visibles */
+#rwCarousel .carousel-indicators [data-bs-target] {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+}
+
+/* Quitar iconos por defecto de Bootstrap en las flechas */
+#rwCarousel .carousel-control-prev-icon,
+#rwCarousel .carousel-control-next-icon {
+  display: none !important;
+}
+
+/* Área clicable de las flechas */
+.rw-control {
+  width: 4rem !important;
+  background: none !important;
+}
+
+/* Icono de flecha personalizado */
+.rw-control-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.25) !important;
+  font-size: 1.8rem !important;
+}

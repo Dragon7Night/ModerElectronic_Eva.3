@@ -2,13 +2,11 @@
 {% load static %}
 
 <!-- °============================================° -->
-<!--    °Pagina -> Catalogo de productos            -->
+<!--    °Pagina -> Catalogo de productos           -->
 <!-- °============================================° -->
 
-<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} CATALOGO DE PRODUCTOS {% endblock %}
 
-<!-- CONTENIDO DEL CATALOGO DE PRODUCTOS -->
 {% block contenido %}
 
 <div class="container py-5">
@@ -21,9 +19,11 @@
             
             <!-- Boton de filtro simple -->
             <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white shadow-sm rounded">
-                <span class="text-muted">Mostrando <b>{{ productoKey.start_index }}-{{ productoKey.end_index }}</b> de
-                    <b>{{ productoKey.paginator.count }}</b> resultados</span>
-
+                <span class="text-muted">
+                    Mostrando
+                    <b>{{ productoKey.start_index }}-{{ productoKey.end_index }}</b>
+                    de <b>{{ productoKey.paginator.count }}</b> resultados
+                </span>
             </div>
 
             <!-- GRID de presentacion de productos -->
@@ -34,27 +34,59 @@
             <div class="mt-5">
                 <nav aria-label="Navegación de páginas">
                     <ul class="pagination justify-content-center">
+
+                        {# PRIMERA PÁGINA #}
+                        <li class="page-item {% if productoKey.number == 1 %}disabled{% endif %}">
+                            <a class="page-link shadow-none txt-grey"
+                               href="{% if productoKey.number > 1 %}?{{ base_params }}&page=1{% else %}#{% endif %}"
+                               aria-label="Primera">
+                                &laquo;&laquo;
+                            </a>
+                        </li>
+
+                        {# ANTERIOR #}
                         <li class="page-item {% if not productoKey.has_previous %}disabled{% endif %}">
-                            <a class="page-link shadow-none txt-grey" href="{% if productoKey.has_previous %}?{{ base_params }}&page={{ productoKey.previous_page_number }}{% else %}#{% endif %}">
+                            <a class="page-link shadow-none txt-grey"
+                               href="{% if productoKey.has_previous %}?{{ base_params }}&page={{ productoKey.previous_page_number }}{% else %}#{% endif %}"
+                               aria-label="Anterior">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
                         </li>
                         
+                        {# NÚMEROS #}
                         {% for i in productoKey.paginator.page_range %}
                             {% if productoKey.number == i %}
-                            <li class="page-item active"><span class="page-link shadow-none">{{ i }}</span></li>
-                            {% elif i > productoKey.number|add:'-3' and i < productoKey.number|add:'3' %}
-                            <li class="page-item">
-                                <a class="page-link shadow-none txt-grey" href="?{{ base_params }}&page={{ i }}">{{ i }}</a>
-                            </li>
+                                <li class="page-item active">
+                                    <span class="page-link shadow-none ">{{ i }}</span>
+                                </li>
+                            {% elif i > productoKey.number|add:'-6' and i < productoKey.number|add:'6' %}
+                                <li class="page-item">
+                                    <a class="page-link shadow-none txt-grey"
+                                       href="?{{ base_params }}&page={{ i }}">
+                                        {{ i }}
+                                    </a>
+                                </li>
                             {% endif %}
                         {% endfor %}
 
+                        {# SIGUIENTE #}
                         <li class="page-item {% if not productoKey.has_next %}disabled{% endif %}">
-                            <a class="page-link shadow-none txt-grey" href="{% if productoKey.has_next %}?{{ base_params }}&page={{ productoKey.next_page_number }}{% else %}#{% endif %}">
+                            <a class="page-link shadow-none txt-grey"
+                               href="{% if productoKey.has_next %}?{{ base_params }}&page={{ productoKey.next_page_number }}{% else %}#{% endif %}"
+                               aria-label="Siguiente">
                                 <i class="fas fa-chevron-right"></i>
                             </a>
                         </li>
+
+                        {# ÚLTIMA PÁGINA #}
+                        <li class="page-item {% if productoKey.number == productoKey.paginator.num_pages %}disabled{% endif %}">
+                            <a class="page-link shadow-none txt-grey"
+                               href="{% if productoKey.number < productoKey.paginator.num_pages %}?{{ base_params }}&page={{ productoKey.paginator.num_pages }}{% else %}#{% endif %}"
+                               aria-label="Última">
+                                &raquo;&raquo;
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
@@ -64,4 +96,3 @@
     </div>
 </div>
 {% endblock %}
-

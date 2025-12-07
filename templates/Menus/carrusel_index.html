@@ -1,0 +1,150 @@
+{% load static %}
+<section class="rw-real-world" id="real-world">
+    <div class="rw-container">
+
+        <!-- Título -->
+        <div class="rw-title-wrapper">
+            <h1 class="nabla-rw-title">ModerElectronic</h1>
+        </div>
+
+        <!-- Contenido principal: carrusel + texto -->
+        <div class="rw-content">
+
+            <!-- Columna izquierda: carrusel de imágenes -->
+            <div class="rw-carousel-wrapper mb-4 mb-md-0">
+                <div id="rwCarousel" class="carousel slide carousel-fade rw-carousel"
+                     data-bs-ride="carousel" data-bs-pause="hover">
+
+                    <!-- Indicadores -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#rwCarousel" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#rwCarousel" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#rwCarousel" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#rwCarousel" data-bs-slide-to="3"
+                                aria-label="Slide 4"></button>
+                    </div>
+
+                    <!-- Slides -->
+                    <div class="carousel-inner rw-carousel-inner rounded-4 shadow-lg ">
+                        <div class="carousel-item active" data-bs-interval="8000">
+                            <img src="{% static 'img/Situaciones/2.jpg' %}"
+                                 class="d-block w-100 rw-carousel-img"
+                                 alt="Tus compras siempre disponibles">
+                            <div class="carousel-caption d-none d-md-block rw-caption mb-4">
+                                <h5 class="fw-light fs-6">Tus compras, siempre a mano</h5>
+                                <p class="mb-0">Revisa el detalle de cada pedido cuando lo necesites.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="8000">
+                            <img src="{% static 'img/Situaciones/3.jpg' %}"
+                                 class="d-block w-100 rw-carousel-img"
+                                 alt="Historial de compras">
+                            <div class="carousel-caption d-none d-md-block rw-caption mb-4">
+                                <h5 class="fw-light fs-6">Historial de compras claro</h5>
+                                <p class="mb-0">Consulta qué compraste, cuándo y en qué estado está.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="8000">
+                            <img src="{% static 'img/Situaciones/4.jpg' %}"
+                                 class="d-block w-100 rw-carousel-img"
+                                 alt="Opiniones de productos">
+                            <div class="carousel-caption d-none d-md-block rw-caption mb-4">
+                                <h5 class="fw-light fs-6">Comenta tus productos</h5>
+                                <p class="mb-0">Comparte tu experiencia y ayuda a otros clientes.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="8000">
+                            <img src="{% static 'img/Situaciones/1.jpg' %}"
+                                 class="d-block w-100 rw-carousel-img"
+                                 alt="Solicitudes y devoluciones">
+                            <div class="carousel-caption d-none d-md-block rw-caption mb-4">
+                                <h5 class="fw-light fs-6">Solicitudes y devoluciones</h5>
+                                <p class="mb-0">Reporta fallas o pide cambios de forma sencilla.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles -->
+                    <button class="carousel-control-prev rw-control" type="button"
+                            data-bs-target="#rwCarousel" data-bs-slide="prev">
+                        <span class="rw-control-icon" aria-hidden="true">&lsaquo;</span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next rw-control" type="button"
+                            data-bs-target="#rwCarousel" data-bs-slide="next">
+                        <span class="rw-control-icon" aria-hidden="true">&rsaquo;</span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Columna derecha: texto + botón -->
+            <div class="rw-text-block">
+
+                {% if request.user.is_custom_admin %}
+                    {# BLOQUE PARA ADMINISTRADORES #}
+                    <h2 class="rw-subtitle mb-3">
+                        Administra tu tienda con claridad
+                    </h2>
+
+                    <p class="rw-text">
+                        ModerElectronic te permite gestionar productos, categorías, ventas
+                        y solicitudes de clientes en un solo lugar, pensado para el trabajo diario
+                        del administrador.
+                    </p>
+
+                    <ul class="rw-list mb-4">
+                        <li>✔ Control centralizado de inventario y catálogo.</li>
+                        <li>✔ Historial de compras y seguimiento de solicitudes.</li>
+                        <li>✔ Herramientas para monitorear el comportamiento de los clientes.</li>
+                    </ul>
+
+                    <a href="#" class="rw-btn">
+                        Ir al panel administrativo
+                    </a>
+
+                {% else %}
+                    {# BLOQUE PARA CLIENTES / VISITANTES #}
+                    <h2 class="rw-subtitle mb-3">
+                        Todo lo que compras, en un solo lugar
+                    </h2>
+
+                    <p class="rw-text">
+                        Como cliente, en ModerElectronic puedes revisar tus compras,
+                        comentar los productos y solicitar ayuda si algo no llega como esperabas
+                        o presenta desperfectos.
+                    </p>
+
+                    <ul class="rw-list mb-4">
+                        <li>✔ Historial completo de tus pedidos.</li>
+                        <li>✔ Comentarios y valoraciones sobre los productos.</li>
+                        <li>✔ Solicitudes de garantía, cambios o devoluciones.</li>
+                    </ul>
+
+                    {% if request.user.is_client %}
+
+                    <a href="{% url 'historialCompras' %}" class="rw-btn">
+                        Ver mis compras
+                    </a>
+
+                    {% else %}
+
+                    <a href="{% url 'iniciarSesionCliente' %}" class="rw-btn">
+                        Iniciar sesión</a>
+                    {% endif %}
+
+                    
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</section>

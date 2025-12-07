@@ -1,10 +1,26 @@
 {% extends 'Base/base_index.html' %}
 
+{% load static %}
+
 <!-- TITULO DE LA PESTAÑA DE LA PAGINA WEB -->
 {% block titulo %} HOME {% endblock %}
 
+
+<!-- CARRUSEL DEL INDEX -->
+{% block carrusel_index %}
+{% include 'Menus/carrusel_index.html' %}
+{% endblock %}
+
+
 <!-- CONTENIDO CENTRAL DE LA PAGINA -->
 {% block contenido %}
+
+
+<!-- ================================ -->
+<!--   SECCIÓN REAL WORLD            -->
+<!-- ================================ -->
+
+
 
 {% include 'Menus/informacion.html' %}
 

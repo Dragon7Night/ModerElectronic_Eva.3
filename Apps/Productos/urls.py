@@ -38,7 +38,7 @@ urlpatterns = [
     # ------------------------
     #   -URLs de Solicitud
     # ------------------------
-    path('registrar-solicitud/<int:registro_id>/', productoViews.register_Solicitud, name='registrarSolicitud'),
+    path('registrar-solicitud/<int:registro_id>/', productoViews.register_solicitud, name='registrarSolicitud'),
     path('data-solicitud/', productoViews.data_Solicitud, name='dataSolicitud'),
 
 

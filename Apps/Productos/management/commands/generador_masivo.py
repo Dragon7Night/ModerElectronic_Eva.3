@@ -21,10 +21,8 @@ Comando para ejecutar la generación masiva de datos de prueba
 Ejemplo
 python manage.py generador_masivo --productos 2000
 
-
 # variantes posibles
 py .\manage.py generador_masivo --usuarios 500 --admins 10 --categorias 30 --productos 1500 --comentarios 2000 --calificaciones 2000 --solicitudes 1000 --compras 1000
-
 """
 
 
