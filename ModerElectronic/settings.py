@@ -13,6 +13,19 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 
+""" 
+Librerias necesarias para el funcionamiento del proyecto
+
+
+Librerias necesarias para las pruebas de rendimiento con silk
+
+
+pip install django-silk
+pip install locust
+pip install faker
+
+"""
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = BASE_DIR / 'templates'
@@ -28,7 +41,7 @@ SECRET_KEY = 'django-insecure-txs+8s2w1h@$9*uo==b68kz8x*!*^m63kd%q$s-a3ynoe9k_id
 DEBUG = True
 
 # Lista de HOSTS (IPs) que se les permite realizar peticiones al servidor de django
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.1.3', '192.168.1.5']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','192.168.1.5']
 
 
 # Application definition
@@ -40,12 +53,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # APPS DEL PROYECTO
     'Apps.Productos',
     'Apps.Usuarios',
-    # APPS DEL PROYECTO
+    # App para el monitoreo de consultas SQL
+    'silk',
+
 ]
 
 MIDDLEWARE = [
+    # importaciones para silk
+    'silk.middleware.SilkyMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,10 +161,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #             NOMBRE APP ↓    ↓ NOMBRE CLASS
 AUTH_USER_MODEL = "Usuarios.Usuario"
 
-
+# Redirecciones despues de iniciar y cerrar sesion
 LOGIN_REDIRECT_URL = "homeGeneral"
 
+# Redireccion despues de cerrar sesion
 LOGOUT_REDIRECT_URL = "homeGeneral"
 
-#RESET PASSWORD
+# Configuracion para el envio de correos (Consola)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+# activa el analizador de código Python.
+SILKY_PYTHON_PROFILER = True
+
+# se desactivan para no bloquear la visualización del panel durante pruebas
+SILKY_AUTHENTICATION = False
+SILKY_AUTHORISATION = False
+
+# máximo de peticiones guardadas.
+SILKY_MAX_RECORDED_REQUESTS = 10000
+
+# máximo de consultas SQL guardadas.
+SILKY_MAX_RECORDED_QUERIES = 100000
+SILKY_INTERCEPT_PERCENT = 100
+
+
+
+

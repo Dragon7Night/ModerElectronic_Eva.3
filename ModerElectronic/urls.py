@@ -31,6 +31,12 @@ urlpatterns = [
     # -----------------------
     path("productos/", include("Apps.Productos.urls")),
 
+    # -----------------------
+    #    -URLs de Silk 
+    # -----------------------
+    path('silk/', include('silk.urls', namespace='silk')),
+
+
 ]
 
 
