@@ -12,18 +12,25 @@
 <div class="container mt-5">
     <div class="card shadow-lg border-0">
         <div class="card-header bg-success text-white text-center">
-            <h2 class="mb-0 display-6"> Recarga completada</h2>
+            <h2 class="mb-0 display-6">¡¡Recarga de la billetera completada!!</h2>
         </div>
+
         <div class="card-body text-center">
+
+            <!-- Mensaje principal -->
             <p class="fs-5 fw-semibold text-dark">
                 Su billetera ha sido recargada con éxito.
             </p>
+
+            <p class="fs-5 text-secondary mb-1">
+                Has recargado: <strong>${{ monto }}</strong>
+            </p>
             <p class="fs-4 text-primary">
-                Nuevo saldo: <strong>${{ usuario.billetera }}</strong>
+                Tu nuevo saldo es: <strong>${{ usuario.billetera }}</strong>
             </p>
 
-            <a class="btn btn-outline-success btn-lg mt-3" href="{% url 'perfilUsuario' %}">
-                     Volver al perfil
+            <a class="btn btn-general btn-lg mt-3" href="{% url 'perfilUsuario' %}">
+                Volver al perfil
             </a>
         </div>
     </div>

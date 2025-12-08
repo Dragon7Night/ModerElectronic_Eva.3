@@ -5,6 +5,10 @@
 <!--    °Pagina -> Registrar categoria   -->
 <!-- °=================================° -->
 
+<!-- TITULO DE LA PAGINA WEB -->
+{% block titulo %} REGISTRO DE CATEGORIA {% endblock %}
+
+<!-- CONTENIDO PRINCIPAL DEL FORMULARIO -->
 {% block contenido %}
 <div class="container-fluid col-lg-10">
 
@@ -34,9 +38,10 @@
                                     <strong> ID categoria:</strong> {{ categoria.id }}
                                 </small>
                             </div>
-                            <span class="badge bg-success text-white fw-semibold">
-                                <strong> Cant. productos:</strong> {{ forloop.counter0|add:categorias_registradas.start_index }}
-                            </span>
+                        <span class="badge bg-success text-white fw-semibold">
+                            <strong> Cant. productos:</strong> {{ categoria.contador_productos }}
+                        </span>
+
                         </div>
                         {% empty %}
                         <p class="text-muted text-center small mb-0">

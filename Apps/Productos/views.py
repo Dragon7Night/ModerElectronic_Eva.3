@@ -347,7 +347,6 @@ def data_categoria(request):
     categoriaObject = ProductoModel.Categoria.objects.all()
     data = {
         'categoriaKey': categoriaObject,
-        'mainTitle': 'Listado de categorías',
     }
     return render(request, 'ModerElectronic/data_Categoria.html', data)
 
@@ -357,9 +356,19 @@ def data_categoria(request):
 @permission_required(UsuarioModels.Usuario.ROL_ADMIN, login_url='/productos/home/')
 def registrar_categoria(request):
     
-    categoriaObject = ProductoModel.Categoria.objects.all().order_by('nombre')
+    # Query con anotación de cantidad de productos por categoría
+    categoriaObject = (
+        ProductoModel.Categoria.objects
+        .annotate(
+            contador_productos=Count(
+                'productocategoria__producto_id',
+                distinct=True
+            )
+        )
+        .order_by('nombre')
+    )
 
-    # Paginador de 8 categorias por pagina 
+    # Paginador de 10 categorías por página 
     paginator = Paginator(categoriaObject, 10)
     page_number = request.GET.get('page')
     categorias_page = paginator.get_page(page_number)
@@ -378,6 +387,7 @@ def registrar_categoria(request):
         'categorias_registradas': categorias_page,
     }
     return render(request, 'Producto/Extras/registrar_categoria.html', data)
+
 
 
 # !|-|--|-|-|-|-|-|-|> VISTAS DE SOLICITUDES <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
@@ -422,43 +432,127 @@ def data_Solicitud(request):
 
 
 
+# # !|-|--|-|-|-|-|-|-|> VISTA DE COMPRA <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+
+# # .|----------------[REGISTRAR COMPRA]----------------|.
+# @login_required(login_url='/productos/home/')
+# def comprar_producto(request, id_producto):
+#     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
+#     cliente = request.user
+
+#     try:
+#         precio_Decimal = Decimal(str(producto.precio))
+#         billetera_Decimal = Decimal(str(cliente.billetera)) 
+        
+#     except Exception as erro:
+#         messages.error(request, f'Error técnico al procesar montos: {erro}')
+#         return redirect('detalleProducto', id_producto=id_producto) 
+        
+#     if producto.stock <= 0:
+#         messages.error(request, "¡Lo sentimos! Este producto se ha agotado.")
+    
+#     elif billetera_Decimal < precio_Decimal:
+#         messages.error(request, f"Saldo insuficiente. Te faltan ${precio_Decimal - billetera_Decimal} para realizar la compra.")
+    
+#     else:
+#         cliente.billetera = billetera_Decimal - precio_Decimal
+#         cliente.save(update_fields=['billetera'])
+
+#         producto.stock -= 1
+#         producto.save(update_fields=['stock'])
+
+#         ProductoModel.RegistroCompra.objects.create(
+#             cliente=cliente,
+#             producto=producto,
+#             precio_total=precio_Decimal,
+#             garantia=False,
+#             delivery=False
+#         )
+
+#         messages.success(request, f"¡Compra exitosa! Has adquirido '{producto.nombre}'. Tu nuevo saldo es: ${cliente.billetera}")
+
+#     return redirect('detalleProducto', id_producto=id_producto)
+
+
+
 # !|-|--|-|-|-|-|-|-|> VISTA DE COMPRA <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 
-# .|----------------[REGISTRAR COMPRA]----------------|.
+# .|----------------[CONFIRMAR COMPRA]----------------|.
 @login_required(login_url='/productos/home/')
-def comprar_producto(request, id_producto):
+def confirmar_compra(request, id_producto):
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     cliente = request.user
 
     try:
-        precio_Decimal = Decimal(str(producto.precio))
+        precio_base = Decimal(str(producto.precio))
         billetera_Decimal = Decimal(str(cliente.billetera)) 
-        
     except Exception as erro:
         messages.error(request, f'Error técnico al procesar montos: {erro}')
-        return redirect('detalleProducto', id_producto=id_producto) 
-        
-    if producto.stock <= 0:
-        messages.error(request, "¡Lo sentimos! Este producto se ha agotado.")
-    
-    elif billetera_Decimal < precio_Decimal:
-        messages.error(request, f"Saldo insuficiente. Te faltan ${precio_Decimal - billetera_Decimal} para realizar la compra.")
-    
-    else:
-        cliente.billetera = billetera_Decimal - precio_Decimal
+        return redirect('detalleProducto', id_producto=id_producto)
+
+    # Costos adicionales
+    precio_garantia = precio_base * Decimal('0.05')# porcentaje de la garantia extendida
+    precio_delivery = Decimal('5000')
+
+    if request.method == 'POST':
+        # Checkboxes del formulario
+        garantia_extendida = request.POST.get('garantia_extendida') == 'on'
+        delivery = request.POST.get('delivery') == 'on'
+
+        precio_total = precio_base
+
+        if garantia_extendida:
+            precio_total += precio_garantia
+
+        if delivery:
+            precio_total += precio_delivery
+
+        # Validaciones básicas
+        if producto.stock <= 0:
+            messages.error(request, "¡Lo sentimos! Este producto se ha agotado.")
+            return redirect('detalleProducto', id_producto=id_producto)
+
+        if billetera_Decimal < precio_total:
+            messages.error(
+                request,
+                f"Saldo insuficiente. Te faltan ${precio_total - billetera_Decimal} para realizar la compra."
+            )
+            return redirect('detalleProducto', id_producto=id_producto)
+
+        # Descuento en billetera
+        cliente.billetera = billetera_Decimal - precio_total
         cliente.save(update_fields=['billetera'])
 
+        # Descuento de stock
         producto.stock -= 1
         producto.save(update_fields=['stock'])
 
+        # Registro de la compra (garantía = garantía extendida)
         ProductoModel.RegistroCompra.objects.create(
             cliente=cliente,
             producto=producto,
-            precio_total=precio_Decimal,
-            garantia=False,
-            delivery=False
+            precio_total=float(precio_total),
+            garantia=garantia_extendida,   # True si compró extensión
+            delivery=delivery
         )
 
-        messages.success(request, f"¡Compra exitosa! Has adquirido '{producto.nombre}'. Tu nuevo saldo es: ${cliente.billetera}")
+        messages.success(
+            request,
+            f"¡Compra exitosa! Has adquirido '{producto.nombre}'. "
+            f"Total pagado: ${precio_total}. Tu nuevo saldo es: ${cliente.billetera}"
+        )
 
-    return redirect('detalleProducto', id_producto=id_producto)
+        return redirect('detalleProducto', id_producto=id_producto)
+
+    # GET -> mostrar resumen antes de confirmar
+    data = {
+        'producto': producto,
+        'cliente': cliente,
+        'precio_base': precio_base,
+        'precio_garantia': precio_garantia,
+        'precio_delivery': precio_delivery,
+        'precio_total_maximo': precio_base + precio_garantia + precio_delivery,
+    }
+    return render(request, 'Producto/confirmar_compra.html', data)
+
+

@@ -6,7 +6,7 @@
 <!-- °============================================° -->
 
 <!-- TITULO DE LA PAGINA WEB -->
-{% block titulo %} Editar {{ producto.nombre }} {% endblock %}
+{% block titulo %} EDITAR {{ producto.nombre }} {% endblock %}
 
 <!-- CONTENIDO DEL PANEL DE EDICIÓN DE UN PRODUCTO -->
 {% block contenido %}
@@ -166,12 +166,12 @@
                         <!-- Botones de acción -->
                         <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
                             <a href="{% url 'catalogoProductos' %}"
-                               class="btn btn-outline-light fw-semibold">
+                               class="btn btn-general fw-semibold">
                                 <i class="fas fa-times me-1"></i> Cancelar
                             </a>
 
                             <button type="submit"
-                                    class="btn btn-success fw-semibold">
+                                    class="btn btn-general fw-semibold">
                                 <i class="fas fa-save me-2"></i> Guardar cambios
                             </button>
                         </div>

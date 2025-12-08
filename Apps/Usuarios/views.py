@@ -82,14 +82,14 @@ class PerfilUsuarioUpdateView(LoginRequiredMixin, UpdateView):
 # !|-|--|-|-|-|-|-|-|> VISTA PARA LA BILLETERA <|-|--|-|-|-|-|-|-|-|-|-|-|-
 
 class SeleccionarMetodoRecargaView(LoginRequiredMixin, TemplateView):
-    template_name = "Billetera/seleccionar_metodo.html"
+    template_name = "Usuario/Billetera/seleccionar_metodo.html"
 
 
 class RecargarBilleteraView(LoginRequiredMixin, FormView):
-    template_name = 'Billetera/recargar_billetera.html' 
+    template_name = 'Usuario/Billetera/recargar_billetera.html' 
     form_class = UsuariosForms.RecargaBilleteraForm
     
-    success_url = reverse_lazy('perfilUsuario') 
+    success_url = reverse_lazy('confirmacionRecarga')
 
     def form_valid(self, form):
         monto = form.cleaned_data['monto']
@@ -100,14 +100,15 @@ class RecargarBilleteraView(LoginRequiredMixin, FormView):
         usuario.billetera = saldo_actual + monto
         usuario.save()
 
+        # Se guarda el monto recargado en la sesión para mostrarlo en la confirmación
         self.request.session['ultimo_monto'] = str(monto)
 
-        messages.success(self.request, f"Recarga exitosa. Tu nuevo saldo es: {usuario.billetera}")
+        messages.success(self.request, f"Recarga exitosa. Has recargado ${monto}. Tu nuevo saldo es: {usuario.billetera}")
         return super().form_valid(form)
 
 
 class ConfirmacionRecargaView(LoginRequiredMixin, TemplateView):
-    template_name = "Billetera/confimarcion_recarga.html"
+    template_name = "Usuario/Billetera/confimarcion_recarga.html"
 
     def get_context_data(self, **kwargs):
         contexto = super().get_context_data(**kwargs)
@@ -131,7 +132,7 @@ class ConfirmacionRecargaView(LoginRequiredMixin, TemplateView):
 class HistorialComprasView(LoginRequiredMixin, ListView):
    
     model = ProductoModel.RegistroCompra 
-    template_name = 'Usuario/Perfil/historial_compras.html'
+    template_name = 'Usuario/Funciones/historial_compras.html'
     context_object_name = 'registros_compra' 
 
     def get_queryset(self):
@@ -142,7 +143,7 @@ class HistorialComprasView(LoginRequiredMixin, ListView):
 
 class ListaClientesAdminView(ListView):
     model = UsuariosModels.Usuario
-    template_name = 'Usuario/Perfil/Lista_clientes.html'
+    template_name = 'Usuario/Funciones/Lista_clientes.html'
     context_object_name = 'clientes' 
 
     def get_queryset(self):

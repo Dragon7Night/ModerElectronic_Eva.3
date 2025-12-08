@@ -8,7 +8,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="calificacionModalLabel">Añadir tu Calificación y Comentario</h5>
+                <h4 class="modal-title" id="calificacionModalLabel">Añadir tu Calificación y Comentario</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="POST" action="{% url 'agregarCalificacion' id_producto=producto.id %}">
@@ -16,7 +16,7 @@
                 <div class="modal-body">
 
                     <div class="mb-3 text-center">
-                        <label class="form-label fw-bold">Tu Calificación:</label>
+                        <label class="form-label fw-light">Tu Calificación:</label>
                         <div class="stars">
                             <input type="radio" id="star-5" name="cant_estrella" value="5" required />
                             <label for="star-5" title="5 estrellas"><i class="fa-solid fa-star"></i></label>
@@ -44,8 +44,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Enviar Calificación</button>
+                    <button type="button" class="btn  btn-effect-modal" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn  btn-effect-modal">Enviar Calificación</button>
                 </div>
             </form>
         </div>
