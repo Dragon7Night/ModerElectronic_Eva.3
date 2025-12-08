@@ -16,7 +16,8 @@
     <div class="row justify-content-center mb-3">
         <div class="col-lg-10">
             {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center fw-semibold" role="alert">
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center fw-semibold"
+                role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
             </div>
@@ -34,9 +35,9 @@
             </h1>
 
             {% if solicitudKey %}
-                <span class="badge bg-primary fs-5">
-                    Cantidad de solicitudes: {{ solicitudKey|length }}
-                </span>
+            <span class="badge bg-primary fs-5">
+                Cantidad de solicitudes: {{ solicitudKey|length }}
+            </span>
             {% endif %}
         </div>
 
@@ -57,6 +58,7 @@
                 </thead>
 
                 <tbody>
+                    {% if solicitudKey %}
                     {% for solicitud in solicitudKey %}
                     <tr>
                         <!-- ID -->
@@ -71,9 +73,9 @@
                         <!-- Registro de compra -->
                         <td>
                             {% if solicitud.registro_compra %}
-                                {{ solicitud.registro_compra.id }}
+                            {{ solicitud.registro_compra.id }}
                             {% else %}
-                                -
+                            -
                             {% endif %}
                         </td>
 
@@ -87,13 +89,13 @@
                         <!-- Estado / tipo_solicitud -->
                         <td>
                             {% if solicitud.tipo_solicitud == 'en revision' %}
-                                <span class="badge bg-warning text-dark">En revisión</span>
+                            <span class="badge bg-warning text-dark">En revisión</span>
                             {% elif solicitud.tipo_solicitud == 'aprobada' %}
-                                <span class="badge bg-success">Aprobada</span>
+                            <span class="badge bg-success">Aprobada</span>
                             {% elif solicitud.tipo_solicitud == 'rechazada' %}
-                                <span class="badge bg-danger">Rechazada</span>
+                            <span class="badge bg-danger">Rechazada</span>
                             {% else %}
-                                <span class="badge bg-secondary">{{ solicitud.tipo_solicitud }}</span>
+                            <span class="badge bg-secondary">{{ solicitud.tipo_solicitud }}</span>
                             {% endif %}
                         </td>
 
@@ -105,31 +107,23 @@
                             <div class="d-flex flex-wrap gap-1 justify-content-center">
 
                                 <!-- Ver info (modal) -->
-                                <button class="btn btn-sm btn-primary btn-effect-modal3"
-                                        type="button"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalVerSolicitud{{ solicitud.id }}">
+                                <button class="btn bg-primary btn-effect-modal3 text-light" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#modalVerSolicitud{{ solicitud.id }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
 
                                 {% if solicitud.tipo_solicitud == 'en revision' and solicitud.estado %}
-                                    <!-- Aprobar (modal) -->
-                                    <button class="btn btn-sm btn-effect-modal3"
-                                            type="button"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modalAprobarSolicitud{{ solicitud.id }}">
-                                        <i class="fas fa-check-circle"></i>
-                                    </button>
+                                <!-- Aprobar (modal) -->
+                                <button class="btn bg-success btn-effect-modal3 text-light" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#modalAprobarSolicitud{{ solicitud.id }}">
+                                    <i class="fas fa-check-circle"></i>
+                                </button>
 
-                                    <!-- Rechazar (modal) -->
-                                    <button class="btn btn-sm btn-danger btn-effect-modal3"
-                                            type="button"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modalRechazarSolicitud{{ solicitud.id }}">
-                                        <i class="fas fa-times-circle"></i>
-                                    </button>
-                                {% else %}
-                                    {#NO SE MUESTRA NADA#}
+                                <!-- Rechazar (modal) -->
+                                <button class="btn bg-danger btn-effect-modal3 text-light" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#modalRechazarSolicitud{{ solicitud.id }}">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
                                 {% endif %}
                             </div>
                         </td>
@@ -139,23 +133,18 @@
                     {% include 'Menus/complementos/modal_ver_solicitud.html' with solicitud=solicitud %}
                     {% include 'Menus/complementos/modal_aprobar_solicitud.html' with solicitud=solicitud %}
                     {% include 'Menus/complementos/modal_rechazar_solicitud.html' with solicitud=solicitud %}
-
-                    {% empty %}
-                    <tr>
-                        <td colspan="8" class="text-center text-muted py-4">
-                            No hay solicitudes registradas.
-                        </td>
-                    </tr>
                     {% endfor %}
+                    {% endif %}
                 </tbody>
+
 
             </table>
         </div>
 
         {% if not solicitudKey %}
-            <div class="alert alert-light text-center mt-4 border">
-                No hay solicitudes registradas actualmente.
-            </div>
+        <div class="alert alert-light text-center mt-4 border">
+            No hay solicitudes registradas actualmente.
+        </div>
         {% endif %}
 
     </div>

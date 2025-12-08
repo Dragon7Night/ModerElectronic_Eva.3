@@ -67,38 +67,39 @@ class RegisterProductoForm(forms.ModelForm):
 # ~============= VALORACIONES =============~
 
 # |===> Formulario de CREACION y EDICION <Comentarios>
-class RegisterComentarioForm(forms.ModelForm):
-
-    # Modelo de registro del formulario
-    class Meta:
-        model = ProductoModel.Comentario
-        fields = ['comentario']
-
-    # Definicion + validacion + style + label de campos
-    comentario = forms.CharField(validators=[
-        validators.MinLengthValidator(3),
-        validators.MaxLengthValidator(300)],
-        widget=forms.Textarea(attrs={'class':'form-control', 'rows': 3, 'placeholder': 'Escribe tu comentario aquí...'}),
-        label='Comentario del producto'
-    )
-    
-# |<><><><><><><><><><><><><><><><><><><><><><><><>|
-
-# |===> Formulario de CREACION y EDICION <Calificacion>
 class RegisterCalificacionForm(forms.ModelForm):
 
     # Modelo de registro del formulario
     class Meta:
         model = ProductoModel.Calificacion
-        fields = {'cant_estrella'}
+        fields = ['cant_estrella', 'comentario']
 
     # Definicion + validacion + style + label de campos
-    cant_estrella = forms.IntegerField(validators=[
-        validators.MinValueValidator(0),
-        validators.MaxValueValidator(5)],
-        widget=forms.NumberInput(attrs={'class':'form-control'}),
+    cant_estrella = forms.IntegerField(
+        validators=[
+            validators.MinValueValidator(1),
+            validators.MaxValueValidator(5)
+        ],
+        widget=forms.NumberInput(attrs={'class':'form-control', 'min': 1, 'max': 5}),
         label='Cantidad de estrellas'
     )
+
+    comentario = forms.CharField(
+        validators=[
+            validators.MinLengthValidator(3),
+            validators.MaxLengthValidator(300)
+        ],
+        widget=forms.Textarea(
+            attrs={
+                'class':'form-control',
+                'rows': 3,
+                'placeholder': 'Escribe tu comentario aquí...'
+            }
+        ),
+        label='Comentario del producto',
+        required=False
+    )
+
 
 # ~============= SOLICITUDES =============~
 

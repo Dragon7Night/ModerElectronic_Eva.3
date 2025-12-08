@@ -1,6 +1,5 @@
-
 <!-- °=============================° -->
-<!--    °Modal -> Calificacion   -->
+<!--    °Modal -> Calificacion      -->
 <!-- °=============================° -->
  
 <div class="modal fade" id="calificacionModal" tabindex="-1" aria-labelledby="calificacionModalLabel"
@@ -11,10 +10,12 @@
                 <h4 class="modal-title" id="calificacionModalLabel">Añadir tu Calificación y Comentario</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <form method="POST" action="{% url 'agregarCalificacion' id_producto=producto.id %}">
                 {% csrf_token %}
                 <div class="modal-body">
 
+                    <!-- ESTRELLAS -->
                     <div class="mb-3 text-center">
                         <label class="form-label fw-light">Tu Calificación:</label>
                         <div class="stars">
@@ -34,18 +35,21 @@
                             <label for="star-1" title="1 estrella"><i class="fa-solid fa-star"></i></label>
                         </div>
                     </div>
+
                     <hr class="mb-2">
 
+                    <!-- COMENTARIO -->
                     <div class="mb-3">
-                        <label for="{{ formComentario.comentario.id_for_label }}" class="form-label">Tu
-                            Comentario:</label>
-                        {{ formComentario.comentario }}
+                        <label for="{{ formCalificacion.comentario.id_for_label }}" class="form-label">
+                            Tu Comentario:
+                        </label>
+                        {{ formCalificacion.comentario }}
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn  btn-effect-modal" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn  btn-effect-modal">Enviar Calificación</button>
+                    <button type="button" class="btn btn-effect-modal" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-effect-modal">Enviar Calificación</button>
                 </div>
             </form>
         </div>

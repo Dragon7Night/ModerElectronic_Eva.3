@@ -32,7 +32,7 @@ CATEGORIA_IMAGENES = {
     'computadoras': 'img/CategoriasVec/computadoras.png',
     'consolas': 'img/CategoriasVec/consolas.png',
     'impresoras': 'img/CategoriasVec/impresoras.png',
-    'inalambricos': 'img/CategoriasVec/inalambricos.png',
+    'inalambrico': 'img/CategoriasVec/inalambricos.png',
     'mouse': 'img/CategoriasVec/mouse.png',
     'televisores': 'img/CategoriasVec/televisores.png',
     'teclados': 'img/CategoriasVec/teclados.png',
@@ -158,34 +158,33 @@ def catalogo_producto(request):
 
 # .|======== DETALLE DE UN PRODUCTO ==============>>
 
+# .|======== DETALLE DE UN PRODUCTO ==============>>
+
 @login_required(login_url='/productos/home/')
 def detalle_producto(request, id_producto):
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     
+    # Promedio de estrellas
     promedio_calificacion = producto.calificaciones.aggregate(Avg('cant_estrella'))['cant_estrella__avg']
     
-    comentarios_db = producto.comentarios.all().select_related('cliente').order_by('-fecha_registro')
+    # Traer todas las calificaciones (ya incluyen comentario)
+    calificaciones_db = (producto.calificaciones.select_related('cliente').order_by('-fecha_registro'))
     
     lista_opiniones = []
-    
-    for coment in comentarios_db:
-        calificacion = ProductoModel.Calificacion.objects.filter(
-            producto=producto, 
-            cliente=coment.cliente
-        ).first()
-        
-        num_estrellas = calificacion.cant_estrella if calificacion else 0
+    for cal in calificaciones_db:
+        num_estrellas = cal.cant_estrella or 0
 
         opinion = {
-            'cliente': coment.cliente,
-            'texto': coment.comentario,
-            'fecha': coment.fecha_registro,
+            'cliente': cal.cliente,
+            'texto': cal.comentario,
+            'fecha': cal.fecha_registro,
             'estrellas': num_estrellas,
             'rango_llenas': range(num_estrellas),
-            'rango_vacias': range(5 - num_estrellas)
+            'rango_vacias': range(5 - num_estrellas),
         }
         lista_opiniones.append(opinion)
 
+    # Info de categoría + imagen
     relacion = ProductoModel.ProductoCategoria.objects.filter(producto_id=producto).first()
     if relacion:
         nombre_cat = relacion.categoria_id.nombre.lower()
@@ -195,13 +194,12 @@ def detalle_producto(request, id_producto):
         producto.url_categoria = None
         producto.nombre_categoria = "Otros"
 
-    form_comentario = ProductoForm.RegisterComentarioForm()
+    # Formulario único para calificación + comentario
     form_calificacion = ProductoForm.RegisterCalificacionForm()
 
     data = {
         'producto': producto,
         'promedio_calificacion': promedio_calificacion,
-        'formComentario': form_comentario,
         'formCalificacion': form_calificacion,
         'lista_opiniones': lista_opiniones,
     }
@@ -214,33 +212,33 @@ def agregar_calificacion(request, id_producto):
     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
     
     if request.method == 'POST':
-        form_comentario = ProductoForm.RegisterComentarioForm(request.POST)
+        # Usamos el formulario unificado
+        form_calificacion = ProductoForm.RegisterCalificacionForm(request.POST)
         
         try:
-            if form_comentario.is_valid():
-                texto = form_comentario.cleaned_data.get('comentario', '').strip()
-                
-                if texto:
-                    nuevo_comentario = form_comentario.save(commit=False)
-                    nuevo_comentario.cliente = request.user
-                    nuevo_comentario.producto = producto
-                    nuevo_comentario.save()
+            if form_calificacion.is_valid():
+                cant_estrella = form_calificacion.cleaned_data['cant_estrella']
+                comentario = form_calificacion.cleaned_data.get('comentario', '').strip()
 
-            estrellas = request.POST.get('cant_estrella')
-            
-            if estrellas:
+                # Un solo registro por (producto, cliente)
                 ProductoModel.Calificacion.objects.update_or_create(
                     producto=producto,
                     cliente=request.user,
-                    defaults={'cant_estrella': int(estrellas)}
+                    defaults={
+                        'cant_estrella': cant_estrella,
+                        'comentario': comentario,
+                    }
                 )
 
-            messages.success(request, '¡Gracias por tu opinión!')
+                messages.success(request, '¡Gracias por tu opinión!')
+            else:
+                messages.error(request, 'Por favor corrige los errores del formulario antes de enviar.')
             
         except Exception as err:
             messages.error(request, f'Ocurrió un error al guardar: {err}')
             
     return HttpResponseRedirect(reverse('detalleProducto', args=[id_producto]))
+
 
 
 # .|----------------[REGISTRAR PRODUCTO]----------------|.
@@ -327,7 +325,6 @@ def editar_producto(request, id_producto):
     }
 
     return render(request, 'Producto/Extras/editar_producto.html', data)
-
 
 
 # .|----------------[ELIMINAR PRODUCTO]----------------|.

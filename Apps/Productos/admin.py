@@ -23,16 +23,9 @@ class CategoriaAdmin(admin.ModelAdmin):
 admin.site.register(ModelProductos.Categoria, CategoriaAdmin)
 
 
-# -.-.-.-.-.- CRUD de Comentarios -.-.-.-.-.-
-class ComentarioAdmin(admin.ModelAdmin):
-    list_display = ['id','comentario']
-
-admin.site.register(ModelProductos.Comentario, ComentarioAdmin)
-
-
 # -.-.-.-.-.- CRUD de Calificaciones -.-.-.-.-.-
 class CalificacionAdmin(admin.ModelAdmin):
-    list_display = ['id','cant_estrella']
+    list_display = ['id','cant_estrella', 'comentario']
 
 admin.site.register(ModelProductos.Calificacion, CalificacionAdmin)
 
