@@ -23,7 +23,6 @@ urlpatterns = [
     path('eliminar-producto/<int:id_producto>', productoViews.eliminar_producto, name='eliminarProducto'),
 
     path('confirmar-compra/<int:id_producto>/',productoViews.confirmar_compra,name='confirmarCompra'),
-    # path("comprar/<int:id_producto>/", productoViews.comprar_producto, name="comprarProducto"),
 
     # ------------------------
     #   -URLs de Categoria
