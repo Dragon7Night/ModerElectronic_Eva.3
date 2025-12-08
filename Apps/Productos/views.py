@@ -32,7 +32,7 @@ CATEGORIA_IMAGENES = {
     'computadoras': 'img/CategoriasVec/computadoras.png',
     'consolas': 'img/CategoriasVec/consolas.png',
     'impresoras': 'img/CategoriasVec/impresoras.png',
-    'inalambrico': 'img/CategoriasVec/inalambricos.png',
+    'inalambricos': 'img/CategoriasVec/inalambricos.png',
     'mouse': 'img/CategoriasVec/mouse.png',
     'televisores': 'img/CategoriasVec/televisores.png',
     'teclados': 'img/CategoriasVec/teclados.png',

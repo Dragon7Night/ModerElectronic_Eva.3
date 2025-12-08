@@ -245,11 +245,12 @@ h4.barra_inferior2::after {
 .btn-effect-modal2 {
   font-family: "Roboto", sans-serif !important;
   color: rgb(0, 0, 0) !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   background-color: transparent !important;
   border: 3px solid #000000 !important;
   position: relative !important;
-  width: 9rem !important;
+  width: 11.6rem !important;
+  height: 3.6rem !important;
 }
 
 /* BOTONES GENERALES CON BORDE */
