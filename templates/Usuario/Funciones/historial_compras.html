@@ -8,7 +8,6 @@
 {% block titulo %} HISTORIAL DE COMPRAS {% endblock %}
 
 {% block contenido %}
-
 <div class="container py-5">
 
     <!-- Alertas de mensajes -->
@@ -36,9 +35,9 @@
             <tbody>
                 {% for registro in registros_compra %}
                 <tr>
-
                     <td>
-                        <a href="{% url 'detalleProducto' registro.producto.id %}" class="text-decoration-none fw-bold">
+                        <a href="{% url 'detalleProducto' registro.producto.id %}"
+                           class="text-decoration-none fw-bold">
                             {{ registro.producto.nombre }}
                         </a>
                     </td>
@@ -48,7 +47,9 @@
                         <small class="text-secondary">{{ registro.fecha_compra|date:"H:i" }} hrs</small>
                     </td>
 
-                    <td class="text-center fw-bold">${{ registro.precio_total|floatformat:0 }}</td>
+                    <td class="text-center fw-bold">
+                        ${{ registro.precio_total|floatformat:0 }}
+                    </td>
 
                     <td class="text-center">
                         {% if registro.garantia %}
@@ -72,19 +73,17 @@
                            Crear Solicitud
                         </a>
                     </td>
-
-                </tr>
-
-                {% empty %}
-                <tr>
-                    <td colspan="6" class="text-center py-4 text-muted">
-                        No tienes compras registradas.
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
-
         </table>
+
+        {% if not registros_compra %}
+        <div class="text-center py-4 text-muted">
+            No tienes compras registradas.
+        </div>
+        {% endif %}
+
     </div>
 
 </div>

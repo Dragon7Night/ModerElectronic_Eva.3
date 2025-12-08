@@ -5,10 +5,8 @@
 <!--    °Pagina -> Vista de un productos unico      -->
 <!-- °============================================° -->
 
-<!-- TITULO DE LA PAGINA WEB -->
 {% block titulo %} {{ producto.nombre }} {% endblock %}
 
-<!-- CONTENIDO DEL PRINCIPAL DE LA VISTA DE UN PRODUCTO -->
 {% block contenido %}
 
 <div class="container py-5">
@@ -32,11 +30,27 @@
         </div>
     {% endif %}
 
-    <div class="card-content px-4 py-2 rounded-3">
-        <div class="row gx-5">
+    {# CABECERA CON BOTÓN VOLVER #}
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+            <h1 class="fw-light mb-1">
+                <i class="fas fa-box-open me-2"></i>Detalle del producto
+            </h1>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="{% url 'catalogoProductos' %}" class="btn-general bg-primary text-light">
+                <i class="fas fa-arrow-left me-1"></i> Volver al catálogo
+            </a>
+        </div>
+    </div>
 
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="card p-4 shadow-sm border-0">
+    <div class="card-content px-4 py-2 rounded-3">
+        <!-- IMPORTANTE: align-items-stretch para que las cols tengan misma altura -->
+        <div class="row gx-5 align-items-stretch">
+
+            <!-- Columna izquierda: imagen -->
+            <div class="col-lg-6 mb-4 mb-lg-0 d-flex">
+                <div class="card p-4 shadow-sm border-0 w-100 h-100">
                     <div class="text-center" style="height: 500px;">
                         {% if producto.url_categoria %}
                             <img src="{{ producto.url_categoria }}"
@@ -52,8 +66,10 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
-                <div class="card p-4 shadow-sm border-0">
+            <!-- Columna derecha: info + botones -->
+            <div class="col-lg-6 d-flex">
+                <!-- d-flex flex-column h-100 para que el bloque de botones se pegue abajo -->
+                <div class="card p-4 shadow-sm border-0 w-100 d-flex flex-column h-100">
 
                     <div class="d-flex justify-content-between align-items-start">
                         <h2 class="card-title fw-bold txt-grey mb-2">{{ producto.nombre }}</h2>
@@ -66,25 +82,12 @@
 
                     {% if request.user.is_client %}
                         <div class="d-flex align-items-center mb-3">
-                            {% if promedio_calificacion %}
-                                <span class="badge bg-warning text-dark me-2">
-                                    {{ promedio_calificacion|floatformat:1 }} <i class="fas fa-star"></i>
-                                </span>
-                                <span class="text-muted small">
-                                    ({{ producto.calificaciones.count }} calificaciones)
-                                </span>
-                            {% else %}
-                                <span class="text-muted small me-2">Sin calificaciones</span>
-                            {% endif %}
-
-                            <span class="ms-4 text-muted small">Realizar calificación</span>
+                            <span class="ms-4 text-muted small">Haz tu calificación</span>
                             <i class="fas fa-edit ms-3 text-secondary"
                                data-bs-toggle="modal"
                                data-bs-target="#calificacionModal"
                                style="cursor: pointer;"></i>
                         </div>
-                    {% else %}
-                        {# No se muestra nada, opción exclusiva del cliente #}
                     {% endif %}
 
                     <h3 class="text-primary fw-bolder mb-3">${{ producto.precio }}</h3>
@@ -110,7 +113,7 @@
                         </li>
                     </ul>
 
-                    <!-- Faja de “compra protegida” + “delivery disponible” (solo visual) -->
+                    {% if request.user.is_client %}
                     <div class="mb-4">
                         <span class="badge bg-light text-success border me-2">
                             <i class="fas fa-shield-alt me-1"></i>
@@ -124,11 +127,12 @@
                             La extensión de garantía y el servicio de delivery se confirmarán en el siguiente paso de compra.
                         </p>
                     </div>
+                    {% endif %}
 
+                    {# BLOQUE DE BOTONES PEGADO ABAJO #}
                     <div class="mt-auto pt-3 border-top">
 
                         {% if request.user.is_custom_admin %}
-
                             <a href="{% url 'editarProducto' id_producto=producto.id %}"
                                class="btn btn-primary w-100 mb-2 text-light">
                                 <i class="fas fa-edit me-1"></i> Modificar Producto
@@ -140,34 +144,16 @@
                                     data-bs-target="#modalEliminarProducto">
                                 <i class="fas fa-trash-alt me-1"></i> Eliminar producto
                             </button>
-
-                            {% comment %}
-                            <a href="{% url 'eliminarProducto' id_producto=producto.id %}"
-                               class="btn btn-danger w-100 mb-2 text-light"
-                               onclick="return confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción es irreversible.');">
-                                <i class="fas fa-trash-alt me-1"></i> Eliminar producto
-                            </a>
-                            {% endcomment %}
                         {% endif %}
 
                         {% if request.user.is_client %}
                             {% if producto.stock > 0 %}
-
                                 <button type="button"
                                         class="btn btn-success fw-semibold fs-5 btn-block w-100"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalComprarProducto">
                                     <i class="fas fa-shopping-cart me-2"></i> Comprar producto
                                 </button>
-
-                                {% comment %}
-                                <a href="{% url 'comprarProducto' producto.id %}"
-                                   class="btn btn-success btn-lg w-100 mt-3 text-light"
-                                   onclick="return confirm('¿Confirmar compra por ${{ producto.precio }}?');">
-                                    <i class="fas fa-shopping-cart me-2"></i> Comprar producto
-                                </a>
-                                {% endcomment %}
-
                             {% else %}
                                 <button class="btn btn-primary fw-semibold fs-5 btn-block w-100 text-black disabled">
                                     <i class="fas fa-shopping-cart me-2"></i>Agotado
@@ -211,7 +197,6 @@
                                         {% for i in item.rango_llenas %}
                                             <i class="fas fa-star text-warning"></i>
                                         {% endfor %}
-
                                         {% for i in item.rango_vacias %}
                                             <i class="far fa-star text-muted"></i>
                                         {% endfor %}
