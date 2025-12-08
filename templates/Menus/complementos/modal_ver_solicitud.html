@@ -1,0 +1,57 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--   °Modal -> Ver Solicitud     ° -->
+<!-- °=============================° -->
+
+{% block id_modal %}modalVerSolicitud{{ solicitud.id }}{% endblock %}
+{% block label_modal %}modalVerSolicitudLabel{{ solicitud.id }}{% endblock %}
+{% block label_modal2 %}modalVerSolicitudLabel{{ solicitud.id }}{% endblock %}
+
+{% block titulo_modal %}Detalle de solicitud{% endblock %}
+
+{% block contenido_modal %}
+<div class="py-2">
+    <h5 class="text-white fw-light mb-3 text-center">
+        <i class="fas fa-file-alt me-2"></i>
+        Solicitud #{{ solicitud.id }}
+    </h5>
+
+    <ul class="list-unstyled text-white small mb-0">
+        <li><strong>Cliente:</strong> {{ solicitud.cliente.username }}</li>
+        <li><strong>Producto:</strong> {{ solicitud.producto.nombre }}</li>
+        <li><strong>ID compra:</strong>
+            {% if solicitud.registro_compra %}
+                {{ solicitud.registro_compra.id }}
+            {% else %}
+                -
+            {% endif %}
+        </li>
+        <li><strong>Estado:</strong>
+            {% if solicitud.tipo_solicitud == 'en revision' %}
+                En revisión
+            {% elif solicitud.tipo_solicitud == 'aprobada' %}
+                Aprobada
+            {% elif solicitud.tipo_solicitud == 'rechazada' %}
+                Rechazada
+            {% else %}
+                {{ solicitud.tipo_solicitud }}
+            {% endif %}
+        </li>
+        <li><strong>Fecha:</strong> {{ solicitud.fecha_registro|date:"d/m/Y H:i" }}</li>
+    </ul>
+
+    <hr class="border-light">
+
+    <p class="text-white mb-0"><strong>Descripción:</strong></p>
+    <p class="text-white-50 mb-0">{{ solicitud.descripcion }}</p>
+</div>
+{% endblock %}
+
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary" data-bs-dismiss="modal">Cerrar</a>
+<a class="btn btn-effect-modal bg-info text-dark"
+   href="{% url 'detalleProducto' solicitud.producto.id %}">
+    <i class="fas fa-eye me-1"></i> Ver producto
+</a>
+{% endblock %}

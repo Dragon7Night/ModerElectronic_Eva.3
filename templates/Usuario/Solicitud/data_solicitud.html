@@ -5,22 +5,34 @@
 <!--         °Vista -> Solicitudes de los clientes      -->
 <!-- °================================================° -->
 
-<!-- TITULO DE LA PÁGINA -->
 {% block titulo %} SOLICITUDES {% endblock %}
 
-<!-- CONTENIDO PRINCIPAL -->
 {% block contenido %}
 
-<div class="container mb-5">
 
-    <!-- Tarjeta contenedora -->
+<div class="container mb-5 py-4">
+
+    {% if messages %}
+    <div class="row justify-content-center mb-3">
+        <div class="col-lg-10">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center fw-semibold" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
     <div class="card shadow-sm p-4">
 
-        <!-- CABECERA DE LA VISTA -->
+        <!-- CABECERA -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="card-title txt-grey">Listado de Solicitudes</h1>
+            <h1 class="card-title txt-grey">
+                {{ mainTitle|default:"Listado de solicitudes" }}
+            </h1>
 
-            <!-- Cantidad de solicitudes -->
             {% if solicitudKey %}
                 <span class="badge bg-primary fs-5">
                     Cantidad de solicitudes: {{ solicitudKey|length }}
@@ -28,75 +40,118 @@
             {% endif %}
         </div>
 
-        <!-- TABLA DE LISTADO -->
-        <div class="table-responsive">
-
+        <!-- TABLA -->
+        <div class="table-responsive mt-3">
             <table id="tablaData" class="table table-striped table-hover align-middle">
-
-                <!-- °===========================° -->
-                <!--        °Encabezado Tabla      -->
-                <!-- °===========================° -->
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
+                        <th>Cliente</th>
                         <th>Producto</th>
+                        <th>ID Compra</th>
                         <th>Descripción</th>
                         <th>Estado</th>
-                        <th>Tipo</th>
-                        <th>Acción</th>
+                        <th>Fecha</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
 
-                <!-- °===========================° -->
-                <!--        °Contenido Tabla       -->
-                <!-- °===========================° -->
                 <tbody>
-                    {% for sol in solicitudKey %}
+                    {% for solicitud in solicitudKey %}
                     <tr>
+                        <!-- ID -->
+                        <td>#{{ solicitud.id }}</td>
 
-                        <!-- ID Solicitud -->
-                        <td>#{{ sol.id }}</td>
+                        <!-- Cliente -->
+                        <td>{{ solicitud.cliente.username }}</td>
 
-                        <!-- Producto relacionado -->
-                        <td class="fw-bold">{{ sol.producto.nombre }}</td>
+                        <!-- Producto -->
+                        <td class="fw-bold">{{ solicitud.producto.nombre }}</td>
 
-                        <!-- Breve descripción -->
-                        <td>{{ sol.descripcion|truncatechars:50 }}</td>
-
-                        <!-- Estado activo o cerrado -->
+                        <!-- Registro de compra -->
                         <td>
-                            {% if sol.estado %}
-                                <span class="badge bg-success">Activo</span>
+                            {% if solicitud.registro_compra %}
+                                {{ solicitud.registro_compra.id }}
                             {% else %}
-                                <span class="badge bg-secondary">Cerrado</span>
+                                -
                             {% endif %}
                         </td>
 
-                        <!-- Tipo de garantía / devolución / otro -->
+                        <!-- Descripción truncada -->
+                        <td style="max-width: 260px;">
+                            <span class="d-inline-block text-truncate" style="max-width: 250px;">
+                                {{ solicitud.descripcion }}
+                            </span>
+                        </td>
+
+                        <!-- Estado / tipo_solicitud -->
                         <td>
-                            {% if sol.tipo_solicitud == "garantia" %}
-                                <span class="badge bg-warning text-dark">{{ sol.tipo_solicitud }}</span>
-                            {% elif sol.tipo_solicitud == "devolucion" %}
-                                <span class="badge bg-danger">{{ sol.tipo_solicitud }}</span>
+                            {% if solicitud.tipo_solicitud == 'en revision' %}
+                                <span class="badge bg-warning text-dark">En revisión</span>
+                            {% elif solicitud.tipo_solicitud == 'aprobada' %}
+                                <span class="badge bg-success">Aprobada</span>
+                            {% elif solicitud.tipo_solicitud == 'rechazada' %}
+                                <span class="badge bg-danger">Rechazada</span>
                             {% else %}
-                                <span class="badge bg-info text-dark">{{ sol.tipo_solicitud|title }}</span>
+                                <span class="badge bg-secondary">{{ solicitud.tipo_solicitud }}</span>
                             {% endif %}
                         </td>
 
-                        <!-- Acción ver producto -->
-                        <td>
-                            <a href="{% url 'detalleProducto' sol.producto.id %}"
-                               class="btn btn-primary text-light">
-                                <i class="fas fa-eye"></i>
-                            </a>
+                        <!-- Fecha -->
+                        <td>{{ solicitud.fecha_registro|date:"d/m/Y H:i" }}</td>
+
+                        <!-- Acciones -->
+                        <td class="text-center">
+                            <div class="d-flex flex-wrap gap-1 justify-content-center">
+
+                                <!-- Ver info (modal) -->
+                                <button class="btn btn-sm btn-primary btn-effect-modal3"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalVerSolicitud{{ solicitud.id }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+
+                                {% if solicitud.tipo_solicitud == 'en revision' and solicitud.estado %}
+                                    <!-- Aprobar (modal) -->
+                                    <button class="btn btn-sm btn-effect-modal3"
+                                            type="button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalAprobarSolicitud{{ solicitud.id }}">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+
+                                    <!-- Rechazar (modal) -->
+                                    <button class="btn btn-sm btn-danger btn-effect-modal3"
+                                            type="button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalRechazarSolicitud{{ solicitud.id }}">
+                                        <i class="fas fa-times-circle"></i>
+                                    </button>
+                                {% else %}
+                                    {#NO SE MUESTRA NADA#}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+
+                    {# MODALES ASOCIADOS A ESTA SOLICITUD #}
+                    {% include 'Menus/complementos/modal_ver_solicitud.html' with solicitud=solicitud %}
+                    {% include 'Menus/complementos/modal_aprobar_solicitud.html' with solicitud=solicitud %}
+                    {% include 'Menus/complementos/modal_rechazar_solicitud.html' with solicitud=solicitud %}
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">
+                            No hay solicitudes registradas.
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+
             </table>
         </div>
 
-        <!-- Mensaje si no existen solicitudes -->
         {% if not solicitudKey %}
             <div class="alert alert-light text-center mt-4 border">
                 No hay solicitudes registradas actualmente.
@@ -105,6 +160,5 @@
 
     </div>
 </div>
-
 
 {% endblock %}

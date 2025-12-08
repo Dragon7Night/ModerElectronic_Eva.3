@@ -231,6 +231,29 @@ h4.barra_inferior::after {
   width: 9rem !important;
 }
 
+/* BOTONES GENERALES CON BORDE */
+.btn-effect-modal3 {
+  font-family: "Roboto", sans-serif !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  border: 3px solid #000000 !important;
+
+  /* ---- tamaño casi cuadrado ---- */
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+
+  padding: 0 !important;
+
+  /* centrado perfecto del texto */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+
+}
+
+
 /* BORDE DE DE SOLICITUD */
 .border-effect {
   color: rgb(0, 0, 0) !important;

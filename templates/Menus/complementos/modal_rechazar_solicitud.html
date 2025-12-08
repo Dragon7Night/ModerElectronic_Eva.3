@@ -1,0 +1,39 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--  °Modal -> Rechazar Solicitud  ° -->
+<!-- °=============================° -->
+
+{% block id_modal %}modalRechazarSolicitud{{ solicitud.id }}{% endblock %}
+{% block label_modal %}modalRechazarSolicitudLabel{{ solicitud.id }}{% endblock %}
+{% block label_modal2 %}modalRechazarSolicitudLabel{{ solicitud.id }}{% endblock %}
+
+{% block titulo_modal %}Rechazar solicitud{% endblock %}
+
+{% block contenido_modal %}
+<div class="text-center py-3">
+    <i class="fas fa-times-circle fa-3x text-danger mb-3"></i>
+    <h4 class="mb-1 text-white fw-light">
+        ¿Deseas rechazar la solicitud <strong>#{{ solicitud.id }}</strong>?
+    </h4>
+
+    <p class="text-white-50 mb-1">
+        Cliente: <strong>{{ solicitud.cliente.username }}</strong>
+    </p>
+    <p class="text-white-50 mb-2">
+        Producto: <strong>{{ solicitud.producto.nombre }}</strong>
+    </p>
+
+    <small class="text-white fw-bold d-block mt-2">
+        La solicitud se marcará como rechazada y quedará cerrada.
+    </small>
+</div>
+{% endblock %}
+
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary" data-bs-dismiss="modal">Cancelar</a>
+<a class="btn btn-effect-modal bg-danger"
+   href="{% url 'rechazarSolicitud' solicitud.id %}">
+    Confirmar
+</a>
+{% endblock %}

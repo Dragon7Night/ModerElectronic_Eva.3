@@ -1,0 +1,39 @@
+{% extends 'Base/base_modal.html' %}
+
+<!-- °=============================° -->
+<!--   °Modal -> Aprobar Solicitud  ° -->
+<!-- °=============================° -->
+
+{% block id_modal %}modalAprobarSolicitud{{ solicitud.id }}{% endblock %}
+{% block label_modal %}modalAprobarSolicitudLabel{{ solicitud.id }}{% endblock %}
+{% block label_modal2 %}modalAprobarSolicitudLabel{{ solicitud.id }}{% endblock %}
+
+{% block titulo_modal %}Aprobar solicitud{% endblock %}
+
+{% block contenido_modal %}
+<div class="text-center py-3">
+    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+    <h4 class="mb-1 text-white fw-light">
+        ¿Deseas aprobar la solicitud <strong>#{{ solicitud.id }}</strong>?
+    </h4>
+
+    <p class="text-white-50 mb-1">
+        Cliente: <strong>{{ solicitud.cliente.username }}</strong>
+    </p>
+    <p class="text-white-50 mb-2">
+        Producto: <strong>{{ solicitud.producto.nombre }}</strong>
+    </p>
+
+    <small class="text-white fw-bold d-block mt-2">
+        Se aplicará el reembolso (si corresponde) y la solicitud quedará marcada como aprobada y cerrada.
+    </small>
+</div>
+{% endblock %}
+
+{% block botones_modal %}
+<a class="btn btn-effect-modal bg-secondary" data-bs-dismiss="modal">Cancelar</a>
+<a class="btn btn-effect-modal bg-success"
+   href="{% url 'aprobarSolicitud' solicitud.id %}">
+    Confirmar
+</a>
+{% endblock %}

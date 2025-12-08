@@ -40,6 +40,8 @@ CATEGORIA_IMAGENES = {
 }
 
 
+
+
 # ====== FUNCION AUXILIAR ======
 def _procesar_imagenes(lista_productos):
     """
@@ -422,57 +424,84 @@ def register_solicitud(request, registro_id):
 
 # .|----------------[MOSTRAR SOLICITUD]----------------|.
 @login_required(login_url='/productos/home/')
+@permission_required(UsuarioModels.Usuario.ROL_ADMIN, login_url='/productos/home/')
 def data_Solicitud(request):
-    solicitudObject = ProductoModel.Solicitud.objects.all()
+    solicitudes = (
+        ProductoModel.Solicitud.objects
+        .select_related('cliente', 'producto', 'registro_compra')
+        .order_by('-fecha_registro')
+    )
     data = {
-        'solicitudKey': solicitudObject,
-        'mainTitle': 'Registro de solicitudes',
+        'solicitudKey': solicitudes
     }
     return render(request, 'Usuario/Solicitud/data_solicitud.html', data)
 
+# .|----------------[APROBAR SOLICITUD]----------------|.
+@login_required(login_url='/productos/home/')
+@permission_required(UsuarioModels.Usuario.ROL_ADMIN, login_url='/productos/home/')
+def aprobar_solicitud(request, solicitud_id):
+    solicitud = get_object_or_404(ProductoModel.Solicitud, id=solicitud_id)
+
+    # Evitar procesar dos veces la misma solicitud
+    if not solicitud.estado or solicitud.tipo_solicitud != 'en revision':
+        messages.warning(request, 'Esta solicitud ya fue gestionada previamente.')
+        return redirect('dataSolicitud')
+
+    registro = solicitud.registro_compra
+    if registro is None:
+        messages.error(
+            request,
+            'No es posible procesar el reembolso: la solicitud no tiene una compra asociada.'
+        )
+        return redirect('dataSolicitud')
+
+    cliente = solicitud.cliente
+    producto = solicitud.producto
+
+    try:
+        monto_reembolso = Decimal(str(registro.precio_total))
+        billetera_actual = Decimal(str(cliente.billetera)) if cliente.billetera else Decimal('0.0')
+    except Exception as err:
+        messages.error(request, f'Error al calcular el reembolso: {err}')
+        return redirect('dataSolicitud')
+
+    # 1. Devolver dinero a la billetera
+    cliente.billetera = billetera_actual + monto_reembolso
+    cliente.save(update_fields=['billetera'])
+
+    # 2. Devolver el producto al stock
+    producto.stock = producto.stock + 1
+    producto.save(update_fields=['stock'])
+
+    # 3. Actualizar estado de la solicitud
+    solicitud.estado = False             # Cerrada
+    solicitud.tipo_solicitud = 'aprobada'
+    solicitud.save(update_fields=['estado', 'tipo_solicitud'])
+
+    messages.success(
+        request,
+        f'Solicitud #{solicitud.id} aprobada. '
+        f'Se reembolsaron ${monto_reembolso} al cliente {cliente.username} y se devolvió 1 unidad al stock.'
+    )
+    return redirect('dataSolicitud')
 
 
-# # !|-|--|-|-|-|-|-|-|> VISTA DE COMPRA <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+# .|----------------[RECHAZAR SOLICITUD]----------------|.
+@login_required(login_url='/productos/home/')
+@permission_required(UsuarioModels.Usuario.ROL_ADMIN, login_url='/productos/home/')
+def rechazar_solicitud(request, solicitud_id):
+    solicitud = get_object_or_404(ProductoModel.Solicitud, id=solicitud_id)
 
-# # .|----------------[REGISTRAR COMPRA]----------------|.
-# @login_required(login_url='/productos/home/')
-# def comprar_producto(request, id_producto):
-#     producto = get_object_or_404(ProductoModel.Producto, id=id_producto)
-#     cliente = request.user
+    if not solicitud.estado or solicitud.tipo_solicitud != 'en revision':
+        messages.warning(request, 'Esta solicitud ya fue gestionada previamente.')
+        return redirect('dataSolicitud')
 
-#     try:
-#         precio_Decimal = Decimal(str(producto.precio))
-#         billetera_Decimal = Decimal(str(cliente.billetera)) 
-        
-#     except Exception as erro:
-#         messages.error(request, f'Error técnico al procesar montos: {erro}')
-#         return redirect('detalleProducto', id_producto=id_producto) 
-        
-#     if producto.stock <= 0:
-#         messages.error(request, "¡Lo sentimos! Este producto se ha agotado.")
-    
-#     elif billetera_Decimal < precio_Decimal:
-#         messages.error(request, f"Saldo insuficiente. Te faltan ${precio_Decimal - billetera_Decimal} para realizar la compra.")
-    
-#     else:
-#         cliente.billetera = billetera_Decimal - precio_Decimal
-#         cliente.save(update_fields=['billetera'])
+    solicitud.estado = False
+    solicitud.tipo_solicitud = 'rechazada'
+    solicitud.save(update_fields=['estado', 'tipo_solicitud'])
 
-#         producto.stock -= 1
-#         producto.save(update_fields=['stock'])
-
-#         ProductoModel.RegistroCompra.objects.create(
-#             cliente=cliente,
-#             producto=producto,
-#             precio_total=precio_Decimal,
-#             garantia=False,
-#             delivery=False
-#         )
-
-#         messages.success(request, f"¡Compra exitosa! Has adquirido '{producto.nombre}'. Tu nuevo saldo es: ${cliente.billetera}")
-
-#     return redirect('detalleProducto', id_producto=id_producto)
-
+    messages.info(request,f'Solicitud #{solicitud.id} rechazada. No se realizaron cambios en la compra ni en la billetera.')
+    return redirect('dataSolicitud')
 
 
 # !|-|--|-|-|-|-|-|-|> VISTA DE COMPRA <|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
